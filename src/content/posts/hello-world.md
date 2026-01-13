@@ -24,13 +24,6 @@ draft: false
 - 踩坑记录
 - 工具推荐
 
-## 技术栈
-
-本博客使用：
-- [Astro](https://astro.build/) - 现代静态站点框架
-- [Fuwari](https://github.com/saicaca/fuwari) - 简洁美观的博客主题
-- Markdown - 写作格式
-
 ---
 
 新的开始，加油！💪

@@ -10,12 +10,6 @@
 
 ## 联系方式
 
-- Gitee: [zuoguangming](https://gitee.com/zuoguangming)
-- 微信: （待补充）
-- QQ: （待补充）
-
-## 关于本站
-
-本博客基于 [Fuwari](https://github.com/saicaca/fuwari) 主题搭建，使用 [Astro](https://astro.build/) 框架。
-
-::github{repo="saicaca/fuwari"}
+- Gitee: [zgm2003](https://gitee.com/zgm2003)
+- 微信: 扫码添加
+- QQ: 点击侧边栏图标添加

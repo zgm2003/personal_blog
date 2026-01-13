@@ -69,12 +69,12 @@ export const profileConfig: ProfileConfig = {
 		{
 			name: "微信",
 			icon: "fa6-brands:weixin",
-			url: "#",  // 可以放微信二维码页面链接
+			url: "/wechat-qr.png",
 		},
 		{
 			name: "QQ",
 			icon: "fa6-brands:qq",
-			url: "#",  // 可以放 QQ 链接或二维码页面
+			url: "https://qm.qq.com/q/90mzzJHcBy",
 		},
 	],
 };

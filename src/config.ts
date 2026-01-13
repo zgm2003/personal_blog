@@ -47,6 +47,11 @@ export const navBarConfig: NavBarConfig = {
 		LinkPreset.Archive,     // 归档
 		LinkPreset.About,       // 关于
 		{
+			name: "简历",
+			url: "/resume/",
+			external: false,
+		},
+		{
 			name: "Gitee",
 			url: "https://gitee.com/zgm2003",  // 内部链接不需要包含 base 路径，会自动添加
 			external: true,     // 显示外部链接图标，并在新标签页打开

@@ -104,7 +104,7 @@ private function loginByPassword(array $param, $request): array
         return ['error' => '账号或密码错误'];
     }
 
-    return ['error' => null, 'user' => $user];
+    return ['error' => false, 'user' => $user];  // false 比 null 语义更清晰
 }
 ```
 
@@ -134,7 +134,7 @@ private function loginByCode(array $param, string $loginType, $request): array
         $user = $this->autoRegister($param['login_account'], $loginType);
     }
 
-    return ['error' => null, 'user' => $user];
+    return ['error' => false, 'user' => $user];  // false 比 null 语义更清晰
 }
 ```
 

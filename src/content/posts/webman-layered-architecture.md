@@ -1,9 +1,9 @@
 ---
-title: Webman 分层架构实践：从 MVC 到 CMVD
+title: CMVD 分层架构设计
 published: 2026-01-13T10:00:00Z
-description: 基于 Webman 高性能框架的分层架构设计，告别 Controller 写业务逻辑的混乱
-tags: [PHP, Webman, 架构设计, 后端]
-category: 技术
+description: 基于 Webman 高性能框架的分层架构设计，Controller → Module → Validate → Dep
+tags: [后端, 架构, PHP]
+category: 架构设计
 draft: false
 ---
 

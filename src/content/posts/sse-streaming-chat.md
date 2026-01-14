@@ -1,9 +1,9 @@
 ---
-title: SSE 流式输出实战：从 0 到 1 实现 AI 对话
+title: SSE 流式输出实现
 published: 2026-01-13T12:00:00Z
-description: 基于 Server-Sent Events 实现类 ChatGPT 的流式对话体验
-tags: [SSE, AI, Vue3, PHP]
-category: 技术
+description: 基于 Server-Sent Events 实现 AI 对话的流式响应
+tags: [后端, 前端, SSE]
+category: AI对话
 draft: false
 ---
 

@@ -1,9 +1,9 @@
 ---
-title: Vue3 useTable Hook：告别重复的 CRUD 代码
+title: useTable Hook 封装
 published: 2026-01-13T11:00:00Z
-description: 封装一个 useTable Hook，让列表页开发效率翻倍
-tags: [Vue3, TypeScript, 前端, Hooks]
-category: 技术
+description: 封装 useTable Hook，统一处理列表页的加载、分页、搜索、删除逻辑
+tags: [前端, Vue3, Hooks]
+category: 架构设计
 draft: false
 ---
 

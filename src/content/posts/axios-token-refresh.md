@@ -1,9 +1,9 @@
 ---
-title: Axios 无感刷新 Token：优雅处理 401
+title: Token 无感刷新（前端实现）
 published: 2026-01-13T14:00:00Z
-description: 用户无感知的 Token 自动续期方案，请求队列 + 自动重试
-tags: [前端, Axios, 鉴权, TypeScript]
-category: 技术
+description: Axios 拦截器实现 Token 自动续期，请求队列 + 自动重试
+tags: [前端, 鉴权, Axios]
+category: 用户认证
 draft: false
 ---
 

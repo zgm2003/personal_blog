@@ -1,9 +1,9 @@
 ---
-title: AI 对话系统开发日志：从 0 到 ChatGPT 级体验
+title: AI 对话模块概览
 published: 2026-01-13T16:00:00Z
-description: 记录自研 AI 对话系统的开发历程，已实现功能、技术架构和未来规划
-tags: [AI, 项目, Vue3, PHP]
-category: 项目
+description: AI 对话系统的功能清单、技术架构和开发计划
+tags: [AI, 模块, 全栈]
+category: AI对话
 draft: false
 ---
 

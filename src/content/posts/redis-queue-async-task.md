@@ -1,9 +1,9 @@
 ---
-title: Redis 队列异步任务：让接口响应快 10 倍
+title: Redis 异步队列
 published: 2026-01-13T15:00:00Z
-description: 用 Webman Redis Queue 实现异步任务，AI 标题生成从同步到异步的优化实践
-tags: [Redis, 异步, PHP, Webman]
-category: 技术
+description: 使用 Redis Queue 实现异步任务，AI 标题生成优化实践
+tags: [后端, Redis, 异步]
+category: AI对话
 draft: false
 ---
 

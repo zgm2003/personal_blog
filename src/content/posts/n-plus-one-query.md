@@ -1,9 +1,9 @@
 ---
-title: N+1 查询问题：Webman 常驻内存下的性能杀手
+title: N+1 查询优化
 published: 2026-01-13T13:00:00Z
-description: 一个循环查询让接口慢了 20 倍，批量预加载 + keyBy 优化实战
-tags: [PHP, 性能优化, 数据库, Webman]
-category: 技术
+description: 批量预加载 + keyBy 解决 N+1 查询问题
+tags: [后端, 性能, 数据库]
+category: 架构设计
 draft: false
 ---
 

@@ -3,7 +3,7 @@ title: SSE 流式输出实现
 published: 2026-01-13T12:00:00Z
 description: 基于 Server-Sent Events 实现 AI 对话的流式响应
 tags: [后端, 前端, SSE]
-category: AI对话
+category: 智澜管理系统
 draft: false
 ---
 

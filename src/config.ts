@@ -9,8 +9,8 @@ import { LinkPreset } from "./types/config";
 
 // ========== 网站基础配置 ==========
 export const siteConfig: SiteConfig = {
-	title: "智澜文档",           // 网站标题
-	subtitle: "项目开发文档与更新日志",  // 副标题
+	title: "智澜博客",           // 网站标题
+	subtitle: "技术博客与项目文档",  // 副标题
 	lang: "zh_CN",              // 语言代码：zh_CN 中文, en 英文, ja 日文
 	themeColor: {
 		hue: 250,               // 主题色相值 0-360：红色 0, 青色 200, 蓝紫 250, 粉色 345
@@ -62,8 +62,8 @@ export const navBarConfig: NavBarConfig = {
 // ========== 个人资料配置 ==========
 export const profileConfig: ProfileConfig = {
 	avatar: "assets/images/demo-avatar.png",  // 头像路径，相对于 /src 目录；以 '/' 开头则相对于 /public 目录
-	name: "智澜管理系统",
-	bio: "全栈开发文档中心",
+	name: "左光明",
+	bio: "全栈开发者",
 	links: [
 		{
 			name: "Gitee",

@@ -1,9 +1,9 @@
 ---
-title: 📋 项目白皮书
+title: 📋 智澜管理系统 · 白皮书
 published: 2026-01-14T23:59:59Z
 description: 智澜管理系统技术架构、功能模块、开发规范的完整说明
-tags: [白皮书, 架构, 全栈]
-category: 概览
+tags: [智澜, 白皮书, 全栈]
+category: 智澜管理系统
 draft: false
 ---
 

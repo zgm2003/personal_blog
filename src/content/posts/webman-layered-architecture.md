@@ -71,6 +71,38 @@ Module 是业务逻辑的主战场，负责：
 - 调用多个 Dep 组合数据
 - 事务控制
 
+## 异常处理：throw helpers
+
+Module 层提供了一组语法糖，让错误处理更简洁：
+
+```php
+// 直接抛出业务异常
+self::throw('操作失败');
+
+// 条件为 true 时抛出
+self::throwIf($exists, '名称已存在');
+
+// 条件为 false/null/empty 时抛出
+self::throwUnless($user, '用户不存在');
+
+// 资源不存在时抛 404
+self::throwNotFound($record, '记录不存在');
+```
+
+**对比传统写法**：
+
+```php
+// 旧写法：冗长
+if (!$user) {
+    return self::error('用户不存在');
+}
+
+// 新写法：一行搞定
+self::throwNotFound($user, '用户不存在');
+```
+
+异常会被 Controller 层的 `fromException` 统一捕获，转成标准响应格式返回给前端。业务代码只管抛，不用关心响应格式。
+
 ## Dep：数据访问层
 
 ```php

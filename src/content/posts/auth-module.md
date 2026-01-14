@@ -65,12 +65,11 @@ public function login($request): array
         $result = $this->loginByCode($param, $loginType, $request);
     }
 
-    if ($result['error']) {
-        return self::error($result['error']);
-    }
+    // 使用 throwIf 简化错误处理
+    self::throwIf($result['error'], $result['error'] ?? '登录失败');
 
     // 创建会话，返回 Token
-    return self::response($this->createSession(
+    return self::success($this->createSession(
         $result['user']['id'], 
         $param['login_account'], 
         $request, 
@@ -215,17 +214,19 @@ private function createSession(int $userId, string $loginAccount, $request, stri
 public function refresh($request): array
 {
     $refreshToken = $request->post('refresh_token');
+    self::throwIf(!$refreshToken, '缺少刷新令牌', self::CODE_UNAUTHORIZED);
+    
     $hash = TokenService::hashToken($refreshToken);
 
     $session = $this->userSessionsDep->findValidByRefreshHash($hash);
-    if (!$session) {
-        return self::error('刷新令牌无效或已过期', 401);
-    }
+    self::throwIf(!$session, '刷新令牌无效或已过期', self::CODE_UNAUTHORIZED);
 
     // 检查单端登录策略
-    if (!$this->checkSingleSessionPolicy($session['user_id'], $session['platform'], $session['id'])) {
-        return self::error('账号已在其他设备登录，请重新登录', 401);
-    }
+    self::throwIf(
+        !$this->checkSingleSessionPolicy($session['user_id'], $session['platform'], $session['id']),
+        '账号已在其他设备登录，请重新登录',
+        self::CODE_UNAUTHORIZED
+    );
 
     // 生成新 Token 对
     $tokens = TokenService::generateTokenPair();

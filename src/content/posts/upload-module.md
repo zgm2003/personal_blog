@@ -59,21 +59,19 @@ class UploadModule extends BaseModule
         $folder = trim((string)$request->input('folderName', ''));
 
         // 安全校验：防止目录穿越
-        if (!in_array($folder, $this->allowedFolders, true) 
-            || str_contains($folder, '..')) {
-            return self::error('folderName 非法', 400);
-        }
+        self::throwIf(
+            !in_array($folder, $this->allowedFolders, true) || str_contains($folder, '..'),
+            'folderName 非法'
+        );
 
         $setting = (new UploadSettingDep())->getActive();
-        if (!$setting) {
-            return self::error('未配置有效的上传设置', 500);
-        }
+        self::throwIf(!$setting, '未配置有效的上传设置');
 
         // 根据驱动类型获取临时凭证
         $data = match($setting['driver']) {
             'cos' => $this->getCosToken($setting, $folder),
             'oss' => $this->getOssToken($setting, $folder),
-            default => throw new \Exception('不支持的驱动类型'),
+            default => self::throw('不支持的驱动类型'),
         };
 
         // 附加上传规则

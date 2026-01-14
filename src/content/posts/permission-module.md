@@ -168,9 +168,7 @@ public function add($request)
     $param = $this->validate($request, RoleValidate::add());
     
     // 检查角色名唯一
-    if ($this->roleDep->findByName($param['name'])) {
-        return self::error('角色名已存在');
-    }
+    self::throwIf($this->roleDep->findByName($param['name']), '角色名已存在');
     
     $data = [
         'name' => $param['name'],
@@ -210,9 +208,7 @@ public function del($request)
     $ids = is_array($param['id']) ? $param['id'] : [$param['id']];
     
     // 默认角色不能删除
-    if ($this->roleDep->hasDefaultIn($ids)) {
-        return self::error('默认角色不能删除');
-    }
+    self::throwIf($this->roleDep->hasDefaultIn($ids), '默认角色不能删除');
     
     $this->roleDep->delete($ids);
 

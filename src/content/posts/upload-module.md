@@ -48,6 +48,8 @@ app/module/
 ### 获取上传凭证
 
 ```php
+use app\lib\Crypto\KeyVault;
+
 class UploadModule extends BaseModule
 {
     private $allowedFolders = [
@@ -91,7 +93,11 @@ class UploadModule extends BaseModule
 ```php
 private function getCosToken($setting, $folder)
 {
-    $cred = new Credential($setting['secret_id'], $setting['secret_key']);
+    // 解密存储的密钥
+    $secretId  = KeyVault::decrypt($setting['secret_id_enc'] ?? '');
+    $secretKey = KeyVault::decrypt($setting['secret_key_enc'] ?? '');
+
+    $cred = new Credential($secretId, $secretKey);
     $client = new StsClient($cred, $setting['region'], new ClientProfile());
 
     // 最小权限策略：只允许上传到指定目录
@@ -135,7 +141,11 @@ private function getCosToken($setting, $folder)
 ```php
 private function getOssToken($setting, $folder)
 {
-    AlibabaCloud::accessKeyClient($setting['secret_id'], $setting['secret_key'])
+    // 解密存储的密钥
+    $ak = KeyVault::decrypt($setting['secret_id_enc'] ?? '');
+    $sk = KeyVault::decrypt($setting['secret_key_enc'] ?? '');
+
+    AlibabaCloud::accessKeyClient($ak, $sk)
         ->regionId($setting['region'])
         ->asDefaultClient();
 
@@ -301,11 +311,13 @@ function validateFile(file: File, rule: UploadRule) {
 
 ## 安全考虑
 
-1. **最小权限原则**：临时凭证只授予 PutObject 权限，且限定目录
-2. **目录白名单**：防止用户上传到任意目录
-3. **路径穿越防护**：检测 `..` 等危险字符
-4. **凭证有效期**：30 分钟过期，降低泄露风险
-5. **前端校验 + 后端校验**：双重保障
+1. **敏感字段加密**：SecretId/SecretKey 使用 AES-256-GCM 加密存储，数据库不存明文
+2. **最小权限原则**：临时凭证只授予 PutObject 权限，且限定目录
+3. **目录白名单**：防止用户上传到任意目录
+4. **路径穿越防护**：检测 `..` 等危险字符
+5. **凭证有效期**：30 分钟过期，降低泄露风险
+6. **前端校验 + 后端校验**：双重保障
+7. **脱敏展示**：列表页只显示后4位提示（如 `***1234`），不返回明文
 
 ## 扩展方向
 

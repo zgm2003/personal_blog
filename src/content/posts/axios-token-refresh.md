@@ -1,7 +1,7 @@
 ---
 title: Token 无感刷新（前端实现）
-published: 2026-01-13T14:00:00Z
-description: Axios 拦截器实现 Token 自动续期，请求队列 + 自动重试
+published: 2026-01-14T14:00:00Z
+description: Axios 拦截器实现 Token 自动续期，请求队列 + 防抖弹框
 tags: [前端, 鉴权, Axios]
 category: 智澜管理系统
 draft: false
@@ -22,16 +22,39 @@ draft: false
 2. 用 refresh_token 换新 access_token
 3. 重试原请求
 4. 多个请求同时 401 时，只刷新一次
+5. 错误弹框防抖，避免重复提示
 
-## 实现代码
+## 防抖弹框
+
+页面加载时可能同时发多个请求，Token 过期后会同时返回 401。如果不防抖，会弹一堆提示框。
+
+```typescript
+let lastNotifyTime = 0
+let lastNotifyMsg = ''
+const NOTIFY_DEBOUNCE = 2000  // 2秒内相同消息不重复弹
+
+function notify(message: string) {
+  const now = Date.now()
+  if (message === lastNotifyMsg && now - lastNotifyTime < NOTIFY_DEBOUNCE) {
+    return
+  }
+  lastNotifyTime = now
+  lastNotifyMsg = message
+  ElNotification.error({ message })
+}
+```
+
+## 401 处理
 
 ```typescript
 let isRefreshing = false
 let requestsQueue: { resolve: Function; reject: Function; config: any }[] = []
 
-function handle401(originalRequest: any) {
-  // 已经重试过，直接退出登录
-  if (originalRequest._retry) {
+function handle401(originalRequest: any, messageFromServer?: string) {
+  // 已经重试过或 refresh 接口本身失败，直接退出登录
+  if (originalRequest?.url?.includes('/api/Users/refresh') || originalRequest?._retry) {
+    isRefreshing = false
+    notify(messageFromServer || '登录过期，请重新登录')
     logoutAndRedirect()
     return Promise.reject(new Error('Unauthorized'))
   }
@@ -49,17 +72,20 @@ function handle401(originalRequest: any) {
     
     const refreshToken = Cookies.get('refresh_token')
     if (!refreshToken) {
+      isRefreshing = false
+      notify('登录过期，请重新登录')
       logoutAndRedirect()
       return Promise.reject(new Error('No refresh token'))
     }
     
     axios.post('/api/Users/refresh', { refresh_token: refreshToken })
       .then(res => {
-        const { access_token, refresh_token: newRefresh } = res.data.data
+        const { access_token, refresh_token: newRefresh, expires_in } = res.data.data
         
         // 保存新 Token
-        Cookies.set('access_token', access_token)
-        Cookies.set('refresh_token', newRefresh)
+        const expires = new Date(new Date().getTime() + expires_in * 1000)
+        Cookies.set('access_token', access_token, { expires })
+        Cookies.set('refresh_token', newRefresh, { expires: 14 })
         
         // 重试队列中的所有请求
         isRefreshing = false
@@ -67,6 +93,7 @@ function handle401(originalRequest: any) {
       })
       .catch(() => {
         isRefreshing = false
+        notify('网络错误，请重新登录')
         logoutAndRedirect()
       })
   }
@@ -80,7 +107,7 @@ function processQueue(error: Error | null, token: string | null) {
       reject(error)
     } else {
       config.headers['Authorization'] = `Bearer ${token}`
-      resolve(axios(config))  // 重试请求
+      resolve(axios(config))
     }
   })
   requestsQueue = []
@@ -95,23 +122,25 @@ service.interceptors.response.use(
     const { code, msg, data } = res.data
     
     if (code === 401) {
-      return handle401(res.config)
+      return handle401(res.config, msg)
     }
     
     if (code !== 0) {
-      ElNotification.error({ message: msg })
+      notify(msg || '请求失败')
       return Promise.reject(new Error(msg))
     }
     
     return data
   },
   (error) => {
-    // HTTP 401 也走刷新逻辑
-    if (error.response?.status === 401) {
-      return handle401(error.config)
+    const status = error.response?.status
+    
+    if (status === 401) {
+      return handle401(error.config, error.response?.data?.msg)
     }
     
-    ElNotification.error({ message: error.message })
+    const message = error.response?.data?.msg || error.message || '请求失败'
+    notify(message)
     return Promise.reject(error)
   }
 )
@@ -123,60 +152,28 @@ service.interceptors.response.use(
 
 多个请求同时 401 时，只刷新一次 Token，其他请求入队等待：
 
-```typescript
-// 请求 A: 401 → 触发刷新 → 入队
-// 请求 B: 401 → 发现正在刷新 → 入队
-// 请求 C: 401 → 发现正在刷新 → 入队
-// 刷新成功 → 重试 A、B、C
+```
+请求 A: 401 → 触发刷新 → 入队
+请求 B: 401 → 发现正在刷新 → 入队
+请求 C: 401 → 发现正在刷新 → 入队
+刷新成功 → 重试 A、B、C
 ```
 
 ### 2. 防止无限循环
 
-用 `_retry` 标记防止刷新接口本身 401 时无限循环：
+用 `_retry` 标记防止刷新接口本身 401 时无限循环。
 
-```typescript
-if (originalRequest._retry) {
-  logoutAndRedirect()
-  return
-}
-originalRequest._retry = true
-```
+### 3. 防抖弹框
 
-### 3. refresh_token 也过期
+2 秒内相同消息不重复弹，避免多个 401 同时弹一堆提示。
 
-refresh_token 通常有效期较长（如 14 天），如果也过期了，只能跳登录页。
+### 4. refresh_token 也过期
 
-## 后端配合
-
-```php
-public function refresh($request): array
-{
-    $refreshToken = $request->post('refresh_token');
-    
-    // 验证 refresh_token
-    $payload = $this->tokenService->verifyRefreshToken($refreshToken);
-    if (!$payload) {
-        return self::error('refresh_token 无效', 401);
-    }
-    
-    // 生成新的 access_token
-    $accessToken = $this->tokenService->generateAccessToken($payload['user_id']);
-    
-    // 可选：同时刷新 refresh_token（滑动过期）
-    $newRefreshToken = $this->tokenService->generateRefreshToken($payload['user_id']);
-    
-    return self::success([
-        'access_token' => $accessToken,
-        'refresh_token' => $newRefreshToken,
-        'expires_in' => 7200,
-    ]);
-}
-```
+refresh_token 有效期 14 天，如果也过期了，只能跳登录页。
 
 ## 效果
 
 - 用户无感知，操作不中断
 - 多请求并发时只刷新一次
+- 错误提示不重复弹框
 - refresh_token 过期才跳登录页
-
-这是后台管理系统的标配功能，体验提升明显。

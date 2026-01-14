@@ -84,3 +84,146 @@ lang: jp      # 仅当文章语言与 `config.ts` 中的网站语言不同时需
 | `pnpm new-post <filename>`        | 创建新文章                             |
 | `pnpm astro ...`                  | 执行 `astro add`, `astro check` 等指令 |
 | `pnpm astro --help`               | 显示 Astro CLI 帮助                   |
+
+## 🌐 生产部署
+
+### Nginx 配置示例（前端博客）
+
+```nginx
+server {
+    listen 80;
+    listen 443 ssl;
+    listen 443 quic;
+    listen [::]:443 ssl;
+    listen [::]:443 quic;
+    http2 on;
+    listen [::]:80;
+    
+    server_name your-domain.com;
+    
+    # 静态站点入口
+    index index.html;
+    root /www/wwwroot/fuwari/dist;
+
+    # SSL 配置
+    ssl_certificate     /path/to/fullchain.pem;
+    ssl_certificate_key /path/to/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers EECDH+CHACHA20:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256;
+    ssl_prefer_server_ciphers on;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 10m;
+    
+    # HSTS + HTTP/3
+    add_header Strict-Transport-Security "max-age=31536000";
+    add_header Alt-Svc 'h3=":443"; h3-29=":443"';
+    
+    error_page 497 https://$host$request_uri;
+    error_page 404 /404.html;
+
+    # SPA/静态站点路由
+    location / {
+        try_files $uri $uri/ /index.html;
+        add_header Cache-Control "no-cache, no-store, must-revalidate";
+    }
+
+    # 禁止访问敏感文件
+    location ~ ^/(\.user.ini|\.htaccess|\.git|\.env|\.svn|LICENSE|README.md) {
+        return 404;
+    }
+
+    # 静态资源缓存
+    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|webp|svg|ico)$ {
+        expires 30d;
+        access_log off;
+    }
+
+    location ~ .*\.(js|css|woff|woff2|ttf)$ {
+        expires 12h;
+        access_log off;
+    }
+
+    access_log  /www/wwwlogs/blog.log;
+    error_log   /www/wwwlogs/blog.error.log;
+}
+```
+
+### Nginx 配置示例（后端 API - Webman）
+
+```nginx
+server {
+    listen 80;
+    listen 443 ssl;
+    listen 443 quic;
+    listen [::]:443 ssl;
+    listen [::]:443 quic;
+    http2 on;
+    listen [::]:80;
+    
+    server_name api.your-domain.com;
+    
+    index index.php index.html;
+    root /www/wwwroot/admin_back/public;
+
+    # SSL 配置
+    ssl_certificate     /path/to/fullchain.pem;
+    ssl_certificate_key /path/to/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers EECDH+CHACHA20:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256;
+    ssl_prefer_server_ciphers on;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 10m;
+    
+    # HSTS + HTTP/3
+    add_header Strict-Transport-Security "max-age=31536000";
+    add_header Alt-Svc 'h3=":443"; h3-29=":443"';
+    
+    error_page 497 https://$host$request_uri;
+
+    # Webman 反向代理
+    location ^~ / {
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        
+        # 非静态文件转发到 Webman（端口 8787）
+        if (!-f $request_filename) {
+            proxy_pass http://127.0.0.1:8787;
+        }
+    }
+
+    # 拒绝直接访问 PHP 文件
+    location ~ \.php$ {
+        return 404;
+    }
+
+    # 禁止访问敏感文件
+    location ~ ^/(\.user.ini|\.htaccess|\.git|\.env|\.svn|LICENSE|README.md) {
+        return 404;
+    }
+
+    # 静态资源缓存
+    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$ {
+        expires 30d;
+        access_log off;
+    }
+
+    location ~ .*\.(js|css)?$ {
+        expires 12h;
+        access_log off;
+    }
+
+    access_log  /www/wwwlogs/api.log;
+    error_log   /www/wwwlogs/api.error.log;
+}
+```
+
+### 部署步骤
+
+1. 构建项目：`pnpm build`
+2. 上传 `dist` 目录到服务器
+3. 配置 Nginx 指向 `dist` 目录
+4. 重载 Nginx：`nginx -s reload`

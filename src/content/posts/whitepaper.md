@@ -292,7 +292,28 @@ server {
 
 ## 七、性能优化
 
-### 前端优化
+### Vite 启动优化
+
+| 优化项 | 措施 | 效果 |
+|------|------|------|
+| 组件扫描 | 禁止递归扫描 `components/**/*.vue` | **6s → 0.5s** |
+| 自定义组件 | 手动 `import { X } from '@/components/X'` | 按需加载 |
+| Element Plus | 通过 resolver 按需自动导入 | 无需扫描 |
+
+**vite.config.ts 配置**：
+```typescript
+Components({
+  resolvers: [ElementPlusResolver({ importStyle: false })],
+  globs: ['src/components/*/index.vue'], // 只扫描根目录，不递归
+})
+```
+
+**为什么不用自动全局注册**：
+- 一个页面用的组件，全局注册 = 浪费
+- 手动 import = 精准控制，用到哪里加载哪里
+- 递归扫描文件系统是启动性能的主要瓶颈
+
+### 前端打包优化
 
 | 优化项 | 措施 | 效果 |
 |------|------|------|
@@ -318,11 +339,12 @@ server {
 
 ---
 
-## 八、文档导航
+## 十、文档导航
 
 | 分类 | 文档 |
 |------|------|
 | **架构设计** | [CMVD 分层架构](/posts/webman-layered-architecture/) · [useTable Hook](/posts/vue3-usetable-hook/) · [N+1 查询优化](/posts/n-plus-one-query/) |
+| **开发工具** | [代码生成器](/posts/code-generator/) |
 | **AI 对话** | [模块概览](/posts/ai-chat-development-log/) · [SSE 流式输出](/posts/sse-streaming-chat/) · [Redis 异步队列](/posts/redis-queue-async-task/) |
 | **用户认证** | [认证模块](/posts/auth-module/) · [Token 无感刷新](/posts/axios-token-refresh/) · [权限管理](/posts/permission-module/) |
 | **系统管理** | [文件上传](/posts/upload-module/) |

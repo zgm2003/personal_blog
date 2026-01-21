@@ -30,17 +30,26 @@ draft: false
 
 ## 后端实现
 
-### 队列配置
+### 队列配置（改为系统设置 JSON）
 
-```php
-private array $queues = [
-    ['group' => 'fast', 'name' => 'operation_log', 'label' => '操作日志'],
-    ['group' => 'fast', 'name' => 'user_login_log', 'label' => '登录日志'],
-    ['group' => 'slow', 'name' => 'email_send', 'label' => '邮件发送'],
-    ['group' => 'slow', 'name' => 'export_task', 'label' => '导出任务'],
-    ['group' => 'slow', 'name' => 'generate_conversation_title', 'label' => 'AI标题生成'],
-];
+- **系统设置 key**：`devtools_queue_monitor_queues`
+- **类型**：JSON（系统设置类型 4）
+- **示例值**：
+
+```json
+[
+  {"group": "fast", "name": "operation_log", "label": "操作日志"},
+  {"group": "fast", "name": "user_login_log", "label": "登录日志"},
+  {"group": "slow", "name": "email_send", "label": "邮件发送"},
+  {"group": "slow", "name": "export_task", "label": "导出任务"},
+  {"group": "slow", "name": "generate_conversation_title", "label": "AI标题生成"}
+]
 ```
+
+实现要点：
+1) 运行时优先读取系统设置 JSON；解析失败或未配置时，自动回退到内置默认列表，避免页面空白。  
+2) 校验：`name` 必填且去重；`group` 仅支持 `fast/slow`（非法值降级为 `slow`）；`label` 为空时用 `name`。  
+3) 这样新增/改名/隐藏队列不需要发版，运维直接改系统设置即可生效。
 
 ### 获取队列状态（Pipeline 优化）
 

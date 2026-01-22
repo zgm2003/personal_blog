@@ -1,8 +1,8 @@
 ---
 title: 📋 智澜管理系统 · 白皮书
-published: 2026-01-14T23:59:59Z
+published: 2026-01-22T00:00:00+08:00
 description: 智澜管理系统技术架构、功能模块、开发规范的完整说明
-tags: [智澜, 白皮书, 全栈]
+tags: [智澜, 白皮书, 全栈, 置顶]
 category: 智澜管理系统
 draft: false
 ---
@@ -343,7 +343,7 @@ Components({
 
 | 分类 | 文档 |
 |------|------|
-| **架构设计** | [CMVD 分层架构](/posts/webman-layered-architecture/) · [useTable Hook](/posts/vue3-usetable-hook/) · [N+1 查询优化](/posts/n-plus-one-query/) |
+| **架构设计** | [CMVD 分层架构](/posts/webman-layered-architecture/) · [useTable Hook](/posts/vue3-usetable-hook/) · [N+1 查询优化](/posts/n-plus-one-query/) · [深分页设计](/posts/deep-pagination-design-analysis/) |
 | **开发工具** | [代码生成器](/posts/code-generator/) |
 | **AI 对话** | [模块概览](/posts/ai-chat-development-log/) · [SSE 流式输出](/posts/sse-streaming-chat/) · [Redis 异步队列](/posts/redis-queue-async-task/) |
 | **用户认证** | [认证模块](/posts/auth-module/) · [Token 无感刷新](/posts/axios-token-refresh/) · [权限管理](/posts/permission-module/) |

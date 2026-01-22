@@ -10,6 +10,15 @@ async function getRawSortedPosts() {
 	});
 
 	const sorted = allBlogPosts.sort((a, b) => {
+		// 检查是否有置顶标签
+		const aIsSticky = a.data.tags?.includes('置顶') ? 1 : 0;
+		const bIsSticky = b.data.tags?.includes('置顶') ? 1 : 0;
+		
+		// 如果有置顶标签，优先级更高
+		if (aIsSticky && !bIsSticky) return -1;
+		if (!aIsSticky && bIsSticky) return 1;
+		
+		// 如果都有或都没有置顶标签，则按日期排序
 		const dateA = new Date(a.data.published);
 		const dateB = new Date(b.data.published);
 		return dateA > dateB ? -1 : 1;

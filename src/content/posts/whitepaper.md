@@ -49,6 +49,7 @@ draft: false
 | 构建 | Vite 7 | 开发/打包 |
 | 状态 | Pinia | 状态管理 |
 | 路由 | Vue Router 4 | 动态路由 |
+| 桌面端 | Tauri 2.0 | Rust + WebView，轻量级桌面应用 |
 
 ### 分层架构（CMVD）
 
@@ -110,6 +111,25 @@ draft: false
 | 临时凭证 | STS Token，前端直传 |
 | 规则配置 | 文件类型、大小限制 |
 | 目录隔离 | 白名单目录，防穿越 |
+
+### 异步导出
+
+| 功能 | 说明 |
+|------|------|
+| 队列处理 | Redis 队列异步生成 Excel |
+| 导出中心 | 查看历史记录、进度、状态 |
+| WebSocket 推送 | 完成后实时通知用户 |
+| 自动清理 | 7天后自动删除文件 |
+
+### Tauri 桌面端
+
+| 功能 | 说明 |
+|------|------|
+| 双端共用 | 同一套代码，Web/桌面端无缝切换 |
+| 系统托盘 | 关闭窗口最小化到托盘，左键唤醒，右键菜单 |
+| 原生通知 | 窗口最小化时使用系统通知提醒 |
+| 自动更新 | 检测新版本并自动更新 |
+| 强制更新 | 支持强制更新策略 |
 
 ### 系统管理
 
@@ -339,7 +359,7 @@ Components({
 
 ---
 
-## 十、文档导航
+## 八、文档导航
 
 | 分类 | 文档 |
 |------|------|
@@ -348,6 +368,9 @@ Components({
 | **AI 对话** | [模块概览](/posts/ai-chat-development-log/) · [SSE 流式输出](/posts/sse-streaming-chat/) · [Redis 异步队列](/posts/redis-queue-async-task/) |
 | **用户认证** | [认证模块](/posts/auth-module/) · [Token 无感刷新](/posts/axios-token-refresh/) · [权限管理](/posts/permission-module/) |
 | **系统管理** | [文件上传](/posts/upload-module/) |
+| **异步导出** | [队列监控面板](/posts/queue-monitor-dashboard/) |
+| **桌面端** | [Tauri 2.0 开发实战](/posts/tauri-desktop-app/) |
+| **实时通信** | [WebSocket 实时架构](/posts/websocket-realtime-architecture/) |
 
 ---
 
@@ -359,4 +382,4 @@ Components({
 
 ---
 
-*最后更新：2026-01-19*
+*最后更新：2026-01-23*

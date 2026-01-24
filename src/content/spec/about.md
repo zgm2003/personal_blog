@@ -12,17 +12,19 @@
 
 ### 智澜管理系统
 
-基于 Webman + Vue3 的全栈后台管理系统，包含用户认证、权限管理、AI 对话等模块。
+基于 Webman + Vue3 的全栈后台管理系统，包含用户认证、权限管理、AI 对话、异步导出、Tauri 桌面端等模块。
 
 - **在线演示**: [zgm2003.cn](https://zgm2003.cn)
+- **桌面端下载**: [CloudAdmin_1.0.2_x64-setup.exe](https://cos.zgm2003.cn/releases/1769268458909-CloudAdmin_1.0.2_x64-setup.exe)
 - **项目白皮书**: [查看详情](/posts/whitepaper/)
 
 ## 技术栈
 
 | 方向 | 技术 |
 |------|------|
-| 后端 | PHP (Webman)、MySQL、Redis |
+| 后端 | PHP (Webman)、MySQL、Redis、WebSocket |
 | 前端 | Vue3、TypeScript、Element Plus |
+| 桌面端 | Tauri 2.0、Rust |
 | 其他 | Docker、Nginx、Git |
 
 ## 联系方式

@@ -95,7 +95,7 @@ class NotificationService
         $link = $options['link'] ?? '';
 
         // 1. 写入数据库
-        $notification = (new NotificationDep())->create([
+        $notificationId = (new NotificationDep())->add([
             'user_id' => $userId,
             'title' => $title,
             'content' => $content,
@@ -111,7 +111,7 @@ class NotificationService
             Gateway::sendToUid($userId, json_encode([
                 'type' => 'notification',
                 'data' => [
-                    'id' => $notification->id,
+                    'id' => $notificationId,
                     'title' => $title,
                     'content' => $content,
                     'notification_type' => $type,
@@ -124,7 +124,7 @@ class NotificationService
             \support\Log::warning("[NotificationService] WebSocket 推送失败: " . $e->getMessage());
         }
 
-        return $notification->id;
+        return $notificationId;
     }
 
     /** 发送紧急通知（弹 Toast） */

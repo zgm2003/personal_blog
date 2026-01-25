@@ -142,14 +142,23 @@ fn send_notification(app: AppHandle, title: String, body: String) {
 **前端判断**：窗口不可见时用原生通知
 
 ```typescript
+// store/tauri.ts
+export const isTauri = () => !!(window as any).__TAURI__
+
 export async function shouldUseNative(): Promise<boolean> {
   if (!isTauri()) return false
-  const { getCurrentWindow } = await import('@tauri-apps/api/window')
-  const win = getCurrentWindow()
-  const minimized = await win.isMinimized()
-  const focused = await win.isFocused()
-  const visible = await win.isVisible()
-  return minimized || !focused || !visible
+  try {
+    const { getCurrentWindow } = await import('@tauri-apps/api/window')
+    const win = getCurrentWindow()
+    const [minimized, focused, visible] = await Promise.all([
+      win.isMinimized(), 
+      win.isFocused(), 
+      win.isVisible()
+    ])
+    return minimized || !focused || !visible
+  } catch {
+    return false
+  }
 }
 ```
 
@@ -287,35 +296,39 @@ TAURI_SIGNING_PRIVATE_KEY=xxx npm run tauri build
 
 # WebSocket 通知联动
 
-桌面端需要和 WebSocket 配合：
+通知监听现在在 `NotificationCenter` 组件内完成：
 
 ```typescript
-// WebSocketProvider.vue
-onWsMessage('export_complete', async (msg) => {
-  const useNative = await shouldUseNative()
-  
-  if (useNative) {
-    // 窗口不可见：原生通知
-    await notify({
-      title: msg.data?.title || '导出完成',
-      body: '点击托盘图标查看',
-    })
-  } else {
-    // 窗口可见：Web 通知带下载链接
-    ElNotification({
-      title: '导出完成',
-      message: h('a', { onClick: () => openUrl(msg.data.url) }, '下载文件'),
-    })
-  }
+// NotificationCenter.vue
+import { onWsMessage } from '@/hooks/useWebSocket'
+import { shouldUseNative } from '@/store/tauri'
+
+let unsubscribe: (() => void) | null = null
+
+onMounted(() => {
+  unsubscribe = onWsMessage('notification', async ({ data }) => {
+    unreadCount.value++
+    
+    if (data.level === 'urgent') {
+      // Tauri 系统通知（窗口不可见时）
+      if (await shouldUseNative()) {
+        const { invoke } = await import('@tauri-apps/api/core')
+        invoke('send_notification', { title: data.title, body: data.content })
+      }
+      // Web 通知
+      ElNotification({ title: data.title, message: data.content, type: data.notification_type })
+    }
+  })
 })
 
-// 组件卸载时必须清理监听器！
-onUnmounted(() => {
-  unsubExport()
-})
+onUnmounted(() => unsubscribe?.())
 ```
 
-**踩坑**：`onWsMessage` 返回的取消函数必须在 `onUnmounted` 调用，否则监听器累积，一条消息触发 N 次。
+**核心逻辑**：
+- Web 端：始终用 `ElNotification`
+- Tauri 端：窗口可见用 `ElNotification`，不可见用系统通知
+
+> 详见《通知管理系统设计与实现》
 
 ---
 

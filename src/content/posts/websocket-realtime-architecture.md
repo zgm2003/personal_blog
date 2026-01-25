@@ -1,7 +1,7 @@
 ---
 title: WebSocket 实时通信架构
 published: 2026-01-19T18:00:00Z
-description: 基于 Webman + GatewayWorker 搭建 WebSocket 基础设施，实现异步导出通知
+description: 基于 Webman + GatewayWorker 搭建 WebSocket 基础设施，实现实时通知推送
 tags: [后端, WebSocket, 架构]
 category: 智澜管理系统
 draft: false
@@ -163,98 +163,59 @@ export function useWebSocket(options: UseWebSocketOptions = {}) {
 }
 ```
 
-### WebSocketProvider（职责分离）
+### 消息监听（组件内订阅）
 
-```vue
-<script setup lang="ts">
-import { h } from 'vue'
-import { useWebSocket, onWsMessage } from '@/hooks/useWebSocket'
-import { ElNotification } from 'element-plus'
+`onWsMessage` 是订阅函数，各组件按需调用：
 
-useWebSocket()
+```typescript
+// NotificationCenter.vue - 通知组件内监听
+import { onWsMessage } from '@/hooks/useWebSocket'
 
-// 监听通知
-onWsMessage('notification', (msg) => {
-  ElNotification({
-    title: msg.data?.title || '通知',
-    message: msg.data?.content || '',
-    type: msg.data?.type || 'info',
+let unsubscribe: (() => void) | null = null
+
+onMounted(() => {
+  unsubscribe = onWsMessage('notification', ({ data }) => {
+    unreadCount.value++
+    if (data.level === 'urgent') {
+      ElNotification({ title: data.title, message: data.content, type: data.notification_type })
+    }
   })
 })
 
-// 监听导出完成
-onWsMessage('export_complete', (msg) => {
-  ElNotification({
-    title: msg.data?.title || '导出完成',
-    message: h('a', { href: msg.data?.url, target: '_blank' }, '下载文件'),
-    type: 'success',
-    duration: 10000,
-  })
-})
-</script>
-
-<template>
-  <slot />
-</template>
+onUnmounted(() => unsubscribe?.())
 ```
 
-Layout 只需引入 Provider：
+**职责分离**：
+- `useWebSocket()` 只负责建立连接（在 Layout 调用）
+- `onWsMessage()` 是订阅函数，各组件按需调用
+- 必须在 `onUnmounted` 取消订阅，避免监听器累积
 
-```vue
-<template>
-  <WebSocketProvider>
-    <el-container>...</el-container>
-  </WebSocketProvider>
-</template>
-```
+## 实战：异步导出 + 通知系统
 
-## 实战：异步导出 + WebSocket 通知
-
-### 改造导出接口
+现在导出完成后通过 `NotificationService` 统一发送通知：
 
 ```php
-// 原来：同步导出，阻塞请求
-$url = $exportService->export($headers, $data);
-return self::success(['url' => $url]);
+use app\service\System\NotificationService;
 
-// 现在：丢队列，立即返回
-RedisQueue::send('export-task', [
-    'user_id' => $request->userId,
-    'headers' => $headers,
-    'data' => $data,
-    'title' => '用户列表导出',
-]);
-return self::success(['message' => '导出任务已提交']);
-```
-
-### 队列消费者
-
-```php
 class ExportTask implements Consumer
 {
-    public $queue = 'export-task';
+    public $queue = 'export_task';
 
     public function consume($data)
     {
-        $url = (new ExportService())->export(
-            $data['headers'], 
-            $data['data'], 
-            $data['prefix']
-        );
-
-        // 推送完成通知
-        Gateway::$registerAddress = '127.0.0.1:1236';
-        Gateway::sendToUid($data['user_id'], json_encode([
-            'type' => 'export_complete',
-            'data' => [
-                'title' => $data['title'],
-                'url' => $url,
-                'message' => '导出完成，点击下载'
-            ]
-        ]));
+        $result = (new ExportService())->export($data['headers'], $data['data'], $data['prefix']);
+        (new ExportTaskDep())->updateSuccess($data['task_id'], $result);
+        
+        // 通过通知服务发送（写库 + WebSocket 推送）
+        NotificationService::sendUrgent($data['user_id'], $data['title'] . ' - 导出完成', '点击查看并下载导出文件', [
+            'type' => NotificationService::TYPE_SUCCESS,
+            'link' => '/devTools/exportTask'
+        ]);
     }
 }
 ```
+
+> 详见《通知管理系统设计与实现》
 
 ## 连接生命周期
 
@@ -278,7 +239,7 @@ class ExportTask implements Consumer
 | Events.php | 只发 client_id，不处理业务 |
 | WebSocketModule | 绑定、推送等业务逻辑 |
 | useWebSocket | 连接管理、消息分发 |
-| WebSocketProvider | 全局消息监听、通知弹窗 |
-| ExportTask | 异步导出 + 完成推送 |
+| onWsMessage | 订阅函数，组件内按需调用 |
+| NotificationService | 写库 + WebSocket 推送 |
 
 **核心思想**：Gateway 只是通道，业务逻辑走 HTTP，职责分离，架构清晰。

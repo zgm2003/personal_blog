@@ -118,7 +118,11 @@ public function export($request)
 
 ### 队列消费者
 
+Webman 自动 ack，不需要手动 try-catch：
+
 ```php
+use app\service\System\NotificationService;
+
 class ExportTask implements Consumer
 {
     public $queue = 'export_task';
@@ -127,60 +131,67 @@ class ExportTask implements Consumer
     {
         $taskId = $data['task_id'];
         $userId = $data['user_id'];
-        $dep = new ExportTaskDep();
+        $title = $data['title'] ?? '数据导出';
 
-        try {
-            // 生成 Excel 并上传 COS
-            $result = (new ExportService())->export($data['headers'], $data['data'], $data['prefix']);
-            
-            // 更新任务状态
-            $dep->updateSuccess($taskId, $result);
-            
-            // WebSocket 推送
-            $this->notifyUser($userId, [
-                'type' => 'export_complete',
-                'data' => [
-                    'task_id' => $taskId,
-                    'title' => $data['title'],
-                    'url' => $result['url'],
-                    'message' => '导出完成，点击下载'
-                ]
-            ]);
-        } catch (\Throwable $e) {
-            $dep->updateFailed($taskId, $e->getMessage());
-            throw $e;
-        }
+        $result = (new ExportService())->export($data['headers'], $data['data'], $data['prefix'] ?? 'export');
+        (new ExportTaskDep())->updateSuccess($taskId, $result);
+        
+        // 通过通知服务发送（写库 + WebSocket 推送）
+        NotificationService::sendUrgent($userId, $title . ' - 导出完成', '点击查看并下载导出文件', [
+            'type' => NotificationService::TYPE_SUCCESS,
+            'link' => '/devTools/exportTask'
+        ]);
     }
 
-    private function notifyUser(int $userId, array $message): void
+    public function onConsumeFailure(\Throwable $e, $package)
     {
-        Gateway::$registerAddress = '127.0.0.1:1236';
-        if (Gateway::isUidOnline($userId)) {
-            Gateway::sendToUid($userId, json_encode($message));
+        $data = $package['data'] ?? [];
+        if ($data['task_id'] ?? null) {
+            (new ExportTaskDep())->updateFailed($data['task_id'], $e->getMessage());
+        }
+        if ($data['user_id'] ?? null) {
+            NotificationService::sendUrgent($data['user_id'], ($data['title'] ?? '导出') . ' - 失败', '导出失败，已重试多次仍无法完成', [
+                'type' => NotificationService::TYPE_ERROR,
+                'link' => '/devTools/exportTask'
+            ]);
         }
     }
 }
 ```
 
+> 注意：Webman 队列自动 ack，不需要手动 try-catch。异常会触发 `onConsumeFailure`。
+
 ## 前端实现
 
 ### WebSocket 监听
 
+现在通知监听在 `NotificationCenter` 组件内完成：
+
 ```typescript
-// WebSocketProvider.vue
-onWsMessage('export_complete', (msg) => {
-  ElNotification({
-    title: msg.data?.title || '导出完成',
-    message: h('a', { 
-      href: msg.data?.url, 
-      target: '_blank',
-      style: 'color: var(--el-color-primary)'
-    }, '点击下载'),
-    type: 'success',
-    duration: 10000,
+// NotificationCenter.vue
+import { onWsMessage } from '@/hooks/useWebSocket'
+
+let unsubscribe: (() => void) | null = null
+
+onMounted(() => {
+  unsubscribe = onWsMessage('notification', async ({ data }) => {
+    unreadCount.value++
+    if (data.level === 'urgent') {
+      ElNotification({
+        title: data.title,
+        message: data.content,
+        type: data.notification_type || 'info',
+        duration: 5000,
+        onClick: () => navigateTo(data.link)  // 点击跳转
+      })
+    }
   })
 })
+
+onUnmounted(() => unsubscribe?.())
 ```
+
+> 详见《通知管理系统设计与实现》
 
 ### 导出管理页面
 

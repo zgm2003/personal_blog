@@ -87,7 +87,7 @@ $result = $generator->generate();
 | `select` | `<el-select-v2>` | 下拉选择 |
 | `date` | `<el-date-picker type="date">` | 日期选择 |
 | `datetime` | `<el-date-picker type="datetime">` | 日期时间 |
-| `image` | `<UpImg>` | 图片上传 |
+| `image` | `<UpMedia>` | 图片上传（folder-name 自动加 s） |
 
 ### 验证规则生成
 
@@ -135,7 +135,7 @@ return $this->model
 ```typescript
 // 命名导入（项目规范）
 import { Editor } from '@/components/Editor'
-import { UpImg } from '@/components/UpImg'
+import { UpMedia } from '@/components/UpMedia'
 import { AppTable } from '@/components/Table'
 import { Search } from '@/components/Search'
 ```
@@ -247,5 +247,5 @@ Route::post('/System/Article/del', [ArticleController::class, 'del']);
 
 ---
 
-*最后更新：2026-01-21*
+*最后更新：2026-01-25*
 

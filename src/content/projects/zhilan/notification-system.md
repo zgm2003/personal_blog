@@ -3,7 +3,8 @@ title: 通知管理系统设计与实现
 published: 2026-01-25T12:00:00Z
 description: 完整的站内通知方案：数据库存储 + WebSocket 实时推送 + Tauri 系统通知 + 游标分页
 tags: [后端, WebSocket, Tauri, 架构]
-category: 智澜管理系统
+project: 智澜管理系统
+order: 50
 draft: false
 ---
 

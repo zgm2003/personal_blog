@@ -3,7 +3,8 @@ title: 企业简约风 UI 重构实践
 published: 2026-01-14T16:00:00Z
 description: 基于 Vue3 + Element Plus 的后台管理系统 UI 重构，实现动态主题色、响应式布局、组件化设计
 tags: [Vue3, Element Plus, UI设计, 响应式]
-category: 智澜管理系统
+project: 智澜管理系统
+order: 90
 draft: false
 ---
 

@@ -3,7 +3,8 @@ title: 权限管理模块
 published: 2026-01-14T12:00:00Z
 description: RBAC 权限模型、菜单/页面/按钮三级权限、动态路由生成
 tags: [用户, 权限, RBAC]
-category: 智澜管理系统
+project: 智澜管理系统
+order: 20
 draft: false
 ---
 

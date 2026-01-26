@@ -3,7 +3,7 @@ title: Token 无感刷新（前端实现）
 published: 2026-01-14T14:00:00Z
 description: Axios 拦截器实现 Token 自动续期，请求队列 + 防抖弹框
 tags: [前端, 鉴权, Axios]
-category: 智澜管理系统
+category: 前端技术
 draft: false
 ---
 

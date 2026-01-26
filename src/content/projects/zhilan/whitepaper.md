@@ -2,8 +2,9 @@
 title: 📋 智澜管理系统 · 白皮书
 published: 2026-01-22T00:00:00+08:00
 description: 智澜管理系统技术架构、功能模块、开发规范的完整说明
-tags: [智澜, 白皮书, 全栈, 置顶]
-category: 智澜管理系统
+tags: [智澜, 白皮书, 全栈]
+project: 智澜管理系统
+order: 1
 draft: false
 ---
 
@@ -364,13 +365,13 @@ Components({
 | 分类 | 文档 |
 |------|------|
 | **架构设计** | [CMVD 分层架构](/posts/webman-layered-architecture/) · [useTable Hook](/posts/vue3-usetable-hook/) · [N+1 查询优化](/posts/n-plus-one-query/) · [深分页设计](/posts/deep-pagination-design-analysis/) |
-| **开发工具** | [代码生成器](/posts/code-generator/) |
-| **AI 对话** | [模块概览](/posts/ai-chat-development-log/) · [SSE 流式输出](/posts/sse-streaming-chat/) · [Redis 异步队列](/posts/redis-queue-async-task/) |
-| **用户认证** | [认证模块](/posts/auth-module/) · [Token 无感刷新](/posts/axios-token-refresh/) · [权限管理](/posts/permission-module/) |
-| **系统管理** | [文件上传](/posts/upload-module/) |
-| **异步导出** | [队列监控面板](/posts/queue-monitor-dashboard/) |
-| **桌面端** | [Tauri 2.0 开发实战](/posts/tauri-desktop-app/) |
-| **实时通信** | [WebSocket 实时架构](/posts/websocket-realtime-architecture/) |
+| **开发工具** | [代码生成器](/projects/zhilan/code-generator/) |
+| **AI 对话** | [模块概览](/projects/zhilan/ai-chat-development-log/) · [SSE 流式输出](/posts/sse-streaming-chat/) · [Redis 异步队列](/posts/redis-queue-async-task/) |
+| **用户认证** | [认证模块](/projects/zhilan/auth-module/) · [Token 无感刷新](/posts/axios-token-refresh/) · [权限管理](/projects/zhilan/permission-module/) |
+| **系统管理** | [文件上传](/projects/zhilan/upload-module/) · [系统设置](/projects/zhilan/system-setting-module/) |
+| **异步导出** | [队列监控面板](/projects/zhilan/queue-monitor-dashboard/) |
+| **桌面端** | [Tauri 2.0 开发实战](/projects/zhilan/tauri-desktop-app/) |
+| **实时通信** | [WebSocket 实时架构](/posts/websocket-realtime-architecture/) · [通知系统](/projects/zhilan/notification-system/) |
 
 ---
 

@@ -3,7 +3,8 @@ title: AI 对话模块概览
 published: 2026-01-13T16:00:00Z
 description: AI 对话系统的功能清单、技术架构和开发计划
 tags: [AI, 模块, 全栈]
-category: 智澜管理系统
+project: 智澜管理系统
+order: 110
 draft: false
 ---
 

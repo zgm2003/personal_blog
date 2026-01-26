@@ -3,7 +3,7 @@ title: WebSocket 实时通信架构
 published: 2026-01-19T18:00:00Z
 description: 基于 Webman + GatewayWorker 搭建 WebSocket 基础设施，实现实时通知推送
 tags: [后端, WebSocket, 架构]
-category: 智澜管理系统
+category: 后端技术
 draft: false
 ---
 

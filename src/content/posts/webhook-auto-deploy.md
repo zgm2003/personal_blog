@@ -3,7 +3,7 @@ title: 宝塔 Webhook 自动化部署
 published: 2026-01-25T12:00:00Z
 description: 使用宝塔面板 Git Hook 实现前端项目自动化部署，Tag 触发构建的完整实践
 tags: [运维, 部署, Git]
-category: 智澜管理系统
+category: DevOps
 draft: false
 ---
 

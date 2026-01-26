@@ -1,0 +1,49 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import Pagination from "@components/control/Pagination.astro";
+import PostPage from "@components/PostPage.astro";
+import { PAGE_SIZE } from "../../../constants/constants";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import { Icon } from "astro-icon/components";
+
+export const getStaticPaths = (async ({ paginate }) => {
+	const allPosts = await getCollection("posts", ({ data }) => {
+		return import.meta.env.PROD ? data.draft !== true : true;
+	});
+	
+	// 获取所有标签
+	const allTags = new Set<string>();
+	allPosts.forEach((post) => {
+		post.data.tags?.forEach((tag) => allTags.add(tag));
+	});
+	
+	return [...allTags].flatMap((tag) => {
+		const filteredPosts = allPosts
+			.filter((post) => post.data.tags?.includes(tag))
+			.sort((a, b) => new Date(b.data.published).getTime() - new Date(a.data.published).getTime());
+		
+		return paginate(filteredPosts, {
+			params: { tag },
+			pageSize: PAGE_SIZE,
+		});
+	});
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+const { tag } = Astro.params;
+const len = page.data.length;
+---
+
+<MainGridLayout title={`标签: ${tag}`}>
+	<div class="flex items-center gap-3 mb-6 onload-animation">
+		<Icon name="material-symbols:tag" class="text-2xl text-[var(--primary)]" />
+		<h1 class="text-2xl font-bold text-90">{tag}</h1>
+		<span class="text-sm text-50 bg-[var(--license-block-bg)] px-2 py-0.5 rounded">
+			{page.total} 篇文章
+		</span>
+	</div>
+	
+	<PostPage page={page}></PostPage>
+	<Pagination class="mx-auto onload-animation" page={page} style={`animation-delay: calc(var(--content-delay) + ${len * 50}ms)`}></Pagination>
+</MainGridLayout>

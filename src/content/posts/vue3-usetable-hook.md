@@ -3,7 +3,7 @@ title: useTable Hook 封装
 published: 2026-01-13T11:00:00Z
 description: 封装 useTable Hook，统一处理列表页的加载、分页、搜索、删除逻辑
 tags: [前端, Vue3, Hooks]
-category: 智澜管理系统
+category: 前端技术
 draft: false
 ---
 

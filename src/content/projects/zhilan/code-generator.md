@@ -3,7 +3,8 @@ title: 🔧 代码生成器 · 一键生成 CRUD 全链路代码
 published: 2026-01-21T10:00:00Z
 description: 基于数据库表结构自动生成后端 Controller/Module/Dep/Model/Validate + 前端 API/Vue 页面
 tags: [代码生成, CRUD, 开发效率]
-category: 智澜管理系统
+project: 智澜管理系统
+order: 80
 draft: false
 ---
 

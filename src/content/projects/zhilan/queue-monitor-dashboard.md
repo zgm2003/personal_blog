@@ -3,7 +3,8 @@ title: Redis 队列监控仪表盘
 published: 2026-01-20T10:00:00Z
 description: 基于 webman/redis-queue 实现队列监控，支持实时查看、失败重试、队列清空
 tags: [后端, Redis, 运维]
-category: 智澜管理系统
+project: 智澜管理系统
+order: 70
 draft: false
 ---
 

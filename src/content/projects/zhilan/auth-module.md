@@ -3,7 +3,8 @@ title: 用户认证模块
 published: 2026-01-14T11:00:00Z
 description: 多端登录、Opaque Token 双令牌、验证码登录、自动注册的完整实现
 tags: [用户, 认证, Token, 安全]
-category: 智澜管理系统
+project: 智澜管理系统
+order: 10
 draft: false
 ---
 

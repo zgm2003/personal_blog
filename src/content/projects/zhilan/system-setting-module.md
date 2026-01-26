@@ -3,7 +3,8 @@ title: 系统设置模块
 published: 2026-01-14T21:00:00Z
 description: 基于数据库的动态配置管理，支持多类型值、缓存机制，告别硬编码配置文件
 tags: [系统, 配置, 缓存, 动态配置]
-category: 智澜管理系统
+project: 智澜管理系统
+order: 40
 draft: false
 ---
 

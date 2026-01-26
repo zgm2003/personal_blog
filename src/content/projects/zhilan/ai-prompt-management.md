@@ -3,7 +3,8 @@ title: AI 提示词管理模块
 published: 2026-01-25T16:00:00Z
 description: 构建个人提示词库，提升 AI 对话效率的 CRUD 实践
 tags: [AI, CRUD, 全栈]
-category: 智澜管理系统
+project: 智澜管理系统
+order: 120
 draft: false
 ---
 

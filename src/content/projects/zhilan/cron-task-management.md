@@ -3,7 +3,8 @@ title: 定时任务管理模块
 published: 2026-01-21T10:00:00Z
 description: 基于 Webman Crontab 实现定时任务动态管理，支持 CRUD、软禁用、执行日志
 tags: [后端, Crontab, 运维]
-category: 智澜管理系统
+project: 智澜管理系统
+order: 60
 draft: false
 ---
 

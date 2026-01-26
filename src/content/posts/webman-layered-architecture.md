@@ -3,7 +3,7 @@ title: CMVD 分层架构设计
 published: 2026-01-13T10:00:00Z
 description: 基于 Webman 高性能框架的分层架构设计，Controller → Module → Validate → Dep
 tags: [后端, 架构, PHP]
-category: 智澜管理系统
+category: 后端技术
 draft: false
 ---
 

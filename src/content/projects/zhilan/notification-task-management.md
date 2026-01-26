@@ -3,7 +3,8 @@ title: 通知任务管理：批量发布与定时调度
 published: 2026-01-25T19:00:00Z
 description: 实现管理员批量发布通知的完整方案：任务表设计、定时调度、队列消费、前端管理
 tags: [后端, 队列, 定时任务, 架构]
-category: 智澜管理系统
+project: 智澜管理系统
+order: 55
 draft: false
 ---
 

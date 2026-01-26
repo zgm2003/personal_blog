@@ -3,7 +3,8 @@ title: Tauri 2.0 桌面端开发实战
 published: 2026-01-23T18:00:00Z
 description: 从零搭建 Tauri 桌面应用，涵盖系统托盘、原生通知、自动更新、打包发布全流程
 tags: [Tauri, 桌面端, Rust, 跨端]
-category: 智澜管理系统
+project: 智澜管理系统
+order: 100
 draft: false
 ---
 

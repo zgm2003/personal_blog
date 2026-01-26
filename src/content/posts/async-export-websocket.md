@@ -3,7 +3,7 @@ title: 异步导出 + WebSocket 实时通知
 published: 2026-01-20T11:00:00Z
 description: 完整的异步导出方案：队列处理 + COS 存储 + WebSocket 推送 + 导出管理页面
 tags: [后端, WebSocket, 异步]
-category: 智澜管理系统
+category: 后端技术
 draft: false
 ---
 

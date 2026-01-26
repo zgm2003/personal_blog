@@ -3,7 +3,8 @@ title: 文件上传模块
 published: 2026-01-14T10:00:00Z
 description: 多云存储驱动、临时凭证、前端直传的完整实现
 tags: [系统, 上传, COS, OSS]
-category: 智澜管理系统
+project: 智澜管理系统
+order: 30
 draft: false
 ---
 

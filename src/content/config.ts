@@ -1,5 +1,6 @@
 import { defineCollection, z } from "astro:content";
 
+// 技术博客文章集合
 const postsCollection = defineCollection({
 	schema: z.object({
 		title: z.string(),
@@ -19,10 +20,34 @@ const postsCollection = defineCollection({
 		nextSlug: z.string().default(""),
 	}),
 });
+
+// 项目文档集合
+const projectsCollection = defineCollection({
+	schema: z.object({
+		title: z.string(),
+		published: z.date(),
+		updated: z.date().optional(),
+		draft: z.boolean().optional().default(false),
+		description: z.string().optional().default(""),
+		image: z.string().optional().default(""),
+		tags: z.array(z.string()).optional().default([]),
+		project: z.string(), // 所属项目名
+		order: z.number().optional().default(100), // 排序权重，越小越靠前
+
+		/* For internal use */
+		prevTitle: z.string().default(""),
+		prevSlug: z.string().default(""),
+		nextTitle: z.string().default(""),
+		nextSlug: z.string().default(""),
+	}),
+});
+
 const specCollection = defineCollection({
 	schema: z.object({}),
 });
+
 export const collections = {
 	posts: postsCollection,
+	projects: projectsCollection,
 	spec: specCollection,
 };

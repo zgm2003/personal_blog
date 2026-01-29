@@ -1,7 +1,7 @@
 ---
-title: 权限管理模块
+title: 后台菜单管理
 published: 2026-01-14T12:00:00Z
-description: RBAC 权限模型、菜单/页面/按钮三级权限、动态路由生成
+description: RBAC 权限模型、菜单/页面/按钮三级权限、动态路由生成、多平台隔离
 tags: [用户, 权限, RBAC]
 project: 智澜管理系统
 order: 20
@@ -10,17 +10,22 @@ draft: false
 
 # 模块概述
 
-权限管理是后台系统的核心功能，本实现采用 RBAC（基于角色的访问控制）模型：
+后台菜单管理是 PC 管理系统的核心功能，采用 RBAC（基于角色的访问控制）模型：
 
 - 三级权限类型：目录、页面、按钮
 - 角色绑定权限，用户绑定角色
 - 前端动态路由生成
 - 按钮级权限控制
+- **多平台隔离**：PC 后台（admin）与 APP/H5（app）权限分离
 
 ## 权限模型
 
 ```
 用户 → 角色 → 权限（目录/页面/按钮）
+              ↓
+         platform 字段区分平台
+         admin = PC后台（树形）
+         app   = 移动端（扁平）
 ```
 
 ---
@@ -46,6 +51,7 @@ CREATE TABLE permissions (
     name VARCHAR(50) NOT NULL,           -- 权限名称
     parent_id INT DEFAULT -1,            -- 父级ID，-1为顶级
     type TINYINT NOT NULL,               -- 类型：1目录 2页面 3按钮
+    platform VARCHAR(20) DEFAULT 'admin',-- 平台：admin/app
     path VARCHAR(100),                   -- 路由路径（页面）
     component VARCHAR(100),              -- 组件路径（页面）
     icon VARCHAR(50),                    -- 图标（目录/页面）
@@ -55,7 +61,8 @@ CREATE TABLE permissions (
     show_menu TINYINT DEFAULT 1,         -- 是否显示在菜单
     status TINYINT DEFAULT 1,            -- 状态
     INDEX idx_parent (parent_id),
-    INDEX idx_type (type)
+    INDEX idx_type (type),
+    INDEX idx_platform (platform)
 );
 ```
 
@@ -213,11 +220,13 @@ public function del($request)
     
     $this->roleDep->delete($ids);
 
-    // 清除该角色下所有用户的权限缓存
+    // 清除该角色下所有用户的权限缓存（按平台）
     $usersDep = new UsersDep();
     $userIds = $usersDep->getIdsByRoleIds($ids);
     foreach ($userIds as $uid) {
-        Cache::delete('auth_perm_uid_' . $uid);
+        foreach (['admin', 'app'] as $platform) {
+            Cache::delete('auth_perm_uid_' . $uid . '_' . $platform);
+        }
     }
 
     return self::success();
@@ -322,28 +331,62 @@ if (hasPermission('user:edit')) {
 
 ## 权限缓存策略
 
-### 后端缓存
+### 三层缓存设计
+
+| 缓存 Key | 数据 | TTL | 清除时机 |
+|---------|------|-----|----------|
+| `perm_all_permissions` | 全部权限定义 | **永久** | 权限增删改 |
+| `dict_permission_tree` | 权限树（字典） | **永久** | 权限增删改 |
+| `auth_perm_uid_{id}_{platform}` | 用户按钮权限 | 300秒 | 权限状态变更 |
+
+> **为什么定义缓存用永久？** 权限定义数据变化频率极低，只有管理员手动操作时才变化，每次变更都会主动清除缓存。
+
+### 按平台隔离缓存
 
 ```php
-// 用户权限缓存
-$cacheKey = 'auth_perm_uid_' . $userId;
-$permissions = Cache::get($cacheKey);
+// 缓存 Key 按平台区分
+$cacheKey = 'auth_perm_uid_' . $userId . '_' . $platform;
+// admin 用户: auth_perm_uid_1_admin
+// app 用户:   auth_perm_uid_1_app
+```
 
-if (!$permissions) {
-    $user = $this->usersDep->find($userId);
-    $role = $this->roleDep->find($user->role_id);
-    $permissionIds = json_decode($role->permission_id, true);
-    $permissions = $this->permissionDep->getByIds($permissionIds);
+### 权限状态变更时清除缓存
+
+```php
+public function status($request)
+{
+    $param = $this->validate($request, PermissionValidate::status());
+    $this->permissionDep->update($param['id'], ['status' => $param['status']]);
     
-    Cache::set($cacheKey, $permissions, 3600);  // 1小时
+    // 清除权限定义缓存
+    PermissionDep::clearCache();
+    DictService::clearPermissionCache();
+    
+    // 清除所有用户权限缓存（权限变更影响所有用户）
+    self::clearAllUserPermCache();
+    
+    return self::success();
+}
+
+/**
+ * 清除所有用户权限缓存
+ */
+public static function clearAllUserPermCache(): void
+{
+    $redis = Redis::connection('cache');
+    $keys = $redis->keys('cache:auth_perm_uid_*');
+    if (!empty($keys)) {
+        $redis->del(...$keys);
+    }
 }
 ```
 
 ### 缓存失效时机
 
+- 权限增删改 → 清除定义缓存（`perm_all_permissions`、`dict_permission_tree`）
+- 权限状态变更 → 清除所有用户权限缓存（`auth_perm_uid_*`）
 - 角色权限变更 → 清除该角色所有用户缓存
 - 用户角色变更 → 清除该用户缓存
-- 权限变更 → 清除全局权限缓存
 
 ---
 
@@ -389,9 +432,25 @@ if (!$permissions) {
 
 ---
 
+## 与 APP 权限的关系
+
+| 维度 | PC 后台 | APP/H5 |
+|------|--------|--------|
+| 权限层级 | 目录 → 页面 → 按钮 | 仅按钮 |
+| 路由 | 动态生成 | 固定路由 |
+| 权限结构 | 树形 | 扁平 |
+| 管理页面 | 后台菜单管理 | 按钮权限管理 |
+| 路由文件 | admin.php | app.php |
+| platform | admin | app |
+
+> APP 按钮权限详见：[智澜APP - 按钮权限系统](/projects/zhilan-app/button-permission)
+
+---
+
 ## 扩展方向
 
 - 数据权限（部门/创建人过滤）
 - 权限继承（子角色继承父角色）
 - 临时权限（时效性授权）
 - 权限审计日志
+- 小程序权限复用（platform=miniapp）

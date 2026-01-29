@@ -136,17 +136,28 @@ pnpm install
 
 # H5 开发
 pnpm dev
+```
 
-# Android 开发
-pnpm build
-npx cap sync android
+### 打包命令
+
+| 命令 | 环境 | API 指向 |
+|------|------|----------|
+| `pnpm build:dev` | development | `http://192.168.6.167:8787` (本地) |
+| `pnpm build:pro` | production | `https://www.zgm2003.cn` (线上) |
+
+### Capacitor 打包
+
+```bash
+# 本地调试（指向本地后端）
+pnpm cap:build:dev
 npx cap open android
 
-# iOS 开发
-pnpm build
-npx cap sync ios
-npx cap open ios
+# 正式包（指向线上后端）
+pnpm cap:build:pro
+npx cap open android
 ```
+
+> **注意**: Android JS 修改后必须重新执行 `cap:build:*`，Android Studio 热重载无效！
 
 ---
 

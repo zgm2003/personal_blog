@@ -170,19 +170,28 @@ class ExportTask implements Consumer
 ```typescript
 // NotificationCenter.vue
 import { onWsMessage } from '@/hooks/useWebSocket'
+import { shouldUseNative } from '@/store/tauri'
 
 let unsubscribe: (() => void) | null = null
 
 onMounted(() => {
   unsubscribe = onWsMessage('notification', async ({ data }) => {
     unreadCount.value++
+    prepend(data)  // 列表头部插入新通知
+    
     if (data.level === 'urgent') {
+      // Tauri 系统通知（窗口不可见时）
+      if (await shouldUseNative()) {
+        const { invoke } = await import('@tauri-apps/api/core')
+        invoke('send_notification', { title: data.title, body: data.content })
+      }
+      // Web Toast 通知
       ElNotification({
         title: data.title,
         message: data.content,
         type: data.notification_type || 'info',
         duration: 5000,
-        onClick: () => navigateTo(data.link)  // 点击跳转
+        onClick: () => router.push(data.link)
       })
     }
   })
@@ -191,7 +200,11 @@ onMounted(() => {
 onUnmounted(() => unsubscribe?.())
 ```
 
-> 详见《通知管理系统设计与实现》
+**双端通知策略**：
+- Web 端：始终用 `ElNotification`
+- Tauri 端：窗口可见用 `ElNotification`，不可见用系统通知
+
+> 详见《[通知管理系统设计与实现](/projects/zhilan/notification-system/)》
 
 ### 导出管理页面
 

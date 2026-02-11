@@ -1611,6 +1611,67 @@ $memMap:      {"admin":"PC后台","app":"H5/APP"} ≈ 200 字节
 | L2 Redis | >99.99% | 永久缓存，只有写操作后的第一次未命中 |
 | L3 MySQL | <0.01% | 几乎不会被查到 |
 
+### 15.5 实测基准数据
+
+以上都是理论分析，下面是真实跑出来的数据。测试方法：在 `TestModule` 中写了一个基准测试，分别对三级缓存做循环调用，用 `hrtime(true)` 纳秒级计时。
+
+测试环境：Windows 本地开发机，Webman 单 Worker，PHP 8.1，Redis 本地连接。
+
+**三级缓存对比（5000 次迭代）**：
+
+| 缓存层 | 平均耗时 | 吞吐量 | 对比 L1 |
+|--------|---------|--------|---------|
+| L1 进程内存 | 0.16 μs | 623 万次/秒 | — |
+| L2 Redis | 121 μs | 8,260 次/秒 | 慢 754x |
+| L3 MySQL | 861 μs | 1,161 次/秒 | 慢 5,366x |
+
+**便捷方法性能（基于 L1 内存缓存，5000 次迭代）**：
+
+| 方法 | 平均耗时 | 吞吐量 |
+|------|---------|--------|
+| `getPlatform()` | 0.16 μs | 623 万次/秒 |
+| `getAuthPolicy()` | 0.39 μs | 258 万次/秒 |
+| `getAllowedPlatforms()` | 0.15 μs | 670 万次/秒 |
+
+**倍率关系**：
+
+```
+L1 vs L2:  754x   — 内存比 Redis 快 754 倍
+L1 vs L3:  5366x  — 内存比 MySQL 快 5366 倍
+L2 vs L3:  7.1x   — Redis 比 MySQL 快 7 倍
+```
+
+之前文章里说"比 Redis 快 100 倍以上"，实测是 **754 倍**。保守了。
+
+`getAuthPolicy()` 比 `getPlatform()` 稍慢（0.39 vs 0.16 μs），因为它在内存读取之后还要做 6 个 `=== CommonEnum::YES` 的比较和数组构建。但 0.39 微秒，258 万次/秒，完全不是瓶颈。
+
+测试代码的核心逻辑：
+
+```php
+// L1 测试：预热后循环读取（命中内存缓存）
+AuthPlatformService::getPlatform($platform); // 预热
+$start = hrtime(true);
+for ($i = 0; $i < $iterations; $i++) {
+    AuthPlatformService::getPlatform($platform);
+}
+$l1Time = (hrtime(true) - $start) / 1e6;
+
+// L2 测试：每次清内存缓存，强制走 Redis
+for ($i = 0; $i < $iterations; $i++) {
+    AuthPlatformService::flushMemCache();
+    AuthPlatformService::getPlatform($platform);
+}
+
+// L3 测试：每次清内存 + Redis，强制走 MySQL
+for ($i = 0; $i < $iterations; $i++) {
+    AuthPlatformService::flushMemCache();
+    Cache::delete('auth_platform_' . $platform);
+    AuthPlatformService::getPlatform($platform);
+}
+```
+
+结论：✅ 三级缓存有效，L1(内存) < L2(Redis) < L3(MySQL)，层级分明。
+
 ## 十六、与其他方案的对比
 
 ### 16.1 vs JWT 无状态方案

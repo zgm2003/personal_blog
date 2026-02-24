@@ -15,7 +15,7 @@
 基于 Webman + Vue3 的全栈后台管理系统，包含用户认证、权限管理、AI 对话、异步导出、Tauri 桌面端等模块。
 
 - **在线演示**: [zgm2003.cn](https://zgm2003.cn)
-- **桌面端下载**: [CloudAdmin_1.0.2_x64-setup.exe](https://cos.zgm2003.cn/releases/1769268458909-CloudAdmin_1.0.2_x64-setup.exe)
+- **桌面端下载**: [CloudAdmin_1.0.7_x64-setup.exe](https://cos.zgm2003.cn/releases/1770644269428-CloudAdmin_1.0.7_x64-setup.exe)
 - **项目文档**: [查看详情](/projects/zhilan/whitepaper/)
 
 ### 智澜APP

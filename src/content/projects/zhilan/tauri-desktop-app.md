@@ -383,6 +383,6 @@ notify-rust = "4"
 
 欢迎下载体验 CloudAdmin 桌面端：
 
-- **Windows x64**: [CloudAdmin_1.0.2_x64-setup.exe](https://cos.zgm2003.cn/releases/1769268458909-CloudAdmin_1.0.2_x64-setup.exe)
+- **Windows x64**: [CloudAdmin_1.0.7_x64-setup.exe](https://cos.zgm2003.cn/releases/1770644269428-CloudAdmin_1.0.7_x64-setup.exe)
 
 安装后自动检测更新，支持系统通知、托盘最小化、异步导出推送等特性。

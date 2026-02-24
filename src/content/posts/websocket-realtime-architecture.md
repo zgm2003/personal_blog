@@ -243,3 +243,268 @@ class ExportTask implements Consumer
 | NotificationService | 写库 + WebSocket 推送 |
 
 **核心思想**：Gateway 只是通道，业务逻辑走 HTTP，职责分离，架构清晰。
+
+## 心跳保活机制
+
+WebSocket 连接不是永久的。网络波动、NAT 超时、代理服务器都可能导致连接静默断开。必须有心跳机制来检测和恢复连接。
+
+### 前端心跳
+
+```typescript
+const HEARTBEAT_INTERVAL = 30000 // 30秒
+const HEARTBEAT_TIMEOUT = 10000  // 10秒无响应视为断开
+
+let heartbeatTimer: ReturnType<typeof setInterval> | null = null
+let heartbeatTimeoutTimer: ReturnType<typeof setTimeout> | null = null
+
+function startHeartbeat() {
+  heartbeatTimer = setInterval(() => {
+    if (ws.value?.readyState === WebSocket.OPEN) {
+      ws.value.send(JSON.stringify({ type: 'ping' }))
+
+      // 设置超时检测
+      heartbeatTimeoutTimer = setTimeout(() => {
+        console.warn('[WebSocket] 心跳超时，准备重连')
+        ws.value?.close()
+        reconnect()
+      }, HEARTBEAT_TIMEOUT)
+    }
+  }, HEARTBEAT_INTERVAL)
+}
+
+// 收到 pong 时清除超时计时器
+function handlePong() {
+  if (heartbeatTimeoutTimer) {
+    clearTimeout(heartbeatTimeoutTimer)
+    heartbeatTimeoutTimer = null
+  }
+}
+```
+
+### 后端心跳响应
+
+GatewayWorker 内置了心跳检测，但我们也在 Events 里处理前端发来的 ping：
+
+```php
+public static function onMessage($client_id, $message)
+{
+    $data = json_decode($message, true);
+    if ($data['type'] === 'ping') {
+        Gateway::sendToClient($client_id, json_encode(['type' => 'pong']));
+    }
+}
+```
+
+### GatewayWorker 配置
+
+```php
+// config/plugin/webman/gateway/process.php
+return [
+    'gateway' => [
+        'handler' => Gateway::class,
+        'listen' => 'websocket://0.0.0.0:7272',
+        'context' => [],
+        'constructor' => ['0.0.0.0', 7272, [
+            'pingInterval' => 55,      // 55秒检测一次
+            'pingNotResponseLimit' => 1, // 1次无响应就断开
+            'pingData' => '',           // 服务端主动 ping 的数据
+        ]],
+    ],
+];
+```
+
+为什么是 55 秒？因为很多 Nginx 反向代理的默认超时是 60 秒，55 秒发一次心跳刚好在超时之前。
+
+## 断线重连策略
+
+网络不稳定时，WebSocket 会频繁断开。重连策略需要考虑：
+
+1. 不能立即重连（可能是服务器宕机，立即重连只会加重负担）
+2. 不能无限重连（避免资源浪费）
+3. 重连间隔要递增（指数退避）
+
+```typescript
+const MAX_RECONNECT_ATTEMPTS = 10
+const BASE_RECONNECT_DELAY = 1000 // 1秒
+
+let reconnectAttempts = 0
+let reconnectTimer: ReturnType<typeof setTimeout> | null = null
+
+function reconnect() {
+  if (reconnectAttempts >= MAX_RECONNECT_ATTEMPTS) {
+    console.error('[WebSocket] 重连次数已达上限')
+    ElNotification.error({ message: '实时连接已断开，请刷新页面' })
+    return
+  }
+
+  // 指数退避 + 随机抖动
+  const delay = Math.min(
+    BASE_RECONNECT_DELAY * Math.pow(2, reconnectAttempts) + Math.random() * 1000,
+    30000 // 最大 30 秒
+  )
+
+  console.log(`[WebSocket] ${delay}ms 后第 ${reconnectAttempts + 1} 次重连`)
+
+  reconnectTimer = setTimeout(() => {
+    reconnectAttempts++
+    connect()
+  }, delay)
+}
+
+// 连接成功后重置计数器
+function onConnected() {
+  reconnectAttempts = 0
+  isConnected.value = true
+  console.log('[WebSocket] 连接成功')
+}
+```
+
+随机抖动（jitter）很重要。如果服务器重启，所有客户端同时重连会造成"惊群效应"，加上随机延迟可以分散重连请求。
+
+## 通知系统集成
+
+WebSocket 最大的应用场景是实时通知。我设计了一个 `NotificationService` 来统一管理通知的发送：
+
+```php
+class NotificationService
+{
+    const TYPE_INFO = 'info';
+    const TYPE_SUCCESS = 'success';
+    const TYPE_WARNING = 'warning';
+    const TYPE_ERROR = 'error';
+
+    /**
+     * 发送紧急通知（写库 + WebSocket 推送 + 可选系统通知）
+     */
+    public static function sendUrgent(
+        int $userId,
+        string $title,
+        string $content,
+        array $extra = []
+    ): void {
+        // 1. 写入通知表（持久化）
+        $notification = (new NotificationDep())->add([
+            'user_id' => $userId,
+            'title' => $title,
+            'content' => $content,
+            'level' => 'urgent',
+            'notification_type' => $extra['type'] ?? self::TYPE_INFO,
+            'link' => $extra['link'] ?? '',
+            'is_read' => CommonEnum::NO,
+        ]);
+
+        // 2. WebSocket 实时推送
+        try {
+            Gateway::$registerAddress = '127.0.0.1:1236';
+            Gateway::sendToUid($userId, json_encode([
+                'type' => 'notification',
+                'data' => [
+                    'id' => $notification->id,
+                    'title' => $title,
+                    'content' => $content,
+                    'level' => 'urgent',
+                    'notification_type' => $extra['type'] ?? self::TYPE_INFO,
+                    'link' => $extra['link'] ?? '',
+                    'created_at' => date('Y-m-d H:i:s'),
+                ],
+            ]));
+        } catch (\Throwable $e) {
+            // WebSocket 推送失败不影响通知写入
+            Log::warning("[Notification] WebSocket 推送失败: {$e->getMessage()}");
+        }
+    }
+
+    /**
+     * 发送普通通知（只写库，不推送）
+     */
+    public static function send(int $userId, string $title, string $content, array $extra = []): void
+    {
+        (new NotificationDep())->add([
+            'user_id' => $userId,
+            'title' => $title,
+            'content' => $content,
+            'level' => 'normal',
+            'notification_type' => $extra['type'] ?? self::TYPE_INFO,
+            'link' => $extra['link'] ?? '',
+            'is_read' => CommonEnum::NO,
+        ]);
+    }
+}
+```
+
+关键设计：WebSocket 推送失败不能影响通知写入。用户下次打开页面时，可以通过 HTTP 接口拉取未读通知。WebSocket 只是"锦上添花"的实时推送，不是通知的唯一通道。
+
+## 安全考虑
+
+### 认证
+
+WebSocket 连接本身不携带 Token。我的方案是：连接建立后，通过 HTTP 接口绑定用户身份。
+
+```
+WebSocket 连接 → 获得 client_id → HTTP POST /bind (带 Token) → 服务端验证 Token → 绑定 uid
+```
+
+为什么不在 WebSocket 握手时验证？因为 GatewayWorker 的 Events 运行在独立进程，不方便访问业务层的 Token 验证逻辑。通过 HTTP 接口绑定，可以复用已有的中间件链（CheckToken → CheckPermission）。
+
+### 消息校验
+
+推送消息时要校验目标用户是否有权限接收：
+
+```php
+public function pushToUser($request): array
+{
+    $param = $this->validate($request, WebSocketValidate::pushToUser());
+
+    // 只允许推送给自己或下级用户
+    $currentUserId = $request->userId;
+    $targetUserId = $param['uid'];
+
+    if ($currentUserId !== $targetUserId) {
+        $hasPermission = $this->dep(UsersDep::class)
+            ->isSubordinate($currentUserId, $targetUserId);
+        self::throwUnless($hasPermission, '无权向该用户推送消息');
+    }
+
+    Gateway::sendToUid($targetUserId, json_encode([
+        'type' => $param['type'] ?? 'notification',
+        'data' => $param['data'] ?? [],
+    ]));
+
+    return self::success(['sent' => true]);
+}
+```
+
+## Nginx 反向代理配置
+
+生产环境通常有 Nginx 在前面，需要正确配置 WebSocket 代理：
+
+```nginx
+# WebSocket 代理
+location /ws {
+    proxy_pass http://127.0.0.1:7272;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "Upgrade";
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+    # 超时设置要比心跳间隔长
+    proxy_read_timeout 120s;
+    proxy_send_timeout 120s;
+}
+```
+
+`proxy_read_timeout` 必须大于心跳间隔，否则 Nginx 会在心跳之前就断开连接。
+
+## 总结
+
+| 组件 | 职责 |
+|------|------|
+| Events.php | 只发 client_id，不处理业务 |
+| WebSocketModule | 绑定、推送等业务逻辑 |
+| useWebSocket | 连接管理、心跳、重连 |
+| onWsMessage | 订阅函数，组件内按需调用 |
+| NotificationService | 写库 + WebSocket 推送 |
+| Nginx | 反向代理 + 超时控制 |
+
+WebSocket 实时通信看起来简单，但要做到生产可用，心跳保活、断线重连、安全认证、Nginx 配置每一个环节都不能少。核心思想始终是：Gateway 只是通道，业务逻辑走 HTTP，职责分离，架构清晰。

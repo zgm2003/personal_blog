@@ -15,9 +15,32 @@ export const getStaticPaths = (async ({ paginate }) => {
 const { page } = Astro.props;
 
 const len = page.data.length;
+const showFeaturedProject = page.currentPage === 1;
 ---
 
 <MainGridLayout>
+    {showFeaturedProject && (
+        <section class="card-base onload-animation mb-4 overflow-hidden rounded-[var(--radius-large)] p-5 md:p-6">
+            <div class="mb-4 flex flex-wrap items-center gap-2">
+                <span class="rounded-full bg-[var(--primary)] px-3 py-1 text-xs font-bold text-white dark:text-black/70">
+                    公司项目
+                </span>
+                <span class="text-xs font-medium text-neutral-400">React · Electron · TypeScript · Ant Design</span>
+            </div>
+            <h2 class="mb-3 text-2xl font-black tracking-tight text-neutral-900 transition dark:text-neutral-50">
+                SaaS 商家端 Web / Desktop 一体化前端
+            </h2>
+            <p class="mb-5 max-w-3xl text-sm leading-7 text-neutral-600 transition dark:text-neutral-300 md:text-base">
+                从 0 搭建公司商家端前端工程，覆盖 Web 独立运行与 Electron Desktop 打包链路；重点处理登录恢复、门店/总部工作区、权限菜单、统一请求和 CRUD 基础设施，并在 Figma Make 生成代码质量不稳定的约束下完成工程化收口。
+            </p>
+            <div class="flex flex-wrap gap-2 text-xs font-semibold text-neutral-500 dark:text-neutral-400">
+                <span class="rounded-lg bg-[var(--btn-regular-bg)] px-3 py-1.5">运行时边界</span>
+                <span class="rounded-lg bg-[var(--btn-regular-bg)] px-3 py-1.5">权限菜单</span>
+                <span class="rounded-lg bg-[var(--btn-regular-bg)] px-3 py-1.5">状态恢复</span>
+                <span class="rounded-lg bg-[var(--btn-regular-bg)] px-3 py-1.5">CRUD 基础设施</span>
+            </div>
+        </section>
+    )}
     <PostPage page={page}></PostPage>
-    <Pagination class="mx-auto onload-animation" page={page} style={`animation-delay: calc(var(--content-delay) + ${(len)*50}ms)`}></Pagination>
+    <Pagination class="mx-auto onload-animation" page={page} style={`animation-delay: calc(var(--content-delay) + ${(len + (showFeaturedProject ? 1 : 0))*50}ms)`}></Pagination>
 </MainGridLayout>

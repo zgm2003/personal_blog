@@ -62,12 +62,31 @@
 
 **时间**：2025.10.27 - 至今
 
-- 负责公司前端业务开发与日常需求维护，参与页面实现、交互联调、接口对接和需求迭代。
-- 公司项目内容后续可按真实模块继续补充；当前简历不虚构未确认的业务成果。
+- 从 0 搭建公司 SaaS 商家端前端工程，覆盖 Web 独立运行与 Electron Desktop 打包运行两条链路。
+- 负责登录、租户/门店选择、总部/门店工作区切换、权限菜单、会话恢复、统一请求和 CRUD 基础设施等核心工程能力。
+- 在 Figma Make 生成代码质量不稳定、UI 基础组件边界不清的约束下，逐步收口页面结构、组件边界和交互规范，避免设计稿代码直接污染业务层。
 
 ---
 
 ## 项目经历
+
+### SaaS 商家端 Web / Desktop 一体化前端
+
+**角色**：公司项目 / 前端架构与核心开发 / 从 0 搭建  
+**技术栈**：React 19、TypeScript、Vite、Electron、Ant Design、TanStack React Query、Zustand、React Router、Axios、Zod、Tailwind CSS、Electron Builder。
+
+#### 项目概述
+
+该项目是面向药店/商家的 SaaS 管理端，既支持浏览器 Web 运行，也支持 Electron 桌面端本地运行和打包发布。我负责从工程初始化到核心链路落地：运行时识别、接口基址配置、登录恢复、门店/总部工作区、权限菜单、统一请求、状态管理和通用 CRUD 页面能力。
+
+#### 核心工作
+
+- 搭建 Web / Desktop 双运行链路：Web 端使用 Vite 独立构建，桌面端通过 Electron 承载本地运行、后端 ready bridge、窗口能力和安装包构建。
+- 设计运行时初始化与接口客户端配置，区分 Web、Desktop、本地后端、业务 API 等不同基础地址，避免页面代码到处判断运行环境。
+- 落地登录、Token 恢复、门店选择/申请、总部/门店工作区切换、权限菜单和动态路由入口，让用户会话和业务工作区状态可恢复、可切换。
+- 封装 Zustand session/users 状态、Axios 请求客户端、统一错误处理、权限快照和 i18n 文案边界，减少页面层重复状态和重复判断。
+- 在 Figma Make 生成代码质量不稳定的现实约束下，把页面代码逐步收口到 Ant Design 与 `components/ui` 基础组件，沉淀 Dialog、Search、Table、Column Settings、CRUD Hook 等可复用能力。
+- 坚持强契约开发：前端不靠猜字段、空兜底和静默 catch 掩盖接口问题，优先让协议错误暴露出来，再按真实契约修正。
 
 ### 智澜·TS 企业级 AI Admin 系统
 

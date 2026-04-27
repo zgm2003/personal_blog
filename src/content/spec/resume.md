@@ -1,116 +1,153 @@
-# 左光明 - Agent 工程师 / 全栈开发
+# 左光明 - AI Agent / Web 全栈工程师
+
+> 目标不是“会一点前后端”，而是能把 AI、权限、支付、实时通信、异步任务和部署链路收束成一个可运行、可维护、可扩展的企业级系统。
 
 ## 基本信息
 
 - **姓名**：左光明
-- **年龄**：22岁（2003.04）
-- **学历**：本科 · 武汉文理学院 · 计算机科学与技术（2026届）
+- **学历**：本科 · 武汉文理学院 · 计算机科学与技术 · 2026届
 - **电话**：15671628271
 - **邮箱**：2093146753@qq.com
-- **现居**：武汉
-- **期望城市**：武汉 / 厦门 / 深圳
-- **期望薪资**：8-10K
-
-## 在线作品
-
-- **技术博客**：[blog.zgm2003.cn](https://blog.zgm2003.cn)
-- **Gitee**：[gitee.com/zgm2003](https://gitee.com/zgm2003)
+- **方向**：AI Agent 工程师 / Web 全栈工程师 / 企业级后台系统开发
+- **地点**：武汉 / 全国 / 远程均可
+- **期望薪资**：8K 起
+- **在线系统**：[zgm2003.cn](https://zgm2003.cn)
+- **技术社区**：[Linux.do 三级用户](https://linux.do/u/zgm2003/summary)
 
 ---
 
-## 专业技能
+## 个人定位
 
-**AI 工程化**
-- 具备 AI Agent 系统设计与落地能力，独立完成智能体管理、模型编排、Prompt 工程全链路
-- 熟悉大模型 API 集成（OpenAI / 国产模型），掌握反向代理、API Key 号池管理、并发限流等基础设施搭建
-- 掌握 SSE 流式输出、流式中断、异步队列驱动的 AI 任务编排
-- 具备 AI 调用链路追踪与成本监控能力（ai_runs / ai_run_steps 全链路记录）
-- 熟练使用 AI 辅助开发工具（Cursor / Kiro），能够高效利用 AI 提升开发效率
+我不是按“前端、后端、某一种语言”来定义自己的开发者。我更关注的是：**一个系统的边界是否清楚、数据流是否可信、异步任务是否可恢复、权限模型是否可演进、AI Agent 是否能被观测和治理、部署后是否真的能稳定跑起来**。
 
-**后端开发**
-- 熟练掌握 PHP 开发，熟悉 Webman 高性能框架，理解常驻内存机制与性能优化
-- 熟悉 Laravel 框架，掌握 Eloquent ORM、中间件、队列等核心特性
-- 熟练使用 MySQL，掌握索引优化、慢查询分析、N+1 问题解决方案
-- 熟练使用 Redis，掌握缓存策略设计、分布式锁、消息队列（Redis Queue）
-
-**前端开发**
-- 熟练掌握 Vue3 + TypeScript + Composition API，具备组件封装和 Hooks 抽象能力
-- 熟悉 Element Plus 组件库，能够进行二次封装和定制开发
-- 掌握 Axios 封装、SSE 流式请求、Token 无感刷新等前端工程化实践
-- 了解 Vite 构建工具，熟悉前端性能优化
-
-**其他技能**
-- 熟悉 Docker 容器化部署，能够编写 Dockerfile 和 docker-compose 配置
-- 了解 Nginx 配置，掌握反向代理、负载均衡、SSE 缓冲控制
-- 具备 Python 脚本开发能力，能够编写自动化工具
-- 熟悉 Chrome 扩展开发（Manifest V3），能够开发数据采集插件
-- 熟悉 Git 版本控制，掌握分支管理和协作开发流程
+目前我最核心的证明，是独立设计并上线了一套企业级 AI Admin 系统：前端、后端、数据库、权限、Agent、SSE、WebSocket、支付、队列、桌面端更新和线上部署都由我自己完成。
 
 ---
 
-## 实习经历
+## 技术能力
 
-### 武汉小药药医药有限公司 · 前端实习生
+### AI Agent / LLM 工程化
 
-**时间**：2025.09 - 至今
+- 能把大模型能力落成可管理的工程系统，而不是只停留在“调 API / 写 Prompt”。
+- 设计过 Agent、Model、Tool、Prompt、Conversation、Message、Run、Run Step 等运行模型。
+- 熟悉 SSE 流式对话、运行取消、超时治理、历史消息拼装、步骤审计和错误暴露。
+- 关注 Tool Calling 的安全边界：内部工具、HTTPS 白名单工具、只读 SQL 工具、SSRF 防护、SQL 写操作拦截、结果截断。
+- 理解 RAG 的检索、召回、重排、上下文拼装链路；当前项目已预留 RAG 模式和 Step 类型，后续可继续扩展。
 
-- 参与公司内部管理系统的前端开发与维护，基于 Vue3 + TypeScript + Element Plus 技术栈
-- 负责业务模块的需求开发、Bug 修复和性能优化
-- 参与前端组件库的二次封装，提升团队开发效率
-- 在实际业务中积累了企业级项目的协作开发经验和代码规范意识
+### 前端 / 客户端工程
+
+- Vue 3.5、TypeScript 5.9、Vite 8、Element Plus、Pinia、Vue Router、Vue I18n。
+- 熟悉后台前端工程化：统一请求封装、ApiEnvelope 解包、401 刷新队列、动态路由、按钮权限、SSE 严格解析、WebSocket 单例连接。
+- 能拆分前端基础设施边界：HTTP、Auth Session、Stream、Realtime、Router、Tauri Runtime、Table / CRUD composable。
+- 使用 Tauri 2 封装线上 Admin，处理窗口能力、版本检测、更新清单、NSIS 打包和 CSP 安全策略。
+
+### 后端 / 系统架构
+
+- PHP 8.1+、Webman / Workerman、Eloquent、MySQL 8.4、Redis、Redis Queue、GatewayWorker、Crontab、PHPUnit。
+- 坚持 Controller -> Module -> Dep -> Model 分层：Controller 只转发，Module 只编排，Dep 负责数据访问，Model 只做表映射。
+- 熟悉认证权限：Access / Refresh Token、Token Hash + Pepper、Redis Session、单端登录、平台/设备/IP 绑定、RBAC 菜单/路由/按钮权限。
+- 熟悉异步与后台任务：Redis Queue、定时任务、AI 超时检测、通知调度、支付关单/同步/履约/对账任务。
+
+### 部署 / 交付
+
+- 独立完成域名、HTTPS、Nginx 反代、Webman 多端口服务、MySQL、Redis、COS 静态资源与更新清单配置。
+- 能区分 API、SSE、WebSocket 不同服务形态，并按运行时特性做端口与反代隔离。
+- 关注契约测试和工程约束，不靠前端兜底掩盖后端错误。
+
+---
+
+## 工作经历
+
+### 小药药医药科技有限公司 · 前端开发
+
+**时间**：2025.10.27 - 至今
+
+- 负责公司前端业务开发与日常需求维护，参与页面实现、交互联调、接口对接和需求迭代。
+- 公司项目内容后续可按真实模块继续补充；当前简历不虚构未确认的业务成果。
 
 ---
 
 ## 项目经历
 
-### 智澜管理系统（全栈独立开发）
+### 智澜·TS 企业级 AI Admin 系统
 
-**项目周期**：2025.06 - 至今
-**技术栈**：Webman + Vue3 + TypeScript + MySQL + Redis
-**项目地址**：[Gitee](https://gitee.com/zgm2003) | [博客](https://blog.zgm2003.cn)
+**角色**：个人项目 / 独立设计与开发 / 已上线  
+**在线地址**：[https://zgm2003.cn](https://zgm2003.cn)  
+**技术栈**：Vue 3.5、TypeScript、Vite 8、Element Plus、Pinia、Vue Router、Vue I18n、Tauri 2、PHP 8.1+、Webman / Workerman、Eloquent、MySQL 8.4、Redis、Redis Queue、GatewayWorker、NeuronAI、Yansongda Pay、腾讯云 COS / TTS、阿里云 AIGC / TTS。
 
-**项目简介**：
-一套企业级后台管理系统，包含用户权限管理、AI 智能对话、电商 AI 口播词生成、数据可视化等模块。采用前后端分离架构，后端基于 Webman 高性能框架，前端使用 Vue3 + TypeScript 构建。
+#### 项目概述
 
-**核心职责与成果**：
+智澜·TS 是一套面向企业后台管理与 AI 能力集成的全栈 Admin 系统。它不是单纯的 CRUD Demo，而是一个包含 **认证权限、动态菜单、AI Agent、流式对话、IM 聊天、支付钱包、订单履约、上传存储、通知任务、导出任务、系统日志、Tauri 桌面端更新** 的完整工程。
 
-**1. 架构设计与规范制定**
-- 设计并实现 CMVD 分层架构（Controller → Module → Validate → Dep），制定《项目开发规范白皮书》
-- Controller 层仅负责路由转发，Module 层处理业务逻辑，Dep 层封装数据访问，实现关注点分离
-- 封装 BaseDep 基类，提供 `getMap`、`getMapActive` 等批量查询方法，统一解决 N+1 查询问题
+这个项目真正体现的是我的工程能力：我能把复杂系统拆成可维护边界，把 AI 能力接入业务系统，把异步任务、实时通信、权限模型和部署链路做成闭环。
 
-**2. AI 智能体系统**
-- 独立设计并实现完整的 AI Agent 管理系统，支持多智能体、多模型、多场景（chat / goods_script）
-- 搭建 AI 基础设施：反向代理解决网络问题、Key 号池管理解决并发限流、连接池优化长连接
-- 基于 SSE 实现流式对话，首字响应 < 500ms，支持用户随时中断生成
-- 设计 ai_runs + ai_run_steps 全链路追踪，实现 AI 调用的成本监控和效果评估
-- 使用 Redis Queue 异步处理标题生成等非关键任务，接口响应时间从 3s 优化至 200ms
+#### 1. AI Agent 运行系统
 
-**3. 电商 AI 口播词生成模块**
-- 设计选品 → OCR → AI 生成 → TTS 的全链路自动化流程
-- 实现 7 状态线性状态机，保证并发场景下的状态流转安全
-- 所有外部 API 调用（OCR / AI / TTS）通过 Redis 异步队列处理，用户操作即时响应
-- 开发 Chrome 扩展（Manifest V3）实现多平台商品数据采集
-- 设计全屏工作台 UI，四列布局覆盖从信息录入到口播词输出的完整工作流
-- 单品处理时间从人工 30-60 分钟降至系统 20-40 秒
+- 设计 Agent / Model / Tool / Prompt / Conversation / Message / Run / Step 数据模型，让一次 AI 调用从“黑盒请求”变成可追踪、可审计、可取消、可超时治理的运行过程。
+- 支持多模型 Provider 和 OpenAI-compatible 接口，面向不同 Agent 绑定模型、系统提示词和工具能力。
+- 后端通过独立 SSE 服务输出 `conversation`、`run`、`content`、`tool_call`、`tool_result`、`done`、`error`、`canceled` 等事件；前端按事件驱动更新 UI，而不是拼接假状态。
+- 前端对 SSE 做严格解析：malformed payload、缺失终止事件、运行失败都会直接暴露，避免“看起来完成了，实际状态坏了”的假成功。
 
-**4. 前端工程化实践**
-- 封装 `useTable` Hook，统一处理列表页的加载、分页、搜索、删除等逻辑，减少 60% 重复代码
-- 封装 `Search`、`AppTable` 等通用组件，支持配置化开发
-- 实现 Axios Token 无感刷新机制，请求队列 + 自动重试，用户无感知
-- 封装 `streamPost` 函数处理 SSE 流式请求，支持中断和错误处理
+#### 2. Agent Tool 安全治理
 
-**5. 其他模块**
-- 用户权限管理：RBAC 权限模型，支持菜单权限、按钮权限、数据权限
-- 系统配置：字典管理、参数配置、操作日志
-- 国际化：中英文双语支持，前后端统一 i18n 方案
+- 实现 Internal Tool、HTTPS 白名单 Tool、只读 SQL Tool 三类工具执行器。
+- HTTPS 工具执行前做域名/IP 检查，拒绝 IP 直连和内网地址访问，降低 SSRF 风险。
+- SQL 工具限制只允许 SELECT，拒绝 INSERT / UPDATE / DELETE / DROP 等写关键字，并自动追加 LIMIT，避免 Agent 直接变成数据库破坏入口。
+- 工具调用链路保留执行记录和结果截断，兼顾可观测性与安全边界。
+
+#### 3. 企业级后台架构
+
+- 后端坚持 Controller -> Module -> Dep -> Model 分层，避免接口、业务、查询、表映射混在一起。
+- Controller 只做路由入口，Module 负责编排验证、事务和业务流程，Dep 负责 Eloquent 查询与缓存读写，Model 只保留表映射和 casts。
+- Service 承载跨模块能力，Lib 封装第三方 SDK，保证 AI、支付、上传、TTS 等外部能力不会污染业务层。
+- 当前后端规模：**43 个 Controller、48 个 Module、46 个 Dep、47 个 Model、21 个 Service、10 个 Redis Queue 消费者**。
+
+#### 4. 认证、权限与动态路由
+
+- 实现 Access / Refresh Token 机制，Token 明文不落库，仅存 Hash；结合 Pepper、Redis Session、过期校验和降级 DB 查询。
+- 支持单端登录指针、平台/设备/IP 绑定策略，降低 Token 被复用后的风险。
+- RBAC 权限按平台输出菜单树、动态路由和按钮权限码，前端通过 `userStore.can(code)` 控制按钮级权限。
+- 动态路由只接收后端 `view_key`，前端通过 `import.meta.glob` 精确解析视图组件，不做路径猜测和历史字段兜底。
+
+#### 5. 前端基础设施与强契约
+
+- 封装 Axios 客户端，统一处理 ApiEnvelope 解包、错误提示、认证 Header 和 401 刷新队列。
+- 拆分 `useTable` 与 `useCrudTable`：前者只管列表与分页，后者才处理搜索、删除、批量删除、状态切换等 CRUD 编排。
+- WebSocket 客户端封装为单例连接，支持绑定用户、自动重连、ping/pong 和消息总线分发。
+- 对前后端契约采取“后端错就暴露”的策略，不用空数组、空对象、静默 catch 去掩盖接口问题。
+
+#### 6. 支付、钱包与订单闭环
+
+- 接入 Yansongda Pay，完成微信/支付宝支付相关能力封装。
+- 实现充值订单、支付流水、钱包入账、订单履约、支付回调、对账任务和定时补偿。
+- 使用 RedisLock 控制重复提交和回调并发，避免支付链路重复入账或重复履约。
+- 将履约、关单、同步、对账放入后台任务，减少主请求链路阻塞。
+
+#### 7. 商品 AI 工作台
+
+- 围绕电商商品构建 OCR -> AI 口播生成 -> TTS 合成 -> SRT 下载的异步流水线。
+- 支持商品采集、图片选择、OCR 识别、Agent 生成卖点/口播词、语音合成和字幕文件下载。
+- 使用 Redis Queue 承载 OCR、AI、TTS 等耗时任务，让用户操作链路保持即时响应。
+
+#### 8. 桌面端与线上部署
+
+- 使用 Tauri 2 封装线上 Admin，配置窗口能力、进程退出、版本检测、NSIS 打包、COS 更新清单和 CSP。
+- 独立完成服务器部署、域名解析、HTTPS、Nginx 反代、MySQL / Redis 配置和前端发布。
+- 线上服务拆分为 API `8787`、SSE `8788`、WebSocket `7272`，按协议特性分别反代。
 
 ---
 
-## 自我评价
+## 教育经历
 
-- 在我的认知里没有"语言"的概念，只有"合不合适"的概念。PHP、TypeScript、Python、JavaScript，选择最适合场景的技术才是正确的做法
-- 具备 AI 工程化落地能力，不只是会写 Prompt，而是能搭建从基础设施到业务应用的完整 AI 系统
-- 具备全栈开发能力，能够独立完成从需求分析到上线部署的完整开发流程
-- 注重代码质量和架构设计，善于总结和沉淀开发规范，坚持用技术博客记录实践心得
-- 善于利用 AI 工具提升效率，把 AI 当作开发伙伴而非替代品，专注于架构设计和工程决策
+### 武汉文理学院 · 计算机科学与技术 · 本科
+
+**毕业时间**：2026.06
+
+---
+
+## 我的优势
+
+- **不是只会写页面**：能从页面走到接口、数据库、队列、权限、Agent、部署和桌面端。
+- **不是只会调模型**：能把 LLM 接成 Agent 运行系统，考虑工具安全、运行审计、超时、取消和前端流式体验。
+- **不是只会堆功能**：更关注模块边界、前后端契约、数据一致性和系统长期维护成本。
+- **不被语言栈限制**：PHP、TypeScript、JavaScript、Python 都只是工具，真正重要的是架构、边界和交付。

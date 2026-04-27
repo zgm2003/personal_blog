@@ -1,11 +1,13 @@
 ---
-title: 从调 API 到 Agent 工程化：我的 AI 落地实践之路
+title: "从调 API 到 Agent 工程化：把 AI 能力做成可治理系统"
 published: 2026-02-20T10:00:00Z
-description: 从最初的 API 调用到反向代理、号池管理、Agent 编排，分享 AI 工程化落地的完整实践
-tags: [AI, 架构, 后端]
-category: 后端技术
 draft: false
+tags: [置顶, AI, Agent, 架构, 后端]
+description: "复盘从直连模型 API 到反向代理、号池管理、Agent 编排、运行审计和失败治理的 AI 工程化路径。"
+category: AI 技术
 ---
+
+> **本文价值**：这篇文章保留的是 AI 工程化主线：网络、Key、并发、失败、成本、Agent 编排和运行治理。
 
 # 写在前面
 

@@ -1,11 +1,13 @@
 ---
-title: 前端 Bundle 优化实战：从 5MB 到 2MB 的瘦身之旅
+title: "前端 Bundle 优化：从 5MB 到 2MB 的工程瘦身"
 published: 2026-01-27T12:00:00Z
-description: 系统性优化前端打包体积，涵盖图标按需加载、可选依赖、SSE 渲染节流、Prometheus 监控埋点
-tags: [前端, 性能优化, Vite, Vue3]
-category: 前端技术
 draft: false
+tags: [置顶, 前端, 性能优化, Vite, Vue3]
+description: "从图标按需加载、重依赖拆分、SSE 渲染节流到监控埋点，复盘一次后台前端打包体积优化。"
+category: 前端技术
 ---
+
+> **本文价值**：这篇文章保留的是前端工程结果：不是泛泛谈优化，而是从包体结构拆出问题并落到可验证的瘦身。
 
 # 背景
 

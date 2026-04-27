@@ -17,7 +17,7 @@ export function getPostUrlBySlug(slug: string): string {
 }
 
 export function getTagUrl(tag: string): string {
-	if (!tag) return url("/archive/");
+	if (!tag) return url("/");
 	return url(`/tag/${tag.trim()}/`);
 }
 

@@ -1,11 +1,13 @@
 ---
-title: WebSocket 实时通信架构
+title: "WebSocket 实时通信架构：后台通知系统的基础设施"
 published: 2026-01-19T18:00:00Z
-description: 基于 Webman + GatewayWorker 搭建 WebSocket 基础设施，实现实时通知推送
-tags: [后端, WebSocket, 架构]
-category: 后端技术
 draft: false
+tags: [置顶, 后端, WebSocket, 架构, 实时通信]
+description: "基于 Webman 和 GatewayWorker 搭建实时通信基础设施，覆盖连接绑定、消息推送、重连和业务解耦。"
+category: 后端技术
 ---
+
+> **本文价值**：这篇文章保留的是实时基础设施能力：连接管理、用户绑定、消息推送和业务解耦。
 
 # 需求背景
 

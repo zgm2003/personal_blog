@@ -1,11 +1,13 @@
 ---
-title: CMVD 分层架构设计
+title: "Webman 分层架构：Controller 到 Model 的边界治理"
 published: 2026-01-13T10:00:00Z
-description: 基于 Webman 高性能框架的分层架构设计，Controller → Module → Validate → Dep
-tags: [后端, 架构, PHP]
-category: 后端技术
 draft: false
+tags: [置顶, 后端, 架构, PHP, Webman]
+description: "以 Webman 后台系统为例，说明 Controller、Module、Dep、Model 如何分层，避免业务、查询和表映射混在一起。"
+category: 后端技术
 ---
+
+> **本文价值**：这篇文章保留的是后端工程品味：分层、边界、查询收口和长期维护成本控制。
 
 # 为什么要分层？
 

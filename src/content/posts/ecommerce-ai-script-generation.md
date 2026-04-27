@@ -1,11 +1,13 @@
 ---
-title: 电商 AI 口播词生成系统：从选品到成片的全链路设计
+title: "电商 AI 口播生成系统：OCR、Agent、TTS 与队列闭环"
 published: 2026-02-18T10:00:00Z
-description: 基于 Redis 异步队列 + 智能体编排的电商口播词自动生成系统，覆盖 OCR 识别、AI 生成、TTS 语音合成全流程
-tags: [AI, 架构设计, Redis, 后端]
-category: 后端技术
 draft: false
+tags: [置顶, AI, Agent, Redis, 异步, 后端]
+description: "基于 OCR、Redis 异步队列、Agent 编排和 TTS 合成的电商口播自动生成系统，展示 AI 落地到业务流水线的能力。"
+category: AI 技术
 ---
+
+> **本文价值**：这篇文章保留的是业务落地能力：从商品信息到 OCR、Agent 生成、TTS 合成和异步队列闭环。
 
 # 业务背景
 

@@ -9,8 +9,8 @@ import { LinkPreset } from "./types/config";
 
 // ========== 网站基础配置 ==========
 export const siteConfig: SiteConfig = {
-	title: "智澜博客",           // 网站标题
-	subtitle: "技术博客与项目文档",  // 副标题
+	title: "左光明",           // 网站标题
+	subtitle: "AI Agent / Web 全栈工程师",  // 副标题
 	lang: "zh_CN",              // 语言代码：zh_CN 中文, en 英文, ja 日文
 	themeColor: {
 		hue: 250,               // 主题色相值 0-360：红色 0, 青色 200, 蓝紫 250, 粉色 345
@@ -43,22 +43,15 @@ export const siteConfig: SiteConfig = {
 // ========== 导航栏配置 ==========
 export const navBarConfig: NavBarConfig = {
 	links: [
-		LinkPreset.Home,        // 首页（技术博客）
-		{
-			name: "项目",
-			url: "/projects/",
-			external: false,
-		},
-		LinkPreset.Archive,     // 归档
-		LinkPreset.About,       // 关于
+		LinkPreset.Home,        // 主页
 		{
 			name: "简历",
 			url: "/resume/",
 			external: false,
 		},
 		{
-			name: "Gitee",
-			url: "https://gitee.com/zgm2003",
+			name: "GitHub",
+			url: "https://github.com/zgm2003",
 			external: true,
 		},
 	],
@@ -68,13 +61,13 @@ export const navBarConfig: NavBarConfig = {
 export const profileConfig: ProfileConfig = {
 	avatar: "assets/images/demo-avatar.png",  // 头像路径，相对于 /src 目录；以 '/' 开头则相对于 /public 目录
 	name: "左光明",
-	bio: "全栈开发者",
+	bio: "AI Agent / Web 全栈工程师",
 	links: [
 		{
-			name: "Gitee",
-			icon: "fa6-brands:git-alt",  // 图标代码，访问 https://icones.js.org/ 查找
+			name: "GitHub",
+			icon: "fa6-brands:github",  // 图标代码，访问 https://icones.js.org/ 查找
 			// 如果图标集未安装，需要运行：pnpm add @iconify-json/<图标集名称>
-			url: "https://gitee.com/zgm2003",
+			url: "https://github.com/zgm2003",
 		},
 		{
 			name: "微信",

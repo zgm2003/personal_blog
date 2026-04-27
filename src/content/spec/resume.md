@@ -36,7 +36,7 @@
 
 ### 前端 / 客户端工程
 
-- Vue 3.5、TypeScript 5.9、Vite 8、Element Plus、Pinia、Vue Router、Vue I18n。
+- Vue 3.5、TypeScript、Vite、Element Plus、Pinia、Vue Router、Vue I18n、Vant、uni-app。
 - 熟悉后台前端工程化：统一请求封装、ApiEnvelope 解包、401 刷新队列、动态路由、按钮权限、SSE 严格解析、WebSocket 单例连接。
 - 能拆分前端基础设施边界：HTTP、Auth Session、Stream、Realtime、Router、Tauri Runtime、Table / CRUD composable。
 - 使用 Tauri 2 封装线上 Admin，处理窗口能力、版本检测、更新清单、NSIS 打包和 CSP 安全策略。
@@ -64,6 +64,7 @@
 
 - 从 0 搭建公司 SaaS 商家端前端工程，覆盖 Web 独立运行与 Electron Desktop 打包运行两条链路。
 - 负责登录、租户/门店选择、总部/门店工作区切换、权限菜单、会话恢复、统一请求和 CRUD 基础设施等核心工程能力。
+- 参与荷叶问诊后台、移动端 APP、问诊内核 H5 三端迭代，覆盖远程审方、视频问诊、合理用药审查、长处方/慢病规则、移动推送与跨端跳转等医疗问诊核心链路。
 - 在 Figma Make 生成代码质量不稳定、UI 基础组件边界不清的约束下，逐步收口页面结构、组件边界和交互规范，避免设计稿代码直接污染业务层。
 
 ---
@@ -87,6 +88,24 @@
 - 封装 Zustand session/users 状态、Axios 请求客户端、统一错误处理、权限快照和 i18n 文案边界，减少页面层重复状态和重复判断。
 - 在 Figma Make 生成代码质量不稳定的现实约束下，把页面代码逐步收口到 Ant Design 与 `components/ui` 基础组件，沉淀 Dialog、Search、Table、Column Settings、CRUD Hook 等可复用能力。
 - 坚持强契约开发：前端不靠猜字段、空兜底和静默 catch 掩盖接口问题，优先让协议错误暴露出来，再按真实契约修正。
+
+### 荷叶问诊医药 SaaS 三端协同系统
+
+**角色**：公司项目 / 核心前端开发  
+**技术栈**：Vue 3、TypeScript、Vite、Element Plus、Vant、uni-app、Pinia、Axios / luch-request、腾讯云 IM / TRTC、阿里云移动推送、Aegis。
+
+#### 项目概述
+
+该项目覆盖 PC 管理后台、跨端移动 APP 和问诊内核 H5。核心业务不是普通页面 CRUD，而是围绕互联网医院与药店问诊场景，把患者、医生、药师、商家、处方、审方、视频通话、移动推送和合规规则串成可用链路。
+
+#### 核心亮点
+
+- 后台端承接远程审方、药师工作台、处方记录、问诊数据、GSP 商品资料和合理用药规则配置，处理动态路由、租户 `tenant-id`、Token 刷新队列和全局错误提示。
+- 移动端基于 uni-app 支持 H5、Android、iOS、微信小程序和鸿蒙配置，接入阿里云推送、腾讯 IM / TRTC，处理处方待审、视频来电、订单通知、权限申请和跨端页面跳转。
+- 问诊内核 H5 使用 Vue 3 + Vant 承载患者问诊、医生接诊、药师审方、第三方问诊流转、商品提交、套餐购买和消息中心等移动端业务。
+- 在第三方问诊链路中梳理详情拉取、合理用药审查、药品/诊断归一化、审查弹窗拦截和后续流转，避免把医疗规则判断散落在页面事件里。
+- 排查过长处方/慢病仍提示超量的问题，定位到“慢病病情选择”和“后台慢病目录药品配置”是两层不同规则，问题根因不在前端状态，而在规则目录匹配。
+- 能在医疗问诊这种强状态、强合规、多角色、多端协同的系统里做问题定位：先追请求 payload、路由来源、推送上下文和后端配置，再判断前端是否需要改。
 
 ### 智澜·TS 企业级 AI Admin 系统
 

@@ -1,6 +1,6 @@
-# 左光明 - AI Agent / Web 全栈工程师
+# 左光明 - Python / AI Agent / Web 全栈工程师
 
-> 目标不是“会一点前后端”，而是能把 AI、权限、支付、实时通信、异步任务和部署链路收束成一个可运行、可维护、可扩展的企业级系统。
+> 求职主线：**Python AI 应用开发 / AI Agent 工程化 / 后端系统开发 / Web 全栈交付**。我想表达的不是“会很多栈”，而是能把 AI、数据处理、权限、队列、实时通信和部署链路收束成一个真实可运行的系统。
 
 ## 基本信息
 
@@ -8,7 +8,6 @@
 - **学历**：本科 · 武汉文理学院 · 计算机科学与技术 · 2026届
 - **电话**：15671628271
 - **邮箱**：2093146753@qq.com
-- **方向**：AI Agent 工程师 / Web 全栈工程师 / 企业级后台系统开发
 - **地点**：武汉 / 全国 / 远程均可
 - **期望薪资**：8K 起
 - **在线系统**：[zgm2003.cn](https://zgm2003.cn)
@@ -18,22 +17,36 @@
 
 ## 个人定位
 
-我不是按“前端、后端、某一种语言”来定义自己的开发者。我更关注的是：**一个系统的边界是否清楚、数据流是否可信、异步任务是否可恢复、权限模型是否可演进、AI Agent 是否能被观测和治理、部署后是否真的能稳定跑起来**。
+我不是只按“前端 / PHP / 某一种语言”定义自己。我的核心能力是：**把业务问题拆成清楚的数据流、任务流、权限边界和交付链路**。
 
-目前我最核心的证明，是独立设计并上线了一套企业级 AI Admin 系统：前端、后端、数据库、权限、Agent、SSE、WebSocket、支付、队列、桌面端更新和线上部署都由我自己完成。
+目前最能证明这一点的是我独立设计并上线的企业级 AI Admin 系统：前端、后端、数据库、权限、Agent、SSE、WebSocket、支付、Redis Queue、桌面端更新和线上部署都由我完成。这个项目让我更适合投递 **Python AI 应用、AI Agent 工程化、后端全栈、企业后台系统开发** 这类岗位，而不是只把自己包装成普通前端或普通 PHP 开发。
 
 ---
 
-## 技术能力
+## 核心能力
 
 ### AI Agent / LLM 工程化
 
-- 能把 LLM 能力落成可管理的工程系统：模型接入、Agent 编排、工具调用、流式输出、运行审计、超时取消和错误暴露。
-- 设计过 Agent、Model、Tool、Prompt、Conversation、Message、Run、Run Step 等运行模型，能把一次 AI 调用拆成可观测状态机。
-- 熟悉 OpenAI-compatible 接口、SSE 流式对话、历史消息拼装、工具执行记录、结果截断和失败恢复。
-- 关注 Tool Calling 安全边界：HTTPS 白名单、SSRF 防护、只读 SQL、写操作拦截、自动 LIMIT 和敏感结果控制。
-- 理解 RAG 的检索、召回、重排、上下文拼装链路，能为后续知识库和 Agent Step 扩展预留模型。
-- 开发过 AI Make 本地 UI 生成 Skill / CLI，把提示词、视觉规范、任务拆分、Agent handoff 和 Review Gate 组织成可执行工作流。
+- 能把 LLM 调用落成可管理的工程系统：模型接入、Agent 配置、Prompt 管理、工具调用、流式输出、运行审计、超时取消和错误暴露。
+- 设计过 Agent、Model、Tool、Prompt、Conversation、Message、Run、Run Step 等运行模型，把一次 AI 调用从“黑盒请求”拆成可观测状态机。
+- 熟悉 OpenAI-compatible 接口、SSE 流式对话、历史消息拼装、工具执行记录、结果截断、失败恢复和取消机制。
+- 关注 Tool Calling 安全边界：HTTPS 白名单、SSRF 防护、只读 SQL、写操作拦截、自动 LIMIT、敏感结果控制。
+- 理解 RAG、工具调用、工作流、HITL、Guardrails、Tracing 和 Evals 在生产 Agent 系统中的位置，不把 Agent 简化成一句 Prompt。
+
+### Python / 自动化 / 数据处理
+
+- 能用 Python 做批量数据处理、接口调试、文件/素材处理、运营数据清洗和 AI 工具链辅助，不把重复脏活留给人工。
+- 理解 Python 在 AI 应用里的真实价值：不是换个语言写 CRUD，而是承担采集、清洗、任务编排、模型调用、评估脚本和自动化流程。
+- 有电商商品数据、图片/OCR、AI 口播生成、TTS 合成这类业务流水线经验，后续可自然演进为 Python 数据处理服务或 FastAPI AI 应用服务。
+- 能把 Python 自动化与已有 Web 后台结合：前台负责操作入口，后端负责状态与权限，Python/脚本层负责重复处理和 AI 工具链。
+
+### 后端 / 数据 / 异步任务
+
+- PHP 8.1+、Laravel 8、Webman / Workerman、Eloquent、MySQL、Redis、Redis Queue、GatewayWorker、Crontab、PHPUnit。
+- 坚持 Controller -> Module -> Dep -> Model 分层：Controller 只转发，Module 只编排，Dep 负责数据访问，Model 只做表映射。
+- 熟悉认证权限：Access / Refresh Token、Sanctum、Token Hash + Pepper、Redis Session、单端登录、平台/设备/IP 绑定、RBAC 菜单/路由/按钮权限。
+- 熟悉异步与后台任务：Redis Queue、Laravel Job、定时任务、AI 超时检测、通知调度、支付关单/同步/履约/对账任务。
+- 能处理支付、钱包、上传存储、系统通知、导出任务、日志审计、实时通信等后台系统常见复杂链路。
 
 ### 前端 / 客户端工程
 
@@ -42,18 +55,9 @@
 - 能拆分前端基础设施边界：HTTP、Auth Session、Stream、Realtime、Router、Table / CRUD composable、权限快照和 i18n 文案边界。
 - 有 Electron / Tauri 桌面端经验，处理窗口能力、IPC / Bridge、Preload、版本检测、更新清单、安装包构建和 CSP 安全策略。
 
-### 后端 / 数据 / 自动化
-
-- PHP 8.1+、Laravel 8、Webman / Workerman、Eloquent、MySQL、Redis、Redis Queue、GatewayWorker、Crontab、PHPUnit。
-- 能写 Python 自动化脚本，用于批量数据处理、接口调试、素材/文件处理、运营数据清洗和 AI 工具链辅助，不把重复脏活留给人工。
-- 熟悉 Node.js / JavaScript ESM 脚本开发，能做 CLI、代码生成、任务拆分、文件扫描和本地工程工具封装。
-- 坚持 Controller -> Module -> Dep -> Model 分层：Controller 只转发，Module 只编排，Dep 负责数据访问，Model 只做表映射。
-- 熟悉认证权限：Access / Refresh Token、Sanctum、Token Hash + Pepper、Redis Session、单端登录、平台/设备/IP 绑定、RBAC 菜单/路由/按钮权限。
-- 熟悉异步与后台任务：Redis Queue、Laravel Job、定时任务、AI 超时检测、通知调度、支付关单/同步/履约/对账任务。
-
 ### 部署 / 交付
 
-- 独立完成域名、HTTPS、Nginx 反代、Webman 多端口服务、MySQL、Redis、COS 静态资源与更新清单配置。
+- 独立完成域名、HTTPS、Nginx 反代、Webman 多端口服务、MySQL、Redis、COS 静态资源与桌面端更新清单配置。
 - 能区分 API、SSE、WebSocket、桌面端本地能力和外部渠道回调的运行形态，并按协议特性做隔离。
 - 关注契约测试、接口边界和工程约束，不靠前端空数组、空对象、静默 catch 掩盖后端错误。
 
@@ -86,74 +90,59 @@
 
 ### 智澜·TS 企业级 AI Admin 系统
 
-**角色**：个人项目 / 独立设计与开发 / 已上线  
-**在线地址**：[https://zgm2003.cn](https://zgm2003.cn)  
-**技术栈**：Vue 3.5、TypeScript、Vite 8、Element Plus、Pinia、Vue Router、Vue I18n、Tauri 2、PHP 8.1+、Webman / Workerman、Eloquent、MySQL 8.4、Redis、Redis Queue、GatewayWorker、NeuronAI、Yansongda Pay、腾讯云 COS / TTS、阿里云 AIGC / TTS。
+**角色**：个人项目 / 独立设计与开发 / 已上线
+**在线地址**：[https://zgm2003.cn](https://zgm2003.cn)
+**技术栈**：Vue 3.5、TypeScript、Vite、Element Plus、Pinia、Vue Router、Vue I18n、Tauri 2、PHP 8.1+、Webman / Workerman、Eloquent、MySQL 8.4、Redis、Redis Queue、GatewayWorker、NeuronAI、Yansongda Pay、腾讯云 COS / TTS、阿里云 AIGC / TTS。
+**相关复盘**：[AI Agent 工程化](/posts/ai-agent-engineering-practice/) / [SSE 流式对话](/posts/sse-streaming-chat/) / [Webman 分层架构](/posts/webman-layered-architecture/) / [WebSocket 实时通信](/posts/websocket-realtime-architecture/)
 
 #### 项目概述
 
 智澜·TS 是一套面向企业后台管理与 AI 能力集成的全栈 Admin 系统。它不是单纯的 CRUD Demo，而是一个包含 **认证权限、动态菜单、AI Agent、流式对话、IM 聊天、支付钱包、订单履约、上传存储、通知任务、导出任务、系统日志、Tauri 桌面端更新** 的完整工程。
 
-这个项目真正体现的是我的工程能力：我能把复杂系统拆成可维护边界，把 AI 能力接入业务系统，把异步任务、实时通信、权限模型和部署链路做成闭环。
+#### 核心贡献
 
-#### 1. AI Agent 运行系统
+- **AI Agent 运行系统**：设计 Agent / Model / Tool / Prompt / Conversation / Message / Run / Step 数据模型，让一次 AI 调用从“黑盒请求”变成可追踪、可审计、可取消、可超时治理的运行过程。
+- **流式对话协议**：后端通过独立 SSE 服务输出 `conversation`、`run`、`content`、`tool_call`、`tool_result`、`done`、`error`、`canceled` 等事件；前端按事件驱动更新 UI，不拼假状态。
+- **Tool 安全治理**：实现 Internal Tool、HTTPS 白名单 Tool、只读 SQL Tool 三类工具执行器；SQL 只允许 SELECT，拒绝写操作，并自动追加 LIMIT。
+- **企业级后台分层**：后端坚持 Controller -> Module -> Dep -> Model 分层，Service 承载跨模块能力，Lib 封装第三方 SDK，避免业务、查询、表映射混在一起。
+- **认证权限体系**：实现 Access / Refresh Token、Token Hash + Pepper、Redis Session、单端登录、平台/设备/IP 绑定、RBAC 菜单/动态路由/按钮权限码。
+- **支付与订单闭环**：接入 Yansongda Pay，完成充值订单、支付流水、钱包入账、订单履约、支付回调、对账任务和定时补偿；使用 RedisLock 控制重复提交和回调并发。
+- **实时通信与异步任务**：封装 WebSocket 单例连接、GatewayWorker 推送、Redis Queue 消费者、AI 超时检测、通知调度、支付关单/同步/履约/对账任务。
+- **线上部署**：独立完成服务器部署、域名解析、HTTPS、Nginx 反代、MySQL / Redis 配置；线上服务拆分为 API `8787`、SSE `8788`、WebSocket `7272`。
 
-- 设计 Agent / Model / Tool / Prompt / Conversation / Message / Run / Step 数据模型，让一次 AI 调用从“黑盒请求”变成可追踪、可审计、可取消、可超时治理的运行过程。
-- 支持多模型 Provider 和 OpenAI-compatible 接口，面向不同 Agent 绑定模型、系统提示词和工具能力。
-- 后端通过独立 SSE 服务输出 `conversation`、`run`、`content`、`tool_call`、`tool_result`、`done`、`error`、`canceled` 等事件；前端按事件驱动更新 UI，而不是拼接假状态。
-- 前端对 SSE 做严格解析：malformed payload、缺失终止事件、运行失败都会直接暴露，避免“看起来完成了，实际状态坏了”的假成功。
+#### 可量化信息
 
-#### 2. Agent Tool 安全治理
+- 后端规模：**43 个 Controller、48 个 Module、46 个 Dep、47 个 Model、21 个 Service、10 个 Redis Queue 消费者**。
+- 运行边界：API、SSE、WebSocket、队列消费者、定时任务、Tauri 桌面端更新链路均已形成闭环。
+- 工程原则：前后端强契约，后端错就暴露，不靠前端空对象、空数组、静默 catch 掩盖协议问题。
 
-- 实现 Internal Tool、HTTPS 白名单 Tool、只读 SQL Tool 三类工具执行器。
-- HTTPS 工具执行前做域名/IP 检查，拒绝 IP 直连和内网地址访问，降低 SSRF 风险。
-- SQL 工具限制只允许 SELECT，拒绝 INSERT / UPDATE / DELETE / DROP 等写关键字，并自动追加 LIMIT，避免 Agent 直接变成数据库破坏入口。
-- 工具调用链路保留执行记录和结果截断，兼顾可观测性与安全边界。
+### 电商 AI 口播生成流水线
 
-#### 3. 企业级后台架构
+**角色**：个人项目 / AI 业务落地 / 商品 AI 工作台能力
+**技术栈**：Chrome Extension、OCR、AI Agent、TTS、Redis Queue、PHP / Webman、MySQL、COS、Python 自动化脚本。
+**相关复盘**：[电商 AI 口播生成系统](/posts/ecommerce-ai-script-generation/)
 
-- 后端坚持 Controller -> Module -> Dep -> Model 分层，避免接口、业务、查询、表映射混在一起。
-- Controller 只做路由入口，Module 负责编排验证、事务和业务流程，Dep 负责 Eloquent 查询与缓存读写，Model 只保留表映射和 casts。
-- Service 承载跨模块能力，Lib 封装第三方 SDK，保证 AI、支付、上传、TTS 等外部能力不会污染业务层。
-- 当前后端规模：**43 个 Controller、48 个 Module、46 个 Dep、47 个 Model、21 个 Service、10 个 Redis Queue 消费者**。
+#### 项目概述
 
-#### 4. 认证、权限与动态路由
+该项目围绕电商商品构建 **商品采集 -> 图片/OCR -> AI 卖点与口播生成 -> TTS 合成 -> SRT 下载** 的异步流水线。它的价值不是“做了一个 AI 按钮”，而是把内容运营中的重复劳动拆成可排队、可追踪、可重试、可审核的任务链路。
 
-- 实现 Access / Refresh Token 机制，Token 明文不落库，仅存 Hash；结合 Pepper、Redis Session、过期校验和降级 DB 查询。
-- 支持单端登录指针、平台/设备/IP 绑定策略，降低 Token 被复用后的风险。
-- RBAC 权限按平台输出菜单树、动态路由和按钮权限码，前端通过 `userStore.can(code)` 控制按钮级权限。
-- 动态路由只接收后端 `view_key`，前端通过 `import.meta.glob` 精确解析视图组件，不做路径猜测和历史字段兜底。
+#### 核心工作
 
-#### 5. 前端基础设施与强契约
-
-- 封装 Axios 客户端，统一处理 ApiEnvelope 解包、错误提示、认证 Header 和 401 刷新队列。
-- 拆分 `useTable` 与 `useCrudTable`：前者只管列表与分页，后者才处理搜索、删除、批量删除、状态切换等 CRUD 编排。
-- WebSocket 客户端封装为单例连接，支持绑定用户、自动重连、ping/pong 和消息总线分发。
-- 对前后端契约采取“后端错就暴露”的策略，不用空数组、空对象、静默 catch 去掩盖接口问题。
-
-#### 6. 支付、钱包与订单闭环
-
-- 接入 Yansongda Pay，完成微信/支付宝支付相关能力封装。
-- 实现充值订单、支付流水、钱包入账、订单履约、支付回调、对账任务和定时补偿。
-- 使用 RedisLock 控制重复提交和回调并发，避免支付链路重复入账或重复履约。
-- 将履约、关单、同步、对账放入后台任务，减少主请求链路阻塞。
-
-#### 7. 商品 AI 工作台
-
-- 围绕电商商品构建 OCR -> AI 口播生成 -> TTS 合成 -> SRT 下载的异步流水线。
-- 支持商品采集、图片选择、OCR 识别、Agent 生成卖点/口播词、语音合成和字幕文件下载。
+- 浏览器插件负责采集商品标题、价格、销量、品牌、店铺、规格、描述、评论、详情图等结构化信息。
+- 后端承接商品入库、图片选择、OCR 识别、Agent 生成卖点/口播词、TTS 合成和字幕文件下载。
 - 使用 Redis Queue 承载 OCR、AI、TTS 等耗时任务，让用户操作链路保持即时响应。
+- 为不同阶段设计状态流转，避免任务失败后只留下一个模糊的“生成失败”。
+- 用 Python 自动化脚本辅助批量数据处理、文件处理、接口调试和 AI 工具链验证，为后续拆出 Python 数据处理服务打基础。
 
-#### 8. 桌面端与线上部署
+#### 求职价值
 
-- 使用 Tauri 2 封装线上 Admin，配置窗口能力、进程退出、版本检测、NSIS 打包、COS 更新清单和 CSP。
-- 独立完成服务器部署、域名解析、HTTPS、Nginx 反代、MySQL / Redis 配置和前端发布。
-- 线上服务拆分为 API `8787`、SSE `8788`、WebSocket `7272`，按协议特性分别反代。
+这个项目适合作为 Python / AI 应用方向的核心包装材料：它天然包含数据采集、清洗、图片/OCR、模型调用、任务队列、状态机和人工审核闭环。Python 在这里不是硬贴标签，而是最适合承接采集清洗、AI 工作流和自动化处理的工程语言。
 
 ### SaaS 商家端 Web / Desktop 一体化前端
 
-**角色**：公司项目 / 前端架构与核心开发 / 从 0 搭建  
+**角色**：公司项目 / 前端架构与核心开发 / 从 0 搭建
 **技术栈**：React 19、TypeScript、Vite、Electron、Ant Design、TanStack React Query、Zustand、React Router、Axios、Zod、Tailwind CSS、Electron Builder。
+**相关复盘**：[SaaS 商家端 Web / Desktop 一体化前端工程复盘](/posts/saas-seller-web-desktop-frontend/)
 
 #### 项目概述
 
@@ -170,8 +159,9 @@
 
 ### 荷叶问诊医药 SaaS 三端协同系统
 
-**角色**：公司项目 / 核心前端开发  
+**角色**：公司项目 / 核心前端开发
 **技术栈**：Vue 3、TypeScript、Vite、Element Plus、Vant、uni-app、Pinia、Axios / luch-request、腾讯云 IM / TRTC、阿里云移动推送、Aegis。
+**相关复盘**：[医疗问诊 SaaS 三端协同](/posts/medical-inquiry-saas-three-clients/)
 
 #### 项目概述
 
@@ -184,11 +174,10 @@
 - 问诊内核 H5 使用 Vue 3 + Vant 承载患者问诊、医生接诊、药师审方、第三方问诊流转、商品提交、套餐购买和消息中心等移动端业务。
 - 在第三方问诊链路中梳理详情拉取、合理用药审查、药品/诊断归一化、审查弹窗拦截和后续流转，避免把医疗规则判断散落在页面事件里。
 - 排查过长处方/慢病仍提示超量的问题，定位到“慢病病情选择”和“后台慢病目录药品配置”是两层不同规则，问题根因不在前端状态，而在规则目录匹配。
-- 能在医疗问诊这种强状态、强合规、多角色、多端协同的系统里做问题定位：先追请求 payload、路由来源、推送上下文和后端配置，再判断前端是否需要改。
 
 ### AI Make 本地 UIUX Patch Compiler
 
-**角色**：个人项目 / 产品设计与独立开发 / Codex Skill + npm CLI  
+**角色**：个人项目 / 产品设计与独立开发 / Codex Skill + npm CLI
 **技术栈**：Node.js、JavaScript ESM、Codex Skill、Prompt Engineering、React、TypeScript、Tailwind CSS、Multi-Agent Workflow。
 
 #### 项目概述
@@ -202,7 +191,17 @@ AI Make 是我围绕 Figma Make 工作流沉淀的本地开发者 UI 生成 Skil
 - 把视觉质量放在代码质量之前：通过 `visual-brief` 和 `page composition blueprint` 约束首屏框架、hero、指标节奏、证据区、行动区和细节层，避免生成“能跑但像模板”的页面。
 - 强约束生成边界：不猜后端字段、不添加 fallback 字段、不绕过项目架构、不擅自引入新 UI 库、不生成巨大单文件页面。
 - 支持本地多 Agent 协作思路，通过任务依赖和 write set 限定每个 Agent 的编辑范围，降低并行开发时的冲突和风格漂移。
-- 沉淀 `visual-quality`、`spec-compliance`、`react-quality`、`verification` 四类 Review Gate，让 AI 生成 UI 具备可审查的交付标准，而不是一次性 Prompt 产物。
+
+---
+
+## 技术文章 / 证明材料
+
+- [从调 API 到 Agent 工程化：把 AI 能力做成可治理系统](/posts/ai-agent-engineering-practice/)
+- [Agent 工程学习路线：从 LLM 到可上线智能体系统](/posts/understanding-ai-ecosystem/)
+- [电商 AI 口播生成系统：OCR、Agent、TTS 与队列闭环](/posts/ecommerce-ai-script-generation/)
+- [Webman 分层架构：Controller 到 Model 的边界治理](/posts/webman-layered-architecture/)
+- [SSE 流式对话系统：AI 实时输出的生产级实现](/posts/sse-streaming-chat/)
+- [医疗问诊 SaaS 三端协同：后台、移动端与问诊内核怎么串起来](/posts/medical-inquiry-saas-three-clients/)
 
 ---
 
@@ -219,4 +218,4 @@ AI Make 是我围绕 Figma Make 工作流沉淀的本地开发者 UI 生成 Skil
 - **不是只会写页面**：能从页面走到接口、数据库、队列、权限、Agent、部署和桌面端。
 - **不是只会调模型**：能把 LLM 接成 Agent 运行系统，考虑工具安全、运行审计、超时、取消和前端流式体验。
 - **不是只会堆功能**：更关注模块边界、前后端契约、数据一致性和系统长期维护成本。
-- **不被语言栈限制**：PHP、TypeScript、JavaScript、Python 都只是工具，真正重要的是架构、边界和交付。
+- **不是硬蹭 Python**：Python 在我的简历里承担的是 AI 应用、数据处理、自动化和工具链方向；PHP / TypeScript 是已验证的系统交付证据。

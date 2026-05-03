@@ -1,6 +1,6 @@
-# 左光明 - Python / AI Agent / Web 全栈工程师
+# 左光明 - PHP / Go / Python / Web 全栈工程师
 
-> 求职主线：**Python AI 应用开发 / AI Agent 工程化 / 后端系统开发 / Web 全栈交付**。我想表达的不是“会很多栈”，而是能把 AI、数据处理、权限、队列、实时通信和部署链路收束成一个真实可运行的系统。
+> 求职主线：**PHP 后端 / Go 后端 / Python AI 应用与自动化 / Web 全栈交付**。我想表达的不是“会很多栈”，而是能把后台业务、权限、队列、实时通信、AI 工具链、前端工程和部署链路收束成一个真实可运行的系统。
 
 ## 基本信息
 
@@ -17,9 +17,9 @@
 
 ## 个人定位
 
-我不是只按“前端 / PHP / 某一种语言”定义自己。我的核心能力是：**把业务问题拆成清楚的数据流、任务流、权限边界和交付链路**。
+我不是只按“前端 / PHP / Go / Python 某一种语言”定义自己。我的核心能力是：**把业务问题拆成清楚的数据流、任务流、权限边界、接口契约和交付链路**。
 
-目前最能证明这一点的是我独立设计并上线的企业级 AI Admin 系统：前端、后端、数据库、权限、Agent、SSE、WebSocket、支付、Redis Queue、桌面端更新和线上部署都由我完成。这个项目让我更适合投递 **Python AI 应用、AI Agent 工程化、后端全栈、企业后台系统开发** 这类岗位，而不是只把自己包装成普通前端或普通 PHP 开发。
+目前最能证明这一点的是我独立设计并上线的企业级 AI Admin 系统，以及正在推进的 Go 版后台重构：前者证明我能用 PHP / Webman / Vue / Tauri 把业务系统做上线，后者证明我能用 Go / Gin / GORM / Redis 按清晰边界重建认证、会话、RBAC、审计和迁移适配。我的求职方向覆盖 **PHP 后端、Go 后端、Python AI 应用与自动化、前端/全栈工程**，不是只把自己包装成普通页面开发。
 
 ---
 
@@ -40,10 +40,11 @@
 - 有电商商品数据、图片/OCR、AI 口播生成、TTS 合成这类业务流水线经验，后续可自然演进为 Python 数据处理服务或 FastAPI AI 应用服务。
 - 能把 Python 自动化与已有 Web 后台结合：前台负责操作入口，后端负责状态与权限，Python/脚本层负责重复处理和 AI 工具链。
 
-### 后端 / 数据 / 异步任务
+### 后端 / Go / 数据 / 异步任务
 
 - PHP 8.1+、Laravel 8、Webman / Workerman、Eloquent、MySQL、Redis、Redis Queue、GatewayWorker、Crontab、PHPUnit。
-- 坚持 Controller -> Module -> Dep -> Model 分层：Controller 只转发，Module 只编排，Dep 负责数据访问，Model 只做表映射。
+- Go 后端方向使用 Gin / GORM / go-redis / slog / context，按 `cmd -> bootstrap -> server -> module -> platform` 搭建可迁移的 Admin modular monolith。
+- 坚持清楚调用链：PHP 项目中 Controller -> Module -> Dep -> Model；Go 项目中 route -> handler -> service -> repository -> model，handler 不查库，service 不依赖 HTTP 框架。
 - 熟悉认证权限：Access / Refresh Token、Sanctum、Token Hash + Pepper、Redis Session、单端登录、平台/设备/IP 绑定、RBAC 菜单/路由/按钮权限。
 - 熟悉异步与后台任务：Redis Queue、Laravel Job、定时任务、AI 超时检测、通知调度、支付关单/同步/履约/对账任务。
 - 能处理支付、钱包、上传存储、系统通知、导出任务、日志审计、实时通信等后台系统常见复杂链路。
@@ -74,16 +75,6 @@
 - 参与荷叶问诊后台、移动端 APP、问诊内核 H5 三端迭代，覆盖远程审方、视频问诊、合理用药审查、长处方/慢病规则、移动推送与跨端跳转等医疗问诊核心链路。
 - 在 Figma Make 生成代码质量不稳定、UI 基础组件边界不清的约束下，逐步收口页面结构、组件边界和交互规范，避免设计稿代码直接污染业务层。
 
-### 江苏麦影网络科技有限公司 · 全栈开发
-
-**时间**：2024.06 - 2025.06
-
-- 参与麦小图 VCMS 内容管理 / 发布系统迭代，覆盖视频发布、内容管理、达人运营、内容运营、后期运营、素材中心、数据中心和运营任务等核心模块。
-- 参与 Electron + Vue 3 桌面端建设，通过 IPC、BrowserWindow / BrowserView、Preload 和本地存储能力承载多平台授权、内容发布、账号检测和运营辅助流程。
-- 对接淘宝、京东、小红书、B 站、支付宝、得物、快手、拼多多等内容/电商渠道，处理 OAuth、Cookie 注入、渠道发布回调、账号池和平台数据同步等复杂链路。
-- 参与 AI 内容生产与视频任务流转能力，覆盖商品/素材管理、AIGC 文案生成、视频混剪、字幕/语音/封面、审核状态和队列任务处理。
-- 支撑运营后台高频能力：团队/角色/权限、批量编辑、Excel 导入导出、数据统计、内容审核和任务状态流转，提升内容运营批处理效率。
-
 ---
 
 ## 项目经历
@@ -110,11 +101,36 @@
 - **实时通信与异步任务**：封装 WebSocket 单例连接、GatewayWorker 推送、Redis Queue 消费者、AI 超时检测、通知调度、支付关单/同步/履约/对账任务。
 - **线上部署**：独立完成服务器部署、域名解析、HTTPS、Nginx 反代、MySQL / Redis 配置；线上服务拆分为 API `8787`、SSE `8788`、WebSocket `7272`。
 
+
 #### 可量化信息
 
 - 后端规模：**43 个 Controller、48 个 Module、46 个 Dep、47 个 Model、21 个 Service、10 个 Redis Queue 消费者**。
 - 运行边界：API、SSE、WebSocket、队列消费者、定时任务、Tauri 桌面端更新链路均已形成闭环。
 - 工程原则：前后端强契约，后端错就暴露，不靠前端空对象、空数组、静默 catch 掩盖协议问题。
+
+
+### Admin Go 后台重构与 RBAC 架构设计
+
+**角色**：个人项目 / Go 后端架构设计与核心实现 / PHP Admin 迁移线
+**项目路径**：`E:\admin_go\admin_back_go`
+**技术栈**：Go、Gin、GORM、MySQL、Redis / go-redis、slog、context、RESTful API、RBAC、Token Session、Middleware、Table-driven Tests。
+**相关复盘**：[Go 语言与 Admin 架构设计：从 PHP 系统迁移到 Gin Modular Monolith](/posts/go-admin-architecture-design/)
+
+#### 项目概述
+
+该项目是我围绕现有企业级 Admin 系统推进的 Go 后端重构线。它不是另写一个玩具 CRUD，而是在不破坏现有前端、登录、菜单和按钮权限语义的前提下，把 PHP 系统里的业务事实迁移到 Go 的清晰边界中：新接口走 `/api/v1/...`，迁移期保留 `/api/Users/*` 等 legacy adapter，但不让旧接口风格污染新模块内部。
+
+#### 核心工作
+
+- 确定 Go 后端采用 **Gin modular monolith**，顶层按 `cmd -> bootstrap -> server -> module -> platform` 装配，模块内部按 `route -> handler -> service -> repository -> model` 收口，避免 Java 味 `ServiceImpl`、无意义 interface 和过度分层。
+- 建立 `auth`、`session`、`authplatform`、`user`、`permission`、`role`、`operationlog`、`system` 等模块边界，将登录配置、登录、刷新、登出、会话校验、权限初始化、角色授权和操作日志拆成可验证的链路。
+- 设计 middleware 顺序：`Recovery -> RequestID -> AccessLog -> CORS -> AuthToken -> PermissionCheck -> OperationLog -> Handler`，权限和审计只通过显式 route metadata 生效，不靠反射或注解猜测。
+- 迁移 RBAC 关键语义：单角色模型、`DIR / PAGE / BUTTON` 权限类型、`Users/init` 返回 router / permissions / buttonCodes、按钮授权缓存、权限变更后的缓存失效，以及 fail-closed 的权限检查。
+- 接入 GORM MySQL、Redis、统一 response / app error、readiness、graceful shutdown 和 table-driven tests，保持 context 透传和错误显式返回，不把数据库错误伪装成前端空状态。
+
+#### 求职价值
+
+这个项目证明我不是只会用 PHP 写业务，也不是只会写前端页面。我能把一个已有系统拆出真实边界，再用 Go 重建后端骨架、认证会话、RBAC、审计和迁移适配。对 Go 岗位，它展示的是 Gin / GORM / Redis / middleware / REST 契约能力；对 PHP 岗位，它展示的是从旧系统抽取业务事实并渐进重构的能力；对前端/全栈岗位，它展示的是我不会让后端重构破坏现有前端用户路径。
 
 ### 电商 AI 口播生成流水线
 
@@ -200,6 +216,7 @@ AI Make 是我围绕 Figma Make 工作流沉淀的本地开发者 UI 生成 Skil
 - [Agent 工程学习路线：从 LLM 到可上线智能体系统](/posts/understanding-ai-ecosystem/)
 - [电商 AI 口播生成系统：OCR、Agent、TTS 与队列闭环](/posts/ecommerce-ai-script-generation/)
 - [Webman 分层架构：Controller 到 Model 的边界治理](/posts/webman-layered-architecture/)
+- [Go 语言与 Admin 架构设计：从 PHP 系统迁移到 Gin Modular Monolith](/posts/go-admin-architecture-design/)
 - [SSE 流式对话系统：AI 实时输出的生产级实现](/posts/sse-streaming-chat/)
 - [医疗问诊 SaaS 三端协同：后台、移动端与问诊内核怎么串起来](/posts/medical-inquiry-saas-three-clients/)
 
@@ -218,4 +235,4 @@ AI Make 是我围绕 Figma Make 工作流沉淀的本地开发者 UI 生成 Skil
 - **不是只会写页面**：能从页面走到接口、数据库、队列、权限、Agent、部署和桌面端。
 - **不是只会调模型**：能把 LLM 接成 Agent 运行系统，考虑工具安全、运行审计、超时、取消和前端流式体验。
 - **不是只会堆功能**：更关注模块边界、前后端契约、数据一致性和系统长期维护成本。
-- **不是硬蹭 Python**：Python 在我的简历里承担的是 AI 应用、数据处理、自动化和工具链方向；PHP / TypeScript 是已验证的系统交付证据。
+- **不是硬蹭 Go 或 Python**：Go 在我的简历里承担后台重构、认证权限和长期运行服务；Python 承担 AI 应用、数据处理、自动化和工具链方向；PHP / TypeScript 是已验证的系统交付证据。

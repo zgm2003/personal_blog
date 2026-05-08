@@ -29,14 +29,15 @@ Python 方向，我把它放在 AI 应用、数据处理、自动化脚本和内
 
 ## 核心能力
 
-### Go 后端 / Admin Core / 系统重构
+### Go 后端 / 支付域 / Admin 系统重构
 
-- 使用 Go / Gin / GORM / MySQL / Redis / go-redis / slog / context 构建 Admin modular monolith，顶层按 `cmd -> bootstrap -> server -> module -> platform` 装配，模块内部按 `route -> handler -> service -> repository -> model` 收口。
-- 已推进企业级 Admin Go 后端核心基建：`auth`、`session`、`authplatform`、`captcha`、`user`、`permission`、`role`、`operationlog`、`queuemonitor`、`systemsetting`、`uploadconfig`、`uploadtoken`、`realtime` 等模块。
-- 熟悉认证会话链路：Access / Refresh Token、Token Hash + Pepper、Redis token cache、MySQL session fallback、平台策略、设备/IP 绑定、单端登录、refresh rotation、logout revoke。
+- 使用 Go / Gin / GORM / MySQL / Redis / go-redis / Asynq / gocron / gorilla/websocket / slog / context 构建 Admin modular monolith，顶层按 `cmd -> bootstrap -> server -> module -> platform` 装配，模块内部按 `route -> handler -> service -> repository -> model` 收口。
+- 已推进 **31 个业务模块** 的 Go 后端迁移：auth、session、captcha、user、permission、role、operationlog、notification、notificationtask、paychannel、payruntime、paytransaction、paynotifylog、payreconcile、payorder、wallet、exporttask、clientversion、aimodel、aitool、aiprompt、uploadconfig、uploadtoken、realtime、queuemonitor、systemsetting、systemlog、crontask、usersession、authplatform 等。
+- 实现完整支付域闭环：渠道管理（secretbox 加密私钥）、充值运行时（Alipay SDK + Redis 分布式锁 + 同步钱包入账）、回调审计、流水只读、对账系统（平台账单下载/解析/比对）、订单管理、钱包调账（幂等 idempotency key）、履约重试 worker。
+- 熟悉认证会话链路：Access / Refresh Token、Token Hash + Pepper、Redis token cache、MySQL session fallback、平台策略、设备/IP 绑定、单端登录、refresh rotation、logout revoke、go-captcha 滑块验证码。
 - 熟悉 RBAC Admin 权限体系：单角色模型、`DIR / PAGE / BUTTON` 权限类型、动态菜单、动态路由、按钮权限码、角色授权、缓存失效、fail-closed 接口权限检查。
 - 能设计明确 middleware 顺序：`Recovery -> RequestID -> AccessLog -> CORS -> AuthToken -> PermissionCheck -> OperationLog -> Handler`，认证、权限和审计互不污染。
-- 能处理 Go 后端运行边界：readiness、graceful shutdown、统一 response / app error、显式 route metadata、table-driven tests、smoke scripts、队列 worker、WebSocket connection manager。
+- 能处理 Go 后端运行边界：readiness 探针、graceful shutdown、统一 response / app error、显式 route metadata、table-driven tests、smoke scripts、Asynq 队列 worker（9 种版本化任务）、gocron DB-backed scheduler、WebSocket connection manager、Redis Pub/Sub 跨进程 fan-out。
 
 ### Python / AI 应用 / 自动化流水线
 
@@ -91,32 +92,54 @@ Python 方向，我把它放在 AI 应用、数据处理、自动化脚本和内
 
 ### Admin Go 主后端 Core Foundation 迁移
 
-- **角色**：个人项目 / Go 主后端架构与核心实现 / 既有 PHP Admin 系统并行重构
-- **项目路径**：`E:\admin_go\admin_back_go`
-- **技术栈**：Go、Gin、GORM、MySQL、Redis / go-redis、Asynq、gocron、gorilla/websocket、slog、context、RESTful API、RBAC、Token Session、COS STS、Table-driven Tests。
+- **角色**：个人项目 / Go 主后端架构与全量业务迁移 / 既有 PHP Admin 系统并行重构
+- **技术栈**：Go 1.26、Gin、GORM、MySQL、Redis / go-redis、Asynq（队列）、gocron/v2（调度）、gorilla/websocket、go-pay/gopay（支付宝 SDK）、excelize（xlsx 导出）、go-captcha/v2、腾讯云 COS STS、AES-GCM secretbox、slog + lumberjack、RESTful API、Table-driven Tests、PowerShell Smoke Scripts。
 - **相关复盘**：[Go Admin Core Foundation：从 PHP 迁移到 Gin Modular Monolith](/posts/go-admin-architecture-design/)
 
 #### 项目概述
 
-该项目是我围绕既有企业级 Admin 系统推进的 Go 主后端重构。它不是重新写一个玩具 CRUD，而是在不破坏现有前端、登录、菜单、按钮权限和业务使用路径的前提下，把旧 PHP 系统里的认证、会话、RBAC、用户管理、日志、队列、上传和实时通信边界逐步迁到 Go。
+该项目是我围绕既有企业级 Admin 系统推进的 Go 主后端重构。不是重新写一个玩具 CRUD，而是在不破坏现有 Vue 前端、登录、菜单、按钮权限和业务使用路径的前提下，把旧 PHP 系统里的认证、会话、RBAC、支付、钱包、通知、AI 配置、队列、上传、实时通信等 **31 个业务模块** 逐步迁到 Go，前端同步适配 Go REST 契约。
 
-当前 Go 后端已经进入 **Admin core foundation** 阶段：不只是有骨架，而是已经有认证会话、RBAC read/write path、用户管理、个人资料、账号安全、系统日志、操作日志、队列监控、系统设置、上传配置、COS 上传 token、WebSocket baseline、basic/full smoke 和单元测试体系。
+当前 Go 后端已经完成 admin core foundation 并进入 **Phase 6 业务模块迁移**：支付域（渠道管理、流水审计、回调日志、对账任务、订单管理、钱包调账、充值运行时）、通知系统（发布/调度/Redis Pub/Sub WebSocket fan-out）、AI 配置 P1（模型/工具/提示词）、用户导出 worker、客户端版本管理等均已实现并通过 smoke 验证。
 
 #### 核心工作
 
-- 采用 **Gin modular monolith**，固定 `cmd -> bootstrap -> server -> module -> platform` 和 `route -> handler -> service -> repository -> model`，拒绝 Java 味 `ServiceImpl`、无意义 interface、handler 查库和 service 依赖 `gin.Context`。
-- 实现认证会话核心链路：登录配置、滑块验证码、密码/验证码登录、Access / Refresh Token、Token Hash + Pepper、Redis token cache、MySQL session fallback、refresh、logout、平台策略、设备/IP 绑定、单端登录和登录日志 task。
-- 迁移 RBAC 核心：`Users/init` legacy adapter、`GET /api/admin/v1/users/init`、动态 router、permissions、buttonCodes、`DIR / PAGE / BUTTON` 权限类型、角色授权、权限树、按钮缓存、权限变更后的用户授权缓存失效。
-- 建立显式中间件边界：`AuthToken` 只做认证，`PermissionCheck` 只按 route metadata 做 fail-closed 权限检查，`OperationLog` 只记录显式配置的操作审计，不靠反射、注解或 handler 名称猜测。
-- 迁移基础管理模块：用户管理 page-init/list/edit/status/delete/batch update、个人资料、账号安全、系统设置、系统日志、操作日志、认证平台管理、权限管理、角色管理。
-- 建立后台任务边界：`cmd/admin-api` 只处理 HTTP，`cmd/admin-worker` 负责队列消费和 scheduler；使用 Asynq 封装 critical/default/low lane，`scheduler` 只投递 task，不直接执行业务。
-- 实现上传配置与运行时 token：upload drivers/rules/settings REST 管理、VAULT_KEY secretbox、COS-first STS 临时凭证签发、服务端生成 object key、folder/ext/size 校验，不把 OSS runtime 和无主上传场景硬塞进默认链路。
-- 实现 Realtime / WebSocket baseline：认证后的 `/api/admin/v1/realtime/ws`、path-scoped browser cookie auth、local connection manager、bounded send queue、read/write pump、connected event、ping/pong、topic subscribe 白名单骨架、local/no-op Publisher 边界。
-- 建立验证门禁：当前仓库约 `229` 个 Go 文件、`70` 个测试文件、`365` 个测试函数；`go test ./...`、`go vet -p=1 ./...`、`git diff --check` 已验证通过；basic/full smoke 覆盖登录、验证码、RBAC、用户管理、队列、上传、日志和 WebSocket 基础链路。
+**架构与基建**
+- 采用 **Gin modular monolith**，固定 `cmd -> bootstrap -> server -> module -> platform` 和 `route -> handler -> service -> repository -> model`；拒绝 Java 味 `ServiceImpl`、无意义 interface、handler 查库和 service 依赖 `gin.Context`。
+- 建立显式中间件链：`Recovery -> RequestID -> AccessLog -> CORS -> AuthToken -> PermissionCheck -> OperationLog -> Handler`；权限检查 fail-closed，操作审计只记录显式 route metadata 命中的路由，不靠反射或 handler 名称猜测。
+- 进程分离：`cmd/admin-api` 只处理 REST + WebSocket upgrade，`cmd/admin-worker` 负责 Asynq 队列消费 + gocron/v2 调度；两者共享 service 层但运行时完全独立。
+
+**认证与权限**
+- 实现完整认证链路：登录配置、go-captcha 滑块验证码、密码/验证码登录、自动注册、Access/Refresh Token、Token Hash + Pepper、Redis token cache + MySQL session fallback、refresh rotation、logout revoke、平台策略（设备/IP 绑定、单端登录、最大会话数）。
+- 迁移 RBAC 核心：`DIR / PAGE / BUTTON` 权限类型、角色授权矩阵、动态菜单/路由/按钮权限码、权限变更后的用户授权缓存失效、fail-closed 接口权限检查。
+
+**支付域（完整闭环）**
+- 支付渠道管理：secretbox 加密私钥、响应/日志脱敏、引用删除保护。
+- 充值运行时：Alipay sandbox 充值订单创建/支付尝试/查询/取消、公开回调入口 `POST /api/pay/notify/alipay`、Redis 分布式锁防重、同步钱包入账事务、`pay_notify_logs` 审计。
+- 钱包管理：后台钱包列表/流水/调账（幂等 idempotency key + 同步 MySQL 事务 + 操作日志）。
+- 对账系统：`pay:reconcile-daily:v1` + `pay:reconcile-execute:v1` worker handler，支持 Alipay 平台账单 UTF-8/GBK CSV/zip 解析，写入 local/platform/diff CSV，失败显式标记。
+- 订单管理：状态统计/列表/详情/备注/本地关单，读权限复用 `pay_recharge_list`，写权限用 `pay_order_edit`。
+- 履约重试：`pay:fulfillment-retry:v1` 扫描可重试本地履约行，复用钱包入账幂等路径。
+
+**通知与实时推送**
+- 通知任务发布/调度：REST CRUD + `notification:dispatch-due:v1` 补偿 + `notification:send-task:v1` 批量写入 + Redis Pub/Sub `notification.created.v1` 跨进程 fan-out 到 WebSocket。
+- WebSocket 基建：gorilla/websocket、path-scoped cookie auth、bounded send queue（slow-client drop）、read/write pump、heartbeat、identity topic 白名单、local/noop/redis Publisher 选择。
+
+**队列与调度**
+- Asynq 三 lane（critical/default/low）+ gocron/v2 DB-backed scheduler；当前已注册 `auth:login-log:v1`、`notification:dispatch-due:v1`、`notification:send-task:v1`、`export:run:v1`、`pay:close-expired-order:v1`、`pay:sync-pending-transaction:v1`、`pay:reconcile-daily:v1`、`pay:reconcile-execute:v1`、`pay:fulfillment-retry:v1` 等版本化任务。
+- 官方 asynqmon 只读 UI 挂载到认证后的 `/api/admin/v1/queue-monitor-ui/*`。
+
+**其他已迁模块**
+- 用户管理（列表/编辑/批量/状态/删除/导出 worker xlsx + COS 上传）、用户会话只读、个人资料/账号安全、系统设置、系统日志（lumberjack + logstore 只读浏览）、操作日志（request/response JSON 摘要 + 敏感字段遮蔽 + 64KB cap）、上传配置（drivers/rules/settings + secretbox）、COS STS 上传 token、客户端版本管理（COS manifest 发布）、AI 配置 P1（ai_models/ai_tools/ai_prompts，api_key secretbox 加密）。
+
+**验证体系**
+- 当前仓库 **428 个 Go 文件、121 个测试文件、666 个测试函数、55,800+ 行 Go 代码**。
+- `go test ./...`、`go vet`、`check-contract.ps1` 门禁 + basic/full smoke 脚本覆盖登录、RBAC 闭环、支付渠道/流水/订单/钱包调账、通知任务、队列监控、上传 token、WebSocket connect/ping/pong、AI 配置等 30+ 个 API 区域。
+- 11 条 SQL 迁移脚本管理权限补齐、旧模块清理和 handler 注册。
 
 #### 求职价值
 
-这个项目是我 Go 后端能力的核心证明：我不是只会 Gin CRUD，而是能把一个已有复杂后台系统拆出真实边界，再用 Go 重建认证、会话、RBAC、审计、队列、上传、WebSocket 和测试体系。它同时说明我懂迁移节奏：旧 PHP 提供业务事实，Go 负责新主后端，前端路径不能被破坏，Python 后续承接 AI 和数据处理 sidecar。
+这个项目证明我不是只会 Gin CRUD，而是能把一个已有复杂后台系统拆出真实边界，用 Go 重建认证、会话、RBAC、支付闭环、队列调度、实时推送、文件导出和测试体系。它同时说明我懂迁移节奏和工程纪律：旧 PHP 只提供业务事实，Go 负责新主后端，前端路径不能被破坏，每个切片都有契约文档、单元测试和 smoke 验证。
 
 ### Python + AI 电商内容自动化流水线
 
@@ -236,7 +259,7 @@ AI Make 是我围绕 Figma Make 工作流沉淀的本地开发者 UI 生成 Skil
 
 ## 我的优势
 
-- **Go 不是贴标签**：我已经用 Go 推进 Admin core foundation，覆盖认证会话、RBAC、用户管理、队列、上传、WebSocket、日志和测试门禁，不是只写过 Gin CRUD。
+- **Go 不是贴标签**：我已经用 Go 推进 31 个业务模块迁移，覆盖认证会话、RBAC、完整支付域（渠道/充值/回调/对账/钱包/履约）、通知推送、队列调度、WebSocket、AI 配置和测试门禁，428 个 Go 文件、666 个测试函数、55,800+ 行代码，不是只写过 Gin CRUD。
 - **Python 有真实位置**：Python 负责 AI 应用、数据处理、自动化脚本和内容流水线，不硬塞成普通 CRUD 后端。
 - **前端能力很强**：能做 React / Vue 后台工程、uni-app 移动端、Vant H5、Electron / Tauri 桌面端、权限菜单、状态管理、跨端运行和 AI UI 生成工作流。
 - **PHP 是上线证明，不是主线包袱**：PHP / Webman 系统证明我能交付复杂业务，但求职主线已经转向 Go 后端、Python AI 自动化和强前端全栈。

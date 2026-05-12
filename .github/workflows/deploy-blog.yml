@@ -1,0 +1,85 @@
+name: Deploy blog to Baota
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  NODE_VERSION: "22.12.0"
+  PNPM_VERSION: "9.14.4"
+  SSH_HOST: "118.126.104.244"
+  SSH_PORT: "22"
+  SSH_USER: "root"
+  DEPLOY_PATH: "/www/wwwroot/blog.zgm2003.cn"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build site
+        run: pnpm build
+
+      - name: Pack dist
+        run: tar -czf dist.tar.gz -C dist .
+
+      - name: Upload dist to Baota server
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${SSH_PRIVATE_KEY}" ]; then
+            echo "SSH_PRIVATE_KEY secret is required"
+            exit 1
+          fi
+
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H -p "$SSH_PORT" "$SSH_HOST" >> ~/.ssh/known_hosts
+
+          scp -P "$SSH_PORT" dist.tar.gz "$SSH_USER@$SSH_HOST:/tmp/personal_blog_dist.tar.gz"
+
+          ssh -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" "bash -s" <<'EOF'
+          set -euo pipefail
+
+          DEPLOY_PATH="/www/wwwroot/blog.zgm2003.cn"
+          ARCHIVE="/tmp/personal_blog_dist.tar.gz"
+
+          mkdir -p "$DEPLOY_PATH"
+          find "$DEPLOY_PATH" -mindepth 1 -maxdepth 1 \
+            ! -name ".user.ini" \
+            ! -name ".htaccess" \
+            ! -name ".well-known" \
+            -exec rm -rf {} +
+
+          tar -xzf "$ARCHIVE" -C "$DEPLOY_PATH"
+          rm -f "$ARCHIVE"
+
+          chown -R www:www "$DEPLOY_PATH" || true
+          echo "blog dist deployed to $DEPLOY_PATH"
+          EOF

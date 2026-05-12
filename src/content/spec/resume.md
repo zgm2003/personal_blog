@@ -1,6 +1,6 @@
-# 左光明 - Go 后端 / Python AI 自动化 / 前端全栈工程师
+# 左光明 - Go 后端 / AI 应用工程 / Vue 全栈工程师
 
-> 求职主线：**Go 主后端 + Python AI 自动化 + 强前端全栈交付**。PHP 是我已经做出上线系统的业务后端能力证明，但不再作为求职主标题。我的核心价值是把后台业务、认证权限、队列、实时通信、AI 工具链、Web / 移动端 / 桌面端前端和部署链路收束成真实可运行的系统。
+> 求职主线：**Go 主后端 + AI 工程化 + 可落地前端交付**。我最有价值的能力不是“会很多技术栈”，而是能把认证权限、队列调度、WebSocket 实时通信、AI Agent、工具调用、知识库、运行监控和前端管理台做成一套真实可运行、可验证、可部署的系统。
 
 ## 基本信息
 
@@ -11,241 +11,150 @@
 - **地点**：武汉 / 全国 / 远程均可
 - **期望薪资**：8K 起
 - **在线系统**：[zgm2003.cn](https://zgm2003.cn)
+- **个人博客**：[blog.zgm2003.cn](https://blog.zgm2003.cn)
 - **技术社区**：[Linux.do 三级用户](https://linux.do/u/zgm2003/summary)
 
 ---
 
-## 个人定位
+## 一句话定位
 
-我现在的技术定位不是“PHP 全栈”，也不是“只会前端”。更准确地说，我是一个以 **Go 后端和 Python AI 自动化为主线、前端能力很强的全栈工程师**。
+我正在把一套已有企业级 Admin 系统从 PHP/Webman 迁到 **Go + Gin modular monolith**，同时维护配套 **Vue 3 + TypeScript** 管理前端。当前系统已经覆盖后台核心能力和 AI 应用平台能力：登录会话、RBAC、用户/角色/权限、操作日志、系统配置、队列任务、定时调度、WebSocket、通知推送、AI Provider、Agent、Chat、Run Monitor、Tool Calling、Knowledge RAG 等。
 
-Go 方向，我已经不是停留在语法或 CRUD Demo，而是在用 Gin / GORM / Redis 推进一个企业级 Admin 后端核心迁移：认证会话、RBAC、用户管理、角色授权、操作日志、队列监控、系统设置、上传配置、COS 上传 token、WebSocket baseline 和 smoke 验证都已经形成代码和测试闭环。
-
-Python 方向，我把它放在 AI 应用、数据处理、自动化脚本和内容流水线里，而不是硬把 Python 包装成普通 CRUD 后端。电商商品采集、图片/OCR、AI 口播生成、TTS、SRT、批量文件处理、接口调试和 AI 工具链验证，都是 Python 更适合发力的位置。
-
-前端方向，我的能力不能被弱化。我不仅能写后台页面，还能做工程基础设施、复杂权限菜单、动态路由、状态管理、跨端移动端、桌面端和 UI 生成工作流。Vue、React、TypeScript、uni-app、Vant、Element Plus、Ant Design、Electron、Tauri、Capacitor 这类能力，是我能把后端和 AI 能力真正交付给用户的关键。
+这个项目不是 CRUD demo。它有后端 API 进程、Worker 进程、MySQL/Redis 状态、Asynq 队列、DB-backed scheduler、WebSocket realtime、Docker 部署、宝塔/Nginx 反代、前后端契约文档、单元测试、Vitest、vue-tsc 和 smoke 脚本。
 
 ---
 
-## 核心能力
+## 核心竞争力
 
-### Go 后端 / 支付域 / Admin 系统重构
+### 1. Go 后端：能搭复杂后台系统，不只是写接口
 
-- 使用 Go / Gin / GORM / MySQL / Redis / go-redis / Asynq / gocron / gorilla/websocket / slog / context 构建 Admin modular monolith，顶层按 `cmd -> bootstrap -> server -> module -> platform` 装配，模块内部按 `route -> handler -> service -> repository -> model` 收口。
-- 已推进 **31 个业务模块** 的 Go 后端迁移：auth、session、captcha、user、permission、role、operationlog、notification、notificationtask、paychannel、payruntime、paytransaction、paynotifylog、payreconcile、payorder、wallet、exporttask、clientversion、aimodel、aitool、aiprompt、uploadconfig、uploadtoken、realtime、queuemonitor、systemsetting、systemlog、crontask、usersession、authplatform 等。
-- 实现完整支付域闭环：渠道管理（secretbox 加密私钥）、充值运行时（Alipay SDK + Redis 分布式锁 + 同步钱包入账）、回调审计、流水只读、对账系统（平台账单下载/解析/比对）、订单管理、钱包调账（幂等 idempotency key）、履约重试 worker。
-- 熟悉认证会话链路：Access / Refresh Token、Token Hash + Pepper、Redis token cache、MySQL session fallback、平台策略、设备/IP 绑定、单端登录、refresh rotation、logout revoke、go-captcha 滑块验证码。
-- 熟悉 RBAC Admin 权限体系：单角色模型、`DIR / PAGE / BUTTON` 权限类型、动态菜单、动态路由、按钮权限码、角色授权、缓存失效、fail-closed 接口权限检查。
-- 能设计明确 middleware 顺序：`Recovery -> RequestID -> AccessLog -> CORS -> AuthToken -> PermissionCheck -> OperationLog -> Handler`，认证、权限和审计互不污染。
-- 能处理 Go 后端运行边界：readiness 探针、graceful shutdown、统一 response / app error、显式 route metadata、table-driven tests、smoke scripts、Asynq 队列 worker（9 种版本化任务）、gocron DB-backed scheduler、WebSocket connection manager、Redis Pub/Sub 跨进程 fan-out。
+- 使用 **Go / Gin / GORM / MySQL / Redis / Asynq / gocron/v2 / gorilla/websocket / slog** 构建 Admin 后端，进程拆成 `admin-api` 和 `admin-worker`。
+- 后端采用 **modular monolith**，顶层按 `cmd -> bootstrap -> server -> module -> platform` 装配，模块内部按 `route -> handler -> service -> repository -> model` 收口，避免 Java 式过度抽象。
+- 已落地 **30+ 后端模块**：auth、session、captcha、user、permission、role、operationlog、notification、notificationtask、crontask、exporttask、systemlog、systemsetting、uploadconfig、uploadtoken、realtime、queuemonitor、clientversion、payment、AI provider / agent / chat / conversation / message / run / tool / knowledge 等。
+- 熟悉认证会话和权限系统：Access / Refresh Token、Token Hash + Pepper、Redis token cache、MySQL session fallback、平台策略、设备/IP 策略、单端登录、refresh rotation、logout revoke、滑块验证码、RBAC 动态菜单、按钮权限码、fail-closed API 权限检查。
+- 能把横切能力做清楚：`Recovery -> RequestID -> AccessLog -> CORS -> AuthToken -> PermissionCheck -> OperationLog -> Handler`，权限检查和操作审计都走显式 route metadata，不靠反射和 handler 名称猜测。
 
-### Python / AI 应用 / 自动化流水线
+### 2. AI 工程化：不只是调模型，而是做 AI 平台闭环
 
-- 能用 Python 承接 AI 应用中的采集、清洗、批处理、接口回放、文件处理、素材处理、模型调用验证、评估脚本和自动化任务。
-- 有电商商品数据、图片/OCR、AI 卖点与口播生成、TTS 合成、SRT 字幕下载这类内容生产流水线经验，理解 AI 应用不是一个“调用模型按钮”，而是一条可排队、可追踪、可重试、可审核的任务链。
-- 能把 Python 自动化与 Web 后台结合：前端负责操作入口和审核体验，Go/PHP 后端负责状态、权限、队列和持久化，Python/脚本层负责重复处理、数据处理和 AI 工具链。
-- 理解 Python 在 AI 生态里的优势：LLM/RAG、OCR、TTS、embedding、数据处理、脚本自动化、评估与批量任务；不把 Python 误用成所有系统的唯一后端。
+- 设计并实现后台 AI 管理链路：**Provider -> Agent -> Conversation -> Message -> Run -> Tool -> Knowledge**，前后端都有明确 REST 契约和页面入口。
+- Provider 配置支持 OpenAI-compatible 接入，API Key 服务端加密保存，列表/详情不返回明文或密文字段，避免密钥泄露。
+- Agent 配置按场景管理模型、系统提示词、头像、状态，并支持绑定工具和知识库；Chat 页面只消费启用的 chat 场景 Agent。
+- AI Chat 使用 `ai_conversations` + `ai_messages` 持久化会话和消息，模型回复通过共享 WebSocket 输出 `ai.response.start/delta/completed/failed.v1` 版本化事件。
+- Run Monitor 记录一次 AI 调用的生命周期、耗时、token、错误、消息关联、工具调用和知识检索明细，避免 AI 调用变成不可排查的黑盒。
+- Tool Calling 支持从 Agent 绑定的工具生成 OpenAI function tools，执行工具调用并把结果回传模型，同时落库 `ai_tool_calls` 供运行监控查看。
+- Knowledge RAG 使用本地知识库、文档、chunk、检索配置和命中记录，把检索内容只注入当前模型输入，并记录 `ai_knowledge_retrievals` / hits 审计链路。
+- 流式治理不是只开一个超时：区分在线回复最大时长、上游 stream idle timeout、stale run 清理任务，避免慢模型、断流和后台清理互相污染。
 
-### AI Agent / LLM 工程化
+### 3. WebSocket / 队列 / 调度：能处理真实运行时问题
 
-- 能把 LLM 调用落成工程系统：模型接入、Agent 配置、Prompt 管理、工具调用、流式输出、运行审计、超时取消和错误暴露。
-- 设计过 Agent、Model、Tool、Prompt、Conversation、Message、Run、Run Step 等运行模型，把一次 AI 调用从“黑盒请求”拆成可观测状态机。
-- 熟悉 OpenAI-compatible 接口、SSE / WebSocket 实时输出、历史消息拼装、工具执行记录、结果截断、失败恢复和取消机制。
-- 关注 Tool Calling 安全边界：HTTPS 白名单、SSRF 防护、只读 SQL、写操作拦截、自动 LIMIT、敏感结果控制。
+- WebSocket 后端基于 gorilla/websocket，实现 cookie path-scoped upgrade 认证、bounded send queue、read/write pump、heartbeat、identity topic 白名单、断开清理。
+- Realtime Publisher 支持 `local / noop / redis`，多 API 进程下通过 Redis Pub/Sub fan-out，把通知和 AI 回复投递给当前在线 session。
+- 队列采用 Asynq，任务类型版本化，例如 `export:run:v1`、`notification:dispatch-due:v1`、`notification:send-task:v1`、`ai:conversation-reply:v1`、`ai:run-timeout:v1`、`payment:close-expired-order:v1`。
+- Worker 负责导出、通知、登录日志、AI run timeout、支付定时任务等后台处理；Scheduler 从数据库 `cron_task` 注册任务，并用 Redis lock 降低多 worker 重复执行风险。
+- 导出任务不是假按钮：提交后创建 `export_tasks` pending 行，Worker 生成 xlsx、上传 COS、更新状态，并通过通知任务提醒用户。
 
-### 前端 / 移动端 / 桌面端工程
+### 4. Vue / TypeScript 前端：能把复杂后台能力交付成可用页面
 
-- 熟悉 Vue 3、React、TypeScript、Vite、Element Plus、Ant Design、Vant、Pinia、Zustand、Vue Router、React Router、Vue I18n、TanStack React Query、Tailwind CSS。
-- 具备后台前端工程化能力：统一请求封装、ApiEnvelope 解包、401 刷新队列、动态路由、按钮权限、权限快照、CRUD Hook、表格列配置、搜索表单、Dialog 体系和 i18n 文案边界。
-- 有跨端移动端能力：uni-app、H5、Android、iOS、微信小程序、鸿蒙配置、移动推送、腾讯 IM / TRTC、Vant 问诊 H5；也能处理 Capacitor 这类 Web 技术栈到移动端壳层的集成思路。
-- 有桌面端能力：Electron / Tauri，能处理 Web/Desktop 双运行链路、preload / bridge、IPC、本地后端 ready、窗口能力、安装包构建、更新清单和 CSP 安全策略。
-- 有 UI 生成和前端质量治理经验：能把 Figma Make / AI 生成代码收口到项目组件体系，不让生成代码污染业务层；也能设计本地 UIUX patch compiler 工作流。
+- 前端使用 **Vue 3.5 / TypeScript / Vite / Element Plus / Pinia / Vue Router / Vue I18n / Vitest**，不是简单页面拼装。
+- 已把大量旧 PHP legacy 调用切到 Go REST typed client，API 层按资源拆分：`src/api/ai/*`、`src/api/user/*`、`src/api/permission/*`、`src/api/system/*`、`src/api/payment/*`。
+- 动态菜单和按钮权限来自后端 `users/init`，前端用 permission map 和 button codes 驱动路由、菜单和操作按钮，不在页面里硬编码权限逻辑。
+- AI 前端已经形成产品化页面：Provider 配置、模型同步、Agent 配置、工具绑定、知识库/文档/chunk/检索测试、Run Monitor、AI Chat 会话页。
+- AI Chat 前端不是一个 textarea：包含 Agent 列表、会话抽屉、消息列表、WebSocket 增量回复、会话切换缓存、未完成回复保护、取消生成、图片附件、语音输入、emoji、运行参数面板。
+- WebSocket client 封装共享连接、自动重连、identity topic 订阅、message bus 分发，并处理本地开发 `localhost/127.0.0.1` cookie host 隔离问题。
+- 前端质量有测试兜底：AI API contract、message session visibility、stream chat session、router guards、permission UI、payment views、notification runtime、realtime client、useTable/useCrudTable 等都有 Vitest 覆盖。
 
-### PHP / 业务系统 / 存量交付
+### 5. 工程验证与部署：不是“本地能跑”就结束
 
-- 熟悉 PHP 8.1+、Webman / Workerman、Laravel、Eloquent、MySQL、Redis、Redis Queue、GatewayWorker、Crontab、PHPUnit。
-- PHP 对我不是包装词，而是已上线业务系统的证据：认证权限、AI Agent、SSE、WebSocket、支付钱包、订单履约、上传存储、系统通知、导出任务、日志审计和线上部署都做过。
-- 但求职表达上，PHP 不再抢主线；它作为存量业务系统维护、迁移事实提取和并行重构能力存在，主线转向 Go 后端、Python AI 自动化和强前端全栈。
-
-### 部署 / 交付 / 工程纪律
-
-- 独立完成域名、HTTPS、Nginx 反代、Webman 多端口服务、Go API、MySQL、Redis、COS 静态资源、桌面端更新清单配置。
-- 能区分 API、SSE、WebSocket、队列 worker、桌面端本地能力、移动端跨端运行和外部渠道回调的运行形态，并按协议特性做隔离。
-- 关注契约测试、接口边界和工程约束，不靠前端空数组、空对象、`any`、静默 catch 或后端兜底字段掩盖协议错误。
-
----
-
-## 工作经历
-
-### 小药药医药科技有限公司 · 前端开发
-
-**时间**：2025.10.27 - 至今
-
-- 从 0 搭建公司 SaaS 商家端前端工程，覆盖 Web 独立运行与 Electron Desktop 打包运行两条链路。
-- 负责登录、租户/门店选择、总部/门店工作区切换、权限菜单、会话恢复、统一请求、状态管理和 CRUD 基础设施等核心工程能力。
-- 参与荷叶问诊后台、移动端 APP、问诊内核 H5 三端迭代，覆盖远程审方、视频问诊、合理用药审查、长处方/慢病规则、移动推送与跨端跳转等医疗问诊核心链路。
-- 在 Figma Make 生成代码质量不稳定、UI 基础组件边界不清的约束下，逐步收口页面结构、组件边界和交互规范，避免设计稿代码直接污染业务层。
+- 后端当前规模：**453 个 Go 文件、131 个 Go 测试文件、708 个测试函数、约 60,000 行 Go 代码**。
+- 前端当前规模：**253 个 TS/Vue 源码文件、60 个 Vitest 测试文件、约 36,700 行前端源码**。
+- 建立文档和验证闭环：`current-status.md`、`admin-api-v1.md`、`admin-realtime-v1.md`、smoke matrix、backend architecture、README、Docker 部署文档。
+- 部署链路包含 Docker Compose、`admin-api` / `admin-worker`、MySQL、Redis、宝塔 Nginx 反代、HTTPS、前端 GitHub Actions 自动打包上传 dist。
+- 排障时优先看运行时事实：日志、真实路由、网络请求、WebSocket 认证、Nginx 反代、Redis key、MySQL 表结构和 smoke 结果，而不是靠猜。
 
 ---
 
-## 项目经历
+## 代表项目
 
-### Admin Go 主后端 Core Foundation 迁移
+### 智澜 Admin Go / Vue 企业级 AI 管理系统重构
 
-- **角色**：个人项目 / Go 主后端架构与全量业务迁移 / 既有 PHP Admin 系统并行重构
-- **技术栈**：Go 1.26、Gin、GORM、MySQL、Redis / go-redis、Asynq（队列）、gocron/v2（调度）、gorilla/websocket、go-pay/gopay（支付宝 SDK）、excelize（xlsx 导出）、go-captcha/v2、腾讯云 COS STS、AES-GCM secretbox、slog + lumberjack、RESTful API、Table-driven Tests、PowerShell Smoke Scripts。
+- **角色**：个人主导 / Go 主后端架构与实现 / Vue 前端适配 / 线上部署
+- **在线地址**：[https://zgm2003.cn](https://zgm2003.cn)
+- **技术栈**：Go、Gin、GORM、MySQL、Redis、Asynq、gocron/v2、gorilla/websocket、slog、Docker Compose、Vue 3、TypeScript、Vite、Element Plus、Pinia、Vitest、腾讯云 COS、OpenAI-compatible API。
 - **相关复盘**：[Go Admin Core Foundation：从 PHP 迁移到 Gin Modular Monolith](/posts/go-admin-architecture-design/)
 
-#### 项目概述
+#### 项目价值
 
-该项目是我围绕既有企业级 Admin 系统推进的 Go 主后端重构。不是重新写一个玩具 CRUD，而是在不破坏现有 Vue 前端、登录、菜单、按钮权限和业务使用路径的前提下，把旧 PHP 系统里的认证、会话、RBAC、支付、钱包、通知、AI 配置、队列、上传、实时通信等 **31 个业务模块** 逐步迁到 Go，前端同步适配 Go REST 契约。
+这是一套面向后台管理和 AI 应用配置的全栈系统重构。核心难点不是“写几个接口”，而是在不破坏既有前端和业务使用路径的前提下，把认证权限、用户体系、系统配置、日志审计、队列调度、WebSocket 实时通信和 AI 平台能力迁到 Go，并让前端同步切到新 REST 契约。
 
-当前 Go 后端已经完成 admin core foundation 并进入 **Phase 6 业务模块迁移**：支付域（渠道管理、流水审计、回调日志、对账任务、订单管理、钱包调账、充值运行时）、通知系统（发布/调度/Redis Pub/Sub WebSocket fan-out）、AI 配置 P1（模型/工具/提示词）、用户导出 worker、客户端版本管理等均已实现并通过 smoke 验证。
+#### 我负责的关键工作
 
-#### 核心工作
+**后端架构与权限核心**
+- 搭建 Gin modular monolith，固定 API 进程和 Worker 进程边界，所有模块通过 bootstrap 统一装配依赖。
+- 实现登录、验证码、Token refresh、logout revoke、session fallback、用户资料、用户会话、用户管理、角色授权、权限树、动态菜单、按钮权限码。
+- 设计显式 middleware 链和 route metadata，做到认证、权限、审计三者职责分离。
 
-**架构与基建**
-- 采用 **Gin modular monolith**，固定 `cmd -> bootstrap -> server -> module -> platform` 和 `route -> handler -> service -> repository -> model`；拒绝 Java 味 `ServiceImpl`、无意义 interface、handler 查库和 service 依赖 `gin.Context`。
-- 建立显式中间件链：`Recovery -> RequestID -> AccessLog -> CORS -> AuthToken -> PermissionCheck -> OperationLog -> Handler`；权限检查 fail-closed，操作审计只记录显式 route metadata 命中的路由，不靠反射或 handler 名称猜测。
-- 进程分离：`cmd/admin-api` 只处理 REST + WebSocket upgrade，`cmd/admin-worker` 负责 Asynq 队列消费 + gocron/v2 调度；两者共享 service 层但运行时完全独立。
+**AI 平台能力**
+- 实现 AI Provider 配置、OpenAI 模型同步、密钥加密存储和响应脱敏。
+- 实现 Agent 配置、Chat 会话、消息持久化、WebSocket 增量回复、取消生成、运行监控、token/耗时统计。
+- 实现工具调用闭环：Agent 绑定工具 -> Provider function tools -> 工具执行 -> 结果回传模型 -> `ai_tool_calls` 落库。
+- 实现本地 Knowledge RAG MVP：知识库、文档、chunk、检索测试、Agent 绑定、运行时检索注入、命中审计。
 
-**认证与权限**
-- 实现完整认证链路：登录配置、go-captcha 滑块验证码、密码/验证码登录、自动注册、Access/Refresh Token、Token Hash + Pepper、Redis token cache + MySQL session fallback、refresh rotation、logout revoke、平台策略（设备/IP 绑定、单端登录、最大会话数）。
-- 迁移 RBAC 核心：`DIR / PAGE / BUTTON` 权限类型、角色授权矩阵、动态菜单/路由/按钮权限码、权限变更后的用户授权缓存失效、fail-closed 接口权限检查。
+**实时通信与异步任务**
+- 实现 WebSocket realtime：认证 upgrade、心跳、订阅白名单、慢客户端保护、Redis Pub/Sub fan-out。
+- 实现通知任务发布/调度/发送，支持 `notification.created.v1` 事件推送到在线用户。
+- 实现 Asynq 队列和 DB-backed cron task，Worker 统一消费导出、通知、AI timeout、支付定时任务。
 
-**支付域（完整闭环）**
-- 支付渠道管理：secretbox 加密私钥、响应/日志脱敏、引用删除保护。
-- 充值运行时：Alipay sandbox 充值订单创建/支付尝试/查询/取消、公开回调入口 `POST /api/pay/notify/alipay`、Redis 分布式锁防重、同步钱包入账事务、`pay_notify_logs` 审计。
-- 钱包管理：后台钱包列表/流水/调账（幂等 idempotency key + 同步 MySQL 事务 + 操作日志）。
-- 对账系统：`pay:reconcile-daily:v1` + `pay:reconcile-execute:v1` worker handler，支持 Alipay 平台账单 UTF-8/GBK CSV/zip 解析，写入 local/platform/diff CSV，失败显式标记。
-- 订单管理：状态统计/列表/详情/备注/本地关单，读权限复用 `pay_recharge_list`，写权限用 `pay_order_edit`。
-- 履约重试：`pay:fulfillment-retry:v1` 扫描可重试本地履约行，复用钱包入账幂等路径。
+**前端管理台**
+- 用 Vue 3 + TypeScript 适配 Go REST API，沉淀 typed API client，逐步删除 legacy client 和旧 PHP 路径。
+- 实现 AI Provider / Agent / Tools / Knowledge / Runs / Chat 页面，覆盖配置、绑定、检索、运行明细和实时会话。
+- 封装共享 WebSocket client 和 message bus，AI Chat 按 `conversation_id + request_id` 分发增量回复，切换会话不丢未完成输出。
+- 动态菜单、动态路由、按钮权限全部由后端返回，前端只负责渲染和交互，不再自造权限事实。
 
-**通知与实时推送**
-- 通知任务发布/调度：REST CRUD + `notification:dispatch-due:v1` 补偿 + `notification:send-task:v1` 批量写入 + Redis Pub/Sub `notification.created.v1` 跨进程 fan-out 到 WebSocket。
-- WebSocket 基建：gorilla/websocket、path-scoped cookie auth、bounded send queue（slow-client drop）、read/write pump、heartbeat、identity topic 白名单、local/noop/redis Publisher 选择。
+**部署与验证**
+- 编写 Docker Compose 部署，`admin-api` 和 `admin-worker` 分进程运行，Nginx/宝塔负责 HTTPS 和反向代理。
+- 配置前端 GitHub Actions，push 后自动构建 dist 并上传服务器。
+- 使用 Go test、Vitest、vue-tsc、contract check、basic/full smoke 脚本验证核心链路。
 
-**队列与调度**
-- Asynq 三 lane（critical/default/low）+ gocron/v2 DB-backed scheduler；当前已注册 `auth:login-log:v1`、`notification:dispatch-due:v1`、`notification:send-task:v1`、`export:run:v1`、`pay:close-expired-order:v1`、`pay:sync-pending-transaction:v1`、`pay:reconcile-daily:v1`、`pay:reconcile-execute:v1`、`pay:fulfillment-retry:v1` 等版本化任务。
-- 官方 asynqmon 只读 UI 挂载到认证后的 `/api/admin/v1/queue-monitor-ui/*`。
+#### 项目亮点
 
-**其他已迁模块**
-- 用户管理（列表/编辑/批量/状态/删除/导出 worker xlsx + COS 上传）、用户会话只读、个人资料/账号安全、系统设置、系统日志（lumberjack + logstore 只读浏览）、操作日志（request/response JSON 摘要 + 敏感字段遮蔽 + 64KB cap）、上传配置（drivers/rules/settings + secretbox）、COS STS 上传 token、客户端版本管理（COS manifest 发布）、AI 配置 P1（ai_models/ai_tools/ai_prompts，api_key secretbox 加密）。
-
-**验证体系**
-- 当前仓库 **428 个 Go 文件、121 个测试文件、666 个测试函数、55,800+ 行 Go 代码**。
-- `go test ./...`、`go vet`、`check-contract.ps1` 门禁 + basic/full smoke 脚本覆盖登录、RBAC 闭环、支付渠道/流水/订单/钱包调账、通知任务、队列监控、上传 token、WebSocket connect/ping/pong、AI 配置等 30+ 个 API 区域。
-- 11 条 SQL 迁移脚本管理权限补齐、旧模块清理和 handler 注册。
-
-#### 求职价值
-
-这个项目证明我不是只会 Gin CRUD，而是能把一个已有复杂后台系统拆出真实边界，用 Go 重建认证、会话、RBAC、支付闭环、队列调度、实时推送、文件导出和测试体系。它同时说明我懂迁移节奏和工程纪律：旧 PHP 只提供业务事实，Go 负责新主后端，前端路径不能被破坏，每个切片都有契约文档、单元测试和 smoke 验证。
+- **复杂度真实**：不是单表 CRUD，而是认证、RBAC、WebSocket、队列、AI、RAG、运行监控、部署的组合系统。
+- **边界清楚**：Go 后端不写成 Java，前端不靠 `any` 和空兜底吞错误，契约漂移通过测试和 smoke 暴露。
+- **AI 能力可观测**：每次 AI 调用都有 conversation/message/run/event/tool/retrieval 记录，不把模型调用当黑盒。
+- **运行时可部署**：有 Docker、Nginx、域名、HTTPS、MySQL、Redis、日志、健康检查和 CI/CD，不停在本地 demo。
 
 ### Python + AI 电商内容自动化流水线
 
-- **角色**：个人项目 / Python AI 自动化 / 商品 AI 工作台能力
-- **技术栈**：Python 自动化脚本、Chrome Extension、OCR、AI Agent、TTS、Redis Queue、PHP / Webman、MySQL、COS、SRT。
+- **角色**：个人项目 / Python 自动化与 AI 内容生成链路设计
+- **技术栈**：Python、浏览器插件、OCR、AI Agent、TTS、SRT、Redis Queue、MySQL、COS。
 
-#### 项目概述
+围绕电商商品构建 **商品采集 -> 图片/OCR -> AI 卖点与口播生成 -> TTS 合成 -> SRT 字幕下载** 的内容生产流水线。重点不是“调用一次模型”，而是把运营重复劳动拆成可采集、可清洗、可排队、可追踪、可重试、可审核的任务链。
 
-该项目围绕电商商品构建 **商品采集 -> 图片/OCR -> AI 卖点与口播生成 -> TTS 合成 -> SRT 下载** 的内容生产流水线。它的价值不是“调一个模型接口”，而是把运营里的重复劳动拆成可采集、可清洗、可排队、可追踪、可重试、可审核的任务链。
-
-#### 核心工作
-
-- 浏览器插件采集商品标题、价格、销量、品牌、店铺、规格、描述、评论、详情图等结构化信息。
-- Python / 脚本层辅助批量数据清洗、图片/文件处理、接口调试、AI 工具链验证和重复任务自动化。
-- 后端承接商品入库、图片选择、OCR 识别、Agent 生成卖点/口播词、TTS 合成和字幕文件下载。
-- 使用队列承载 OCR、AI、TTS 等耗时任务，为每个阶段设计状态流转，避免任务失败后只留下模糊的“生成失败”。
-- 该项目适合作为 Python / AI 应用方向证明：Python 负责 AI 工作流和自动化，Web 后台负责状态、权限和人工审核，形成真实业务闭环。
-
-### 智澜·TS 企业级 AI Admin 系统
-
-- **角色**：个人项目 / 独立设计与开发 / 已上线
-- **在线地址**：[https://zgm2003.cn](https://zgm2003.cn)
-- **技术栈**：Vue 3.5、TypeScript、Vite、Element Plus、Pinia、Vue Router、Vue I18n、Tauri 2、PHP 8.1+、Webman / Workerman、Eloquent、MySQL 8.4、Redis、Redis Queue、GatewayWorker、NeuronAI、Yansongda Pay、腾讯云 COS / TTS、阿里云 AIGC / TTS。
-
-#### 项目概述
-
-智澜·TS 是一套面向企业后台管理与 AI 能力集成的全栈 Admin 系统，包含认证权限、动态菜单、AI Agent、流式对话、IM 聊天、支付钱包、订单履约、上传存储、通知任务、导出任务、系统日志、Tauri 桌面端更新等能力。它证明我已经能用 PHP / Webman / Vue / Tauri 把复杂业务系统做上线，也为后续 Go 主后端迁移提供了真实业务事实。
-
-#### 核心贡献
-
-- **AI Agent 运行系统**：设计 Agent / Model / Tool / Prompt / Conversation / Message / Run / Step 数据模型，让一次 AI 调用从黑盒请求变成可追踪、可审计、可取消、可超时治理的运行过程。
-- **流式对话协议**：后端通过独立 SSE 服务输出 `conversation`、`run`、`content`、`tool_call`、`tool_result`、`done`、`error`、`canceled` 等事件；前端按事件驱动更新 UI。
-- **Tool 安全治理**：实现 Internal Tool、HTTPS 白名单 Tool、只读 SQL Tool 三类执行器；SQL 只允许 SELECT，拒绝写操作，并自动追加 LIMIT。
-- **认证权限体系**：实现 Access / Refresh Token、Token Hash + Pepper、Redis Session、单端登录、平台/设备/IP 绑定、RBAC 菜单/动态路由/按钮权限码。
-- **支付与订单闭环**：接入 Yansongda Pay，完成充值订单、支付流水、钱包入账、订单履约、支付回调、对账任务和定时补偿；使用 RedisLock 控制重复提交和回调并发。
-- **实时通信与异步任务**：封装 WebSocket 单例连接、GatewayWorker 推送、Redis Queue 消费者、AI 超时检测、通知调度、支付关单/同步/履约/对账任务。
-- **线上部署**：独立完成服务器部署、域名解析、HTTPS、Nginx 反代、MySQL / Redis 配置；线上服务拆分为 API `8787`、SSE `8788`、WebSocket `7272`。
-
-#### 可量化信息
-
-- 后端规模：**43 个 Controller、48 个 Module、46 个 Dep、47 个 Model、21 个 Service、10 个 Redis Queue 消费者**。
-- 运行边界：API、SSE、WebSocket、队列消费者、定时任务、Tauri 桌面端更新链路均已形成闭环。
-- 工程原则：前后端强契约，后端错就暴露，不靠前端空对象、空数组、静默 catch 掩盖协议问题。
-
-### SaaS 商家端 Web / Desktop 一体化前端
-
-- **角色**：公司项目 / 前端架构与核心开发 / 从 0 搭建
-- **技术栈**：React 19、TypeScript、Vite、Electron、Ant Design、TanStack React Query、Zustand、React Router、Axios、Zod、Tailwind CSS、Electron Builder。
-
-#### 项目概述
-
-该项目是面向药店/商家的 SaaS 管理端，既支持浏览器 Web 运行，也支持 Electron 桌面端本地运行和打包发布。我负责从工程初始化到核心链路落地：运行时识别、接口基址配置、登录恢复、门店/总部工作区、权限菜单、统一请求、状态管理和通用 CRUD 页面能力。
-
-#### 核心工作
-
-- 搭建 Web / Desktop 双运行链路：Web 端使用 Vite 独立构建，桌面端通过 Electron 承载本地运行、后端 ready bridge、窗口能力和安装包构建。
-- 设计运行时初始化与接口客户端配置，区分 Web、Desktop、本地后端、业务 API 等不同基础地址，避免页面代码到处判断运行环境。
-- 落地登录、Token 恢复、门店选择/申请、总部/门店工作区切换、权限菜单和动态路由入口，让用户会话和业务工作区状态可恢复、可切换。
-- 封装 Zustand session/users 状态、Axios 请求客户端、统一错误处理、权限快照和 i18n 文案边界，沉淀 Dialog、Search、Table、Column Settings、CRUD Hook 等可复用能力。
-- 坚持强契约开发：前端不靠猜字段、空兜底和静默 catch 掩盖接口问题，优先让协议错误暴露出来，再按真实契约修正。
-
-### 荷叶问诊医药 SaaS 三端协同系统
-
-- **角色**：公司项目 / 核心前端开发
-- **技术栈**：Vue 3、TypeScript、Vite、Element Plus、Vant、uni-app、Pinia、Axios / luch-request、腾讯云 IM / TRTC、阿里云移动推送、Aegis。
-
-#### 项目概述
-
-该项目覆盖 PC 管理后台、跨端移动 APP 和问诊内核 H5。核心业务不是普通页面 CRUD，而是围绕互联网医院与药店问诊场景，把患者、医生、药师、商家、处方、审方、视频通话、移动推送和合规规则串成可用链路。
-
-#### 核心亮点
-
-- 后台端承接远程审方、药师工作台、处方记录、问诊数据、GSP 商品资料和合理用药规则配置，处理动态路由、租户 `tenant-id`、Token 刷新队列和全局错误提示。
-- 移动端基于 uni-app 支持 H5、Android、iOS、微信小程序和鸿蒙配置，接入阿里云推送、腾讯 IM / TRTC，处理处方待审、视频来电、订单通知、权限申请和跨端页面跳转。
-- 问诊内核 H5 使用 Vue 3 + Vant 承载患者问诊、医生接诊、药师审方、第三方问诊流转、商品提交、套餐购买和消息中心等移动端业务。
-- 在第三方问诊链路中梳理详情拉取、合理用药审查、药品/诊断归一化、审查弹窗拦截和后续流转，避免把医疗规则判断散落在页面事件里。
-- 排查过长处方/慢病仍提示超量的问题，定位到“慢病病情选择”和“后台慢病目录药品配置”是两层不同规则，问题根因不在前端状态，而在规则目录匹配。
+- 浏览器插件采集商品标题、价格、销量、品牌、店铺、规格、评论、详情图等结构化信息。
+- Python 负责数据清洗、图片/文件处理、接口回放、AI 工具链验证和批处理脚本。
+- 后台负责状态管理、人工审核、任务排队和结果持久化，Python/AI 层负责重复处理和生成能力。
+- 适合作为我 Python 方向的证明：Python 放在 AI 自动化和数据处理上，而不是硬包装成普通 CRUD 后端。
 
 ### AI Make 本地 UIUX Patch Compiler
 
-- **角色**：个人项目 / 产品设计与独立开发 / Codex Skill + npm CLI
-- **技术栈**：Node.js、JavaScript ESM、Codex Skill、Prompt Engineering、React、TypeScript、Tailwind CSS、Multi-Agent Workflow。
+- **角色**：个人工具 / 产品设计与本地 Agent 工作流设计
+- **技术栈**：Node.js、JavaScript ESM、Codex Skill、Prompt Engineering、React、TypeScript、Tailwind CSS。
 
-#### 项目概述
+AI Make 是围绕 Figma Make / AI 生成前端代码沉淀的本地工作流工具。它的目标不是“让 AI 随便生成页面”，而是把 UI 需求拆成 visual brief、页面结构、ui-spec、prompt-pack、agent handoff 和 review gates，再交给 Codex / Claude Code / Cursor 这类本地 Agent 生成可审查 patch。
 
-AI Make 是我围绕 Figma Make 工作流沉淀的本地开发者 UI 生成 Skill。它不是网页 IDE，也不直接调用模型 API，而是把一句 UI 需求编译成 **visual brief、page composition blueprint、ui-spec、prompt-pack、agent handoff、任务拆分和 review gates**，再交给 Codex / Claude Code / Cursor 等本地编码 Agent 在现有项目里生成可审查、可验证、可合并的前端 patch。
-
-#### 核心工作
-
-- 设计从自然语言 UI 需求到本地代码 patch 的编译链路：先确定视觉方向和首屏结构，再生成规格、提示词包、Agent 交接文档和验证要求。
-- 实现 `ai-make` CLI 与 Codex Skill 入口，支持读取目标项目上下文、生成运行目录、拆分任务、输出单任务 Agent prompt，并记录本轮 patch 的 review gate。
-- 把视觉质量放在代码质量之前：通过 `visual-brief` 和 `page composition blueprint` 约束首屏框架、hero、指标节奏、证据区、行动区和细节层，避免生成“能跑但像模板”的页面。
-- 强约束生成边界：不猜后端字段、不添加 fallback 字段、不绕过项目架构、不擅自引入新 UI 库、不生成巨大单文件页面。
+- 先约束视觉方向、首屏结构、组件边界和交互重点，再生成代码任务。
+- 强制生成结果遵守目标项目架构：不猜后端字段、不绕过权限、不乱引 UI 库、不写巨大单文件。
+- 这个项目体现的是我对 AI 生成代码的态度：AI 可以提速，但必须被工程规则、组件体系和验证门禁约束。
 
 ---
 
 ## 技术文章 / 证明材料
 
 - [Go Admin Core Foundation：从 PHP 迁移到 Gin Modular Monolith](/posts/go-admin-architecture-design/)
-- [Go 语言基本学习路线：从变量到项目入门](/posts/go-beginner-learning-route/)
 - [从调 API 到 Agent 工程化：把 AI 能力做成可治理系统](/posts/ai-agent-engineering-practice/)
 - [Agent 工程学习路线：从 LLM 到可上线智能体系统](/posts/understanding-ai-ecosystem/)
 - [电商 AI 口播生成系统：OCR、Agent、TTS 与队列闭环](/posts/ecommerce-ai-script-generation/)
-- [Webman 分层架构：Controller 到 Model 的边界治理](/posts/webman-layered-architecture/)
-- [SSE 流式对话系统：AI 实时输出的生产级实现](/posts/sse-streaming-chat/)
-- [医疗问诊 SaaS 三端协同：后台、移动端与问诊内核怎么串起来](/posts/medical-inquiry-saas-three-clients/)
+- [WebSocket 实时通信架构：从连接管理到业务事件分发](/posts/websocket-realtime-architecture/)
+- [Go 语言基本学习路线：从变量到项目入门](/posts/go-beginner-learning-route/)
 
 ---
 
@@ -259,7 +168,8 @@ AI Make 是我围绕 Figma Make 工作流沉淀的本地开发者 UI 生成 Skil
 
 ## 我的优势
 
-- **Go 不是贴标签**：我已经用 Go 推进 31 个业务模块迁移，覆盖认证会话、RBAC、完整支付域（渠道/充值/回调/对账/钱包/履约）、通知推送、队列调度、WebSocket、AI 配置和测试门禁，428 个 Go 文件、666 个测试函数、55,800+ 行代码，不是只写过 Gin CRUD。
-- **Python 有真实位置**：Python 负责 AI 应用、数据处理、自动化脚本和内容流水线，不硬塞成普通 CRUD 后端。
-- **前端能力很强**：能做 React / Vue 后台工程、uni-app 移动端、Vant H5、Electron / Tauri 桌面端、权限菜单、状态管理、跨端运行和 AI UI 生成工作流。
-- **PHP 是上线证明，不是主线包袱**：PHP / Webman 系统证明我能交付复杂业务，但求职主线已经转向 Go 后端、Python AI 自动化和强前端全栈。
+- **能做复杂系统主线**：Go 后端、Vue 前端、AI 平台、队列、WebSocket、部署都在同一个真实项目里串起来了。
+- **不是只会写页面或 CRUD**：我能处理认证、权限、审计、异步任务、实时通信、AI 调用链、运行监控和线上部署。
+- **有工程洁癖**：反感 `any`、空兜底、静默 catch、字段乱猜和假兼容；更倾向契约清楚、边界清楚、测试能证明。
+- **能把 AI 做成产品能力**：Provider、Agent、Tool、Knowledge、Chat、Run Monitor 都有后台管理和运行记录，不是孤立的 Prompt Demo。
+- **学习和迁移能力强**：能从旧 PHP 系统抽业务事实，用 Go 重建运行边界，并让前端逐步切到新契约。

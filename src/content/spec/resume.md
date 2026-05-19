@@ -1,8 +1,8 @@
 ## 招聘官快速判断
 
 - **目标岗位**：Go 后端工程师 / AI 应用工程师 / AI Agent 平台工程师 / Vue 全栈工程师。
-- **主线能力**：能把认证权限、队列调度、WebSocket 实时通信、AI Agent、工具调用、知识库、运行监控、浏览器插件和前端管理台做成一套真实可运行、可验证、可部署、可公开追溯的系统。
-- **最大卖点**：我不是只会写页面或单表 CRUD 的候选人，而是能用 Go/Vue/AI 把复杂后台主线从架构、开发、测试、部署到公开作品集完整打穿。
+- **主线能力**：能把认证权限、队列调度、WebSocket 实时通信、AI Agent、工具调用、知识库、运行监控、OpenAI-compatible API、注册机、号池和前端管理台做成真实可运行、可验证、可部署、可公开追溯的系统。
+- **最大卖点**：我不是只会写页面或单表 CRUD 的候选人，而是能用 Go/Vue/Python/AI 把复杂后台主线、AI 平台和高热度开源项目从架构、开发、测试、部署到公开作品集完整打穿。
 
 ## 基本信息
 
@@ -23,7 +23,7 @@
 
 我当前最核心的简历项目，是把一套已有企业级 Admin 系统从 PHP/Webman 迁到 **Go + Gin modular monolith**，同时维护配套 **Vue 3 + TypeScript** 管理前端。这个项目已经覆盖后台核心能力和 AI 应用平台能力：登录会话、RBAC、用户/角色/权限、操作日志、系统配置、队列任务、定时调度、WebSocket、通知推送、AI Provider、Agent、Chat、Run Monitor、Tool Calling、Knowledge RAG 等。
 
-这个项目不是 CRUD demo。它有后端 API 进程、Worker 进程、MySQL/Redis 状态、Asynq 队列、DB-backed scheduler、WebSocket realtime、Docker 部署、宝塔/Nginx 反代、前后端契约文档、单元测试、Vitest、vue-tsc 和 smoke 脚本。对应的 root / backend / frontend 仓库都已经公开到 GitHub，可以被直接审阅。
+这个项目不是 CRUD demo。它有后端 API 进程、Worker 进程、MySQL/Redis 状态、Asynq 队列、DB-backed scheduler、WebSocket realtime、Docker 部署、宝塔/Nginx 反代、前后端契约文档、单元测试、Vitest、vue-tsc 和 smoke 脚本。另一个公开项目 [chatgpt2api](https://github.com/zgm2003/chatgpt2api) 已有 **127 Star / 47 Fork**，能证明我不只是自娱自乐写项目，也能维护有真实外部关注度的 AI 工程项目。
 
 ---
 
@@ -32,7 +32,7 @@
 | 担心点 | 我的反证 |
 | --- | --- |
 | “应届生项目是不是玩具？” | 主项目不是孤立 demo，而是 Go API + Worker + MySQL + Redis + WebSocket + Asynq + Vue 管理台 + Docker/Nginx 部署的组合系统。 |
-| “是不是只会套 AI 接口？” | AI 链路覆盖 Provider、Agent、Conversation、Message、Run Monitor、Tool Calling、Knowledge RAG、流式事件和运行记录。 |
+| “是不是只会套 AI 接口？” | AI 链路覆盖 Provider、Agent、Conversation、Message、Run Monitor、Tool Calling、Knowledge RAG、流式事件和运行记录；chatgpt2api 侧覆盖 OpenAI-compatible API、gpt-image-2、号池、注册机、Docker 自托管和在线调试页。 |
 | “是不是只会前端或只会后端？” | 后端负责认证、权限、队列、实时通信、AI 调用链；前端负责 typed API、动态菜单、AI Chat、Run Monitor、Knowledge/Tool 页面。 |
 | “简历写得很满，能不能追问？” | GitHub 仓库、在线系统、技术博客、测试文件、部署文档和 smoke 脚本都能作为追问入口。 |
 
@@ -109,14 +109,14 @@
 | [admin_back_go](https://github.com/zgm2003/admin_back_go) | Go 后端 | Gin modular monolith、认证/RBAC、AI 平台、WebSocket、Asynq、scheduler、COS、支付、测试和部署 |
 | [admin_front_ts](https://github.com/zgm2003/admin_front_ts) | Vue 管理前端 | Vue 3 + TypeScript 后台、动态路由、按钮权限、AI Chat、Run Monitor、Knowledge/Tool 管理、Vitest |
 | [personal_blog](https://github.com/zgm2003/personal_blog) | 个人站点 / 简历 / 技术文章 | Astro 技术博客、在线简历、项目复盘和工程思考沉淀 |
+| [chatgpt2api](https://github.com/zgm2003/chatgpt2api) | Python / React AI 平台工程 | **127 Star / 47 Fork**；OpenAI-compatible API、gpt-image-2、注册机、号池管理、Docker 自托管、在线 Chat/生图页面、前后端联动和复杂 fork 二次维护 |
 | [rc_zuoguangming](https://github.com/zgm2003/rc_zuoguangming) | Python / FastAPI 可靠通知服务 | 持久化通知意图、异步投递、失败重试、attempt 记录、SSRF 防护和 at-least-once 语义 |
 | [spider_media](https://github.com/zgm2003/spider_media) | Chrome / Edge MV3 扩展 | `webRequest` 监听、页面主世界桥接、DOM 观察、blob 抓取、HLS/DASH 轻量分析和 ffmpeg 命令生成 |
 | [cine-make](https://github.com/zgm2003/cine-make) | AI Agent 工具链 | Codex skill、本地 CLI、短剧预生产、storyboard、分镜连续性、AI 视频工具 prompt pack |
-| [chatgpt2api](https://github.com/zgm2003/chatgpt2api) | Python / React 研究型 fork | OpenAI-compatible API、图片生成/编辑、账号池、Docker 自托管、前后端联动和复杂项目二次维护能力 |
 
 这组仓库能形成一条清楚主线：
 
-> 企业级后台系统 -> AI Agent 平台 -> 实时通信/队列/调度 -> 浏览器采集/自动化 -> 可靠性小系统 -> 技术博客与公开表达
+> 企业级后台系统 -> AI Agent 平台 -> OpenAI-compatible API/号池/生图 -> 实时通信/队列/调度 -> 浏览器采集/自动化 -> 可靠性小系统 -> 技术博客与公开表达
 
 ---
 
@@ -170,18 +170,28 @@
 - **AI 能力可观测**：每次 AI 调用都有 conversation/message/run/event/tool/retrieval 记录，不把模型调用当黑盒。
 - **运行时可部署**：有 Docker、Nginx、域名、HTTPS、MySQL、Redis、日志、健康检查和 CI/CD，不停在本地 demo。
 
-### Python + AI 电商内容自动化流水线
+### ChatGPT2API / AI 账号池与 gpt-image-2 网关
 
-- **角色**：个人项目 / Python 自动化与 AI 内容生成链路设计
-- **相关仓库**：[spider_media](https://github.com/zgm2003/spider_media)；商品采集扩展当前保留在 Gitee/local 工作区
-- **技术栈**：Python、浏览器插件、OCR、AI Agent、TTS、SRT、Redis Queue、MySQL、COS。
+- **角色**：高热度公开 fork 维护 / Python 后端改造 / React 前端联动 / 注册与号池工程化
+- **GitHub**：[chatgpt2api](https://github.com/zgm2003/chatgpt2api)（当前 **127 Star / 47 Fork**）
+- **技术栈**：Python、FastAPI/异步服务、React、OpenAI-compatible API、Docker、账号池、注册自动化、邮件/短信 OTP、CPA 导入、图片生成/编辑。
 
-围绕电商商品构建 **商品采集 -> 图片/OCR -> AI 卖点与口播生成 -> TTS 合成 -> SRT 字幕下载** 的内容生产流水线。重点不是“调用一次模型”，而是把运营重复劳动拆成可采集、可清洗、可排队、可追踪、可重试、可审核的任务链。
+这个项目比普通“接一个模型 API”更有简历含金量：它把 ChatGPT / OpenAI-compatible 调用、账号池、注册自动化、gpt-image-2 生图能力、在线调试页和 Docker 自托管揉成一个可运行系统。它还有真实公开热度，Star/Fork 能直接证明项目不是没人看的玩具。
 
-- 浏览器插件采集商品标题、价格、销量、品牌、店铺、规格、评论、详情图等结构化信息。
-- Python 负责数据清洗、图片/文件处理、接口回放、AI 工具链验证和批处理脚本。
-- 后台负责状态管理、人工审核、任务排队和结果持久化，Python/AI 层负责重复处理和生成能力。
-- 适合作为我 Python 方向的证明：Python 放在 AI 自动化和数据处理上，而不是硬包装成普通 CRUD 后端。
+#### 我负责的关键工作
+
+- **OpenAI-compatible 网关**：把底层账号能力包装成兼容接口，方便外部按标准 API 方式接入文本、图片生成/编辑和模型列表。
+- **gpt-image-2 生图能力**：围绕图片生成/编辑、模型选择、前端调试页和账号池调度，做成可持续调用的工程链路；简历表达上强调“号池化扩展额度”，避免被面试官问成无法证明的“无限额度”。
+- **注册机与账号池**：维护普通注册、Codex/CPA 注册链路、邮箱/短信 OTP、账号导入、密码记录、账号管理复制入口和运行状态查看。
+- **CPA / 侧效应验证**：注册成功后不只看本地结果，还验证 CPA 侧是否真的收到 auth 文件，避免“本地显示成功，远端没入库”的假成功。
+- **运行时部署与排障**：支持 Docker 自托管，围绕代理、邮箱 provider、HeroSMS、OAuth callback、token exchange、并发线程和网络桶做日志驱动排障。
+
+#### 项目亮点
+
+- **公开热度强**：127 Star / 47 Fork，适合放在简历里证明开源曝光和项目吸引力。
+- **AI 工程味更重**：不是普通 Python CRUD，而是账号池、注册自动化、模型兼容、图片生成、Docker、自托管和前后端联动。
+- **可面试追问**：能讲 OAuth callback、OTP、CPA multipart 上传、账号池调度、并发失败桶、Docker runtime reload、API key 管理和模型下拉加载。
+- **商业价值直观**：gpt-image-2 生图、OpenAI-compatible API 和账号池都是招聘官容易理解的“能产生业务价值”的 AI 能力。
 
 ### Cine Make / AI Agent 本地生产力工具链
 

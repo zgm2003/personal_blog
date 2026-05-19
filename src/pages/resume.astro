@@ -314,9 +314,14 @@ const keywords = [
 		gap: 1rem;
 		margin-top: 1.1rem;
 		padding: 1.15rem;
-		border: 1px solid rgba(255,255,255,0.1);
+		color: #0b1220;
+		border: 1px solid rgba(15, 23, 42, 0.08);
 		border-radius: 1.5rem;
-		background: rgba(255,255,255,0.045);
+		background:
+			radial-gradient(circle at 12% 10%, rgba(78, 195, 255, 0.16), transparent 22rem),
+			linear-gradient(135deg, rgba(255,255,255,0.98), rgba(239,246,255,0.92));
+		box-shadow: 0 24px 70px rgba(15,23,42,0.08);
+		overflow: hidden;
 	}
 
 	.proof-board h2 {
@@ -324,6 +329,8 @@ const keywords = [
 		font-size: clamp(1.35rem, 3vw, 2.15rem);
 		line-height: 1.15;
 		letter-spacing: -0.04em;
+		color: #050b18;
+		text-wrap: balance;
 	}
 
 	.repo-grid {
@@ -336,15 +343,19 @@ const keywords = [
 		display: block;
 		padding: 0.9rem;
 		border-radius: 1rem;
-		border: 1px solid rgba(255,255,255,0.11);
-		background: rgba(255,255,255,0.06);
-		transition: transform .18s ease, border-color .18s ease, background .18s ease;
+		text-decoration: none;
+		border: 1px solid rgba(15,23,42,0.12);
+		background:
+			linear-gradient(135deg, rgba(17,24,39,0.96), rgba(30,41,59,0.92)),
+			radial-gradient(circle at 85% 0%, rgba(80, 220, 190, 0.22), transparent 14rem);
+		box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 16px 34px rgba(15,23,42,0.12);
+		transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
 	}
 
 	.repo-card:hover {
 		transform: translateY(-2px);
 		border-color: oklch(0.72 0.16 var(--hue));
-		background: rgba(255,255,255,0.1);
+		box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 22px 44px rgba(15,23,42,0.18);
 	}
 
 	.repo-card strong,
@@ -365,10 +376,27 @@ const keywords = [
 	}
 
 	:global(.resume-markdown table) {
-		display: block;
 		width: 100%;
-		overflow-x: auto;
-		white-space: nowrap;
+		table-layout: fixed;
+		border-collapse: collapse;
+		white-space: normal;
+	}
+
+	:global(.resume-markdown th),
+	:global(.resume-markdown td) {
+		vertical-align: top;
+		overflow-wrap: anywhere;
+		word-break: normal;
+	}
+
+	:global(.resume-markdown th:first-child),
+	:global(.resume-markdown td:first-child) {
+		width: 9.5rem;
+	}
+
+	:global(.resume-markdown th:nth-child(2)),
+	:global(.resume-markdown td:nth-child(2)) {
+		width: 13.5rem;
 	}
 
 	:global(.resume-markdown blockquote) {
@@ -395,6 +423,48 @@ const keywords = [
 		.hero-panel,
 		.proof-board {
 			padding: 0.95rem;
+		}
+
+		:global(.resume-markdown table),
+		:global(.resume-markdown tbody),
+		:global(.resume-markdown tr),
+		:global(.resume-markdown td) {
+			display: block;
+			width: 100%;
+		}
+
+		:global(.resume-markdown td:first-child),
+		:global(.resume-markdown td:nth-child(2)),
+		:global(.resume-markdown td:nth-child(3)) {
+			width: 100%;
+		}
+
+		:global(.resume-markdown thead) {
+			display: none;
+		}
+
+		:global(.resume-markdown tr) {
+			margin: 0.85rem 0;
+			padding: 0.85rem;
+			border: 1px solid rgba(15,23,42,0.08);
+			border-radius: 1rem;
+			background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(248,250,252,0.82));
+			box-shadow: 0 14px 34px rgba(15,23,42,0.07);
+		}
+
+		:global(.resume-markdown td) {
+			padding: 0.28rem 0;
+			border: 0;
+		}
+
+		:global(.resume-markdown td:first-child) {
+			font-size: 1.02rem;
+			font-weight: 850;
+		}
+
+		:global(.resume-markdown td:first-child a) {
+			text-decoration-thickness: 2px;
+			text-underline-offset: 3px;
 		}
 	}
 

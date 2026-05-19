@@ -22,6 +22,8 @@ interface Props {
 	lang?: string;
 	setOGTypeArticle?: boolean;
 	headings?: MarkdownHeading[];
+	hideSidebar?: boolean;
+	hideToc?: boolean;
 }
 
 const {
@@ -31,6 +33,8 @@ const {
 	lang,
 	setOGTypeArticle,
 	headings = [],
+	hideSidebar = false,
+	hideToc = false,
 } = Astro.props;
 const hasBannerCredit =
 	siteConfig.banner.enable && siteConfig.banner.credit.enable;
@@ -63,8 +67,10 @@ const mainPanelTop = siteConfig.banner.enable
 <div class="absolute w-full z-30 pointer-events-none" style={`top: ${mainPanelTop}`}>
     <!-- The pointer-events-none here prevent blocking the click event of the TOC -->
     <div class="relative max-w-[var(--page-width)] mx-auto pointer-events-auto">
-        <div id="main-grid" class="transition duration-700 w-full left-0 right-0 grid grid-cols-[17.5rem_auto] grid-rows-[auto_1fr_auto] lg:grid-rows-[auto]
-    mx-auto gap-4 px-0 md:px-4"
+        <div id="main-grid" class:list={[
+            "transition duration-700 w-full left-0 right-0 grid grid-cols-[17.5rem_auto] grid-rows-[auto_1fr_auto] lg:grid-rows-[auto] mx-auto gap-4 px-0 md:px-4",
+            {"main-grid-wide": hideSidebar},
+        ]}
         >
             <!-- Banner image credit -->
             {hasBannerCredit && <a href={siteConfig.banner.credit.url} id="banner-credit" target="_blank" rel="noopener" aria-label="Visit image source"
@@ -80,7 +86,7 @@ const mainPanelTop = siteConfig.banner.enable
             </a>}
 
 
-            <SideBar class="mb-4 row-start-2 row-end-3 col-span-2 lg:row-start-1 lg:row-end-2 lg:col-span-1 lg:max-w-[17.5rem] onload-animation" headings={headings}></SideBar>
+            {!hideSidebar && <SideBar class="mb-4 row-start-2 row-end-3 col-span-2 lg:row-start-1 lg:row-end-2 lg:col-span-1 lg:max-w-[17.5rem] onload-animation" headings={headings}></SideBar>}
 
             <main id="swup-container" class="transition-swup-fade col-span-2 lg:col-span-1 overflow-hidden">
                 <div id="content-wrapper" class="onload-animation">
@@ -106,7 +112,7 @@ const mainPanelTop = siteConfig.banner.enable
 <div class="absolute w-full z-0 hidden 2xl:block">
     <div class="relative max-w-[var(--page-width)] mx-auto">
         <!-- TOC component -->
-        {siteConfig.toc.enable && <div id="toc-wrapper" class:list={["hidden lg:block transition absolute top-0 -right-[var(--toc-width)] w-[var(--toc-width)] items-center",
+        {siteConfig.toc.enable && !hideToc && <div id="toc-wrapper" class:list={["hidden lg:block transition absolute top-0 -right-[var(--toc-width)] w-[var(--toc-width)] items-center",
             {"toc-hide": siteConfig.banner.enable}]}
         >
             <div id="toc-inner-wrapper" class="fixed top-14 w-[var(--toc-width)] h-[calc(100vh_-_20rem)] overflow-y-scroll overflow-x-hidden hide-scrollbar">
@@ -119,7 +125,17 @@ const mainPanelTop = siteConfig.banner.enable
         </div>}
 
         <!-- #toc needs to exist for Swup to work normally -->
-        {!siteConfig.toc.enable && <div id="toc"></div>}
+        {(!siteConfig.toc.enable || hideToc) && <div id="toc"></div>}
     </div>
 </div>
 </Layout>
+
+<style>
+    #main-grid.main-grid-wide {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    #main-grid.main-grid-wide > main {
+        grid-column: 1 / -1;
+    }
+</style>

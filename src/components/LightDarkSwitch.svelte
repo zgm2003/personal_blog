@@ -11,6 +11,16 @@ import {
 import { onMount } from "svelte";
 import type { LIGHT_DARK_MODE } from "@/types/config.ts";
 
+type AstroClientDirectiveProps = {
+	"client:only"?: string;
+};
+
+// Astro check currently treats hydration directives on no-prop Svelte components
+// as component props. Declaring the directive-shaped prop keeps type checking
+// honest without changing the runtime API: Astro consumes the directive.
+let { "client:only": clientOnly }: AstroClientDirectiveProps = $props();
+void clientOnly;
+
 const seq: LIGHT_DARK_MODE[] = [LIGHT_MODE, DARK_MODE, AUTO_MODE];
 let mode: LIGHT_DARK_MODE = $state(AUTO_MODE);
 

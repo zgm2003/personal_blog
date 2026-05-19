@@ -11,13 +11,406 @@ if (!resumePost) {
 }
 
 const { Content, headings } = await render(resumePost);
+
+const proofStats = [
+	{ value: "536", label: "Go 源码文件", note: "admin_back_go" },
+	{ value: "849", label: "Go 测试函数", note: "可被追问的验证习惯" },
+	{ value: "74", label: "Vitest 测试文件", note: "前端契约兜底" },
+	{ value: "8", label: "公开重点仓库", note: "GitHub 可审阅" },
+];
+
+const proofLinks = [
+	{
+		name: "Admin Go 总控",
+		url: "https://github.com/zgm2003/admin_go",
+		desc: "架构 / 契约 / smoke / Codex hooks",
+	},
+	{
+		name: "Go 后端",
+		url: "https://github.com/zgm2003/admin_back_go",
+		desc: "Gin / RBAC / AI / WebSocket / Asynq",
+	},
+	{
+		name: "Vue 前端",
+		url: "https://github.com/zgm2003/admin_front_ts",
+		desc: "AI Chat / Run Monitor / Knowledge / Vitest",
+	},
+	{
+		name: "可靠通知服务",
+		url: "https://github.com/zgm2003/rc_zuoguangming",
+		desc: "FastAPI / at-least-once / SSRF guard",
+	},
+];
+
+const keywords = [
+	"Go",
+	"Gin",
+	"Vue 3",
+	"TypeScript",
+	"AI Agent",
+	"RAG",
+	"Tool Calling",
+	"WebSocket",
+	"Asynq",
+	"RBAC",
+	"Docker",
+	"CI/CD",
+];
 ---
-<MainGridLayout title="简历" description="左光明的个人简历" headings={headings}>
-    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
-        <div class="card-base z-10 px-9 py-6 relative w-full ">
-            <Markdown class="mt-2">
+<MainGridLayout title="简历" description="左光明的个人简历" headings={headings} hideSidebar>
+    <div class="resume-shell flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+        <div class="resume-surface card-base z-10 px-5 py-5 md:px-9 md:py-7 relative w-full">
+            <section class="resume-hero">
+                <div class="hero-copy">
+                    <div class="eyebrow">OPEN TO WORK · GO BACKEND · AI AGENT PLATFORM</div>
+                    <h1>左光明</h1>
+                    <p class="hero-title">Go 后端 / AI Agent 工程 / Vue 全栈工程师</p>
+                    <p class="hero-summary">
+                        我不是只会写页面和单表 CRUD 的候选人。我在把一套企业级 Admin 系统迁到 Go，并把 AI Provider、Agent、Conversation、Tool Calling、Knowledge RAG、Run Monitor、WebSocket、队列和 Vue 管理台串成一套可部署、可测试、可公开审阅的作品集。
+                    </p>
+                    <div class="hero-actions">
+                        <a href="https://github.com/zgm2003" target="_blank" rel="noopener">看 GitHub</a>
+                        <a href="https://zgm2003.cn" target="_blank" rel="noopener">看在线系统</a>
+                        <a href="https://blog.zgm2003.cn" target="_blank" rel="noopener">看技术博客</a>
+                        <button type="button" onclick="window.print()">打印 / 存 PDF</button>
+                    </div>
+                    <div class="keyword-row" aria-label="技术关键词">
+                        {keywords.map((keyword) => <span>{keyword}</span>)}
+                    </div>
+                </div>
+
+                <div class="hero-panel" aria-label="招聘官快速判断">
+                    <div class="panel-label">RECRUITER FAST SCAN</div>
+                    <div class="panel-main">30 秒能看懂的工程证据</div>
+                    <div class="panel-grid">
+                        {proofStats.map((item) => (
+                            <div class="stat-card">
+                                <strong>{item.value}</strong>
+                                <span>{item.label}</span>
+                                <small>{item.note}</small>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            <section class="proof-board" aria-label="公开项目证据">
+                <div>
+                    <p class="board-kicker">PUBLIC EVIDENCE</p>
+                    <h2>不是口头包装，是可点开的项目证据链</h2>
+                </div>
+                <div class="repo-grid">
+                    {proofLinks.map((repo) => (
+                        <a class="repo-card" href={repo.url} target="_blank" rel="noopener">
+                            <strong>{repo.name}</strong>
+                            <span>{repo.desc}</span>
+                        </a>
+                    ))}
+                </div>
+            </section>
+
+            <Markdown class="resume-markdown mt-8">
                 <Content />
             </Markdown>
         </div>
     </div>
 </MainGridLayout>
+
+<style>
+	.resume-shell {
+		background:
+			radial-gradient(circle at 18% 12%, rgba(89, 255, 198, 0.18), transparent 28rem),
+			radial-gradient(circle at 82% 5%, rgba(255, 191, 87, 0.16), transparent 24rem),
+			linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+	}
+
+	.resume-surface {
+		overflow: hidden;
+	}
+
+	.resume-surface::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		background-image:
+			linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+			linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+		background-size: 42px 42px;
+		mask-image: linear-gradient(to bottom, black, transparent 42rem);
+	}
+
+	.resume-hero,
+	.proof-board,
+	.resume-markdown {
+		position: relative;
+		z-index: 1;
+	}
+
+	.resume-hero {
+		display: grid;
+		grid-template-columns: minmax(0, 1.16fr) minmax(18rem, 0.84fr);
+		gap: 1.25rem;
+		align-items: stretch;
+		padding: 1.15rem;
+		border: 1px solid rgba(255,255,255,0.12);
+		border-radius: 1.75rem;
+		background:
+			linear-gradient(135deg, rgba(18, 24, 38, 0.86), rgba(10, 13, 23, 0.76)),
+			radial-gradient(circle at top right, rgba(90, 255, 198, 0.2), transparent 18rem);
+		box-shadow: 0 30px 90px rgba(0,0,0,0.28);
+	}
+
+	.hero-copy {
+		padding: 1.2rem;
+	}
+
+	.eyebrow,
+	.board-kicker,
+	.panel-label {
+		font-size: 0.72rem;
+		letter-spacing: 0.18em;
+		font-weight: 800;
+		color: oklch(0.82 0.16 var(--hue));
+		text-transform: uppercase;
+	}
+
+	.hero-copy h1 {
+		margin: 0.42rem 0 0;
+		font-size: clamp(3rem, 8vw, 6.5rem);
+		line-height: 0.92;
+		letter-spacing: -0.08em;
+		font-weight: 950;
+		color: rgba(255,255,255,0.96);
+	}
+
+	.hero-title {
+		margin: 0.9rem 0 0;
+		font-size: clamp(1.08rem, 2vw, 1.55rem);
+		font-weight: 850;
+		color: rgba(255,255,255,0.92);
+	}
+
+	.hero-summary {
+		max-width: 54rem;
+		margin: 1rem 0 0;
+		font-size: 1rem;
+		line-height: 1.9;
+		color: rgba(255,255,255,0.76);
+	}
+
+	.hero-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin-top: 1.3rem;
+	}
+
+	.hero-actions a,
+	.hero-actions button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 2.65rem;
+		padding: 0 1rem;
+		border-radius: 999px;
+		color: rgba(255,255,255,0.92);
+		font: inherit;
+		font-weight: 800;
+		background: rgba(255,255,255,0.1);
+		border: 1px solid rgba(255,255,255,0.16);
+		backdrop-filter: blur(12px);
+		cursor: pointer;
+		transition: transform .18s ease, background .18s ease, border-color .18s ease;
+	}
+
+	.hero-actions a:first-child {
+		background: linear-gradient(135deg, oklch(0.72 0.18 var(--hue)), oklch(0.72 0.14 170));
+		color: #07100d;
+	}
+
+	.hero-actions a:hover,
+	.hero-actions button:hover {
+		transform: translateY(-2px);
+		background: rgba(255,255,255,0.16);
+		border-color: rgba(255,255,255,0.32);
+	}
+
+	.keyword-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin-top: 1.2rem;
+	}
+
+	.keyword-row span {
+		font-size: 0.78rem;
+		font-weight: 750;
+		color: rgba(255,255,255,0.7);
+		padding: 0.36rem 0.62rem;
+		border-radius: 999px;
+		border: 1px solid rgba(255,255,255,0.12);
+		background: rgba(255,255,255,0.055);
+	}
+
+	.hero-panel {
+		padding: 1.15rem;
+		border-radius: 1.35rem;
+		background:
+			linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.055));
+		border: 1px solid rgba(255,255,255,0.16);
+	}
+
+	.panel-main {
+		margin-top: 0.42rem;
+		font-size: 1.18rem;
+		font-weight: 900;
+		color: rgba(255,255,255,0.92);
+	}
+
+	.panel-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.75rem;
+		margin-top: 1rem;
+	}
+
+	.stat-card {
+		min-height: 8rem;
+		padding: 1rem;
+		border-radius: 1.1rem;
+		background: rgba(4, 8, 15, 0.42);
+		border: 1px solid rgba(255,255,255,0.11);
+	}
+
+	.stat-card strong {
+		display: block;
+		font-size: clamp(2rem, 4vw, 3.2rem);
+		line-height: 1;
+		color: rgba(255,255,255,0.98);
+		letter-spacing: -0.06em;
+	}
+
+	.stat-card span,
+	.stat-card small {
+		display: block;
+		margin-top: 0.42rem;
+	}
+
+	.stat-card span {
+		font-weight: 850;
+		color: rgba(255,255,255,0.84);
+	}
+
+	.stat-card small {
+		color: rgba(255,255,255,0.52);
+		line-height: 1.45;
+	}
+
+	.proof-board {
+		display: grid;
+		grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+		gap: 1rem;
+		margin-top: 1.1rem;
+		padding: 1.15rem;
+		border: 1px solid rgba(255,255,255,0.1);
+		border-radius: 1.5rem;
+		background: rgba(255,255,255,0.045);
+	}
+
+	.proof-board h2 {
+		margin: 0.38rem 0 0;
+		font-size: clamp(1.35rem, 3vw, 2.15rem);
+		line-height: 1.15;
+		letter-spacing: -0.04em;
+	}
+
+	.repo-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.7rem;
+	}
+
+	.repo-card {
+		display: block;
+		padding: 0.9rem;
+		border-radius: 1rem;
+		border: 1px solid rgba(255,255,255,0.11);
+		background: rgba(255,255,255,0.06);
+		transition: transform .18s ease, border-color .18s ease, background .18s ease;
+	}
+
+	.repo-card:hover {
+		transform: translateY(-2px);
+		border-color: oklch(0.72 0.16 var(--hue));
+		background: rgba(255,255,255,0.1);
+	}
+
+	.repo-card strong,
+	.repo-card span {
+		display: block;
+	}
+
+	.repo-card strong {
+		color: rgba(255,255,255,0.92);
+		font-weight: 900;
+	}
+
+	.repo-card span {
+		margin-top: 0.34rem;
+		color: rgba(255,255,255,0.6);
+		font-size: 0.86rem;
+		line-height: 1.55;
+	}
+
+	:global(.resume-markdown table) {
+		display: block;
+		width: 100%;
+		overflow-x: auto;
+		white-space: nowrap;
+	}
+
+	:global(.resume-markdown blockquote) {
+		border-left-color: oklch(0.72 0.16 var(--hue));
+		background: rgba(255,255,255,0.035);
+		border-radius: 0.9rem;
+		padding: 0.75rem 1rem;
+	}
+
+	@media (max-width: 980px) {
+		.resume-hero,
+		.proof-board {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.panel-grid,
+		.repo-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.hero-copy,
+		.hero-panel,
+		.proof-board {
+			padding: 0.95rem;
+		}
+	}
+
+	@media print {
+		.resume-shell {
+			background: white;
+		}
+
+		.resume-hero,
+		.proof-board {
+			box-shadow: none;
+			break-inside: avoid;
+		}
+
+		.hero-actions,
+		.keyword-row {
+			display: none;
+		}
+	}
+</style>

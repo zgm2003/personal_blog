@@ -18,3 +18,15 @@
 18:12:48 [200] /resume/ 3676ms
 18:12:48 [200] /resume/ 2403ms
 18:12:48 [200] /resume/ 11ms
+18:12:54 [200] /resume/ 11ms
+18:12:55 [vite] [32m✨ new dependencies optimized: [33m@swup/astro/serialise, @swup/astro/idle, @swup/astro/client/Swup, @swup/astro/client/SwupA11yPlugin, @swup/astro/client/SwupPreloadPlugin, @swup/astro/client/SwupScrollPlugin, @swup/astro/client/SwupHeadPlugin, @swup/astro/client/SwupScriptsPlugin[32m[39m
+18:12:55 [vite] [32m✨ optimized dependencies changed. reloading[39m
+18:12:55 [200] /_image/ 156ms
+18:12:55 [WARN] [vite] [33mThe file does not exist at "E:/admin/personal_blog/node_modules/.vite/deps/chunk-2D6AUTU6.js?v=d29511cc" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.[39m
+18:12:55 [WARN] [vite] [33mThe file does not exist at "E:/admin/personal_blog/node_modules/.vite/deps/chunk-EYUIUZYQ.js?v=d29511cc" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.[39m
+18:12:55 [200] /resume/ 106ms
+18:12:55 [WARN] [vite] [33mThe file does not exist at "E:/admin/personal_blog/node_modules/.vite/deps/chunk-BRUDMWFF.js?v=d29511cc" which is in the optimize deps directory. The dependency might be incompatible with the dep optimizer. Try adding it to `optimizeDeps.exclude`.[39m
+18:12:57 [200] /resume/ 43ms
+18:13:45 [200] / 26ms
+18:14:12 [200] /posts/ecommerce-ai-script-generation/ 25ms
+18:14:16 [200] /posts/understanding-ai-ecosystem/ 20ms

@@ -1,0 +1,20 @@
+
+> personal-blog@0.0.1 dev E:\admin\personal_blog
+> astro dev "--host" "127.0.0.1" "--port" "4321"
+
+18:12:35 [types] Generated 1ms
+18:12:35 [content] Syncing content
+18:12:35 [content] Astro config changed
+18:12:35 [content] Clearing content store
+18:12:39 [content] Synced content
+18:12:39 [vite] Forced re-optimization of dependencies
+
+ astro  v5.13.10 ready in 6601 ms
+
+┃ Local    http://127.0.0.1:4321/
+
+18:12:39 watching for file changes...
+18:12:48 [200] /resume/ 3674ms
+18:12:48 [200] /resume/ 3676ms
+18:12:48 [200] /resume/ 2403ms
+18:12:48 [200] /resume/ 11ms

@@ -1,10 +1,11 @@
 ---
-title: "认证平台架构：从硬编码到动态管理与三级缓存"
+title: "认证平台架构：从平台策略到会话、JWT 与 RBAC"
 published: 2026-02-10T00:00:00+08:00
 draft: false
-tags: [置顶, 认证, 缓存, Redis, 架构设计, PHP, Webman]
-description: "记录认证平台从枚举硬编码到数据库动态管理、进程内存缓存、Redis 缓存和 MySQL 降级查询的完整重构。"
+tags: [置顶, 认证, Go, Gin, Redis, RBAC, 架构设计]
+description: "以 admin_back_go 当前实现为准，拆解 auth_platforms 平台策略、JWT access token、opaque refresh token、user_sessions、Redis 会话缓存、RBAC 路由权限缓存和 Gin 中间件链。"
 category: 后端技术
+updated: 2026-05-31T14:55:00+08:00
 ---
 
 > **本文价值**：这篇文章保留的是系统架构能力：从硬编码配置演进到动态平台、三级缓存和稳定降级。
@@ -1753,3 +1754,273 @@ OAuth 2.0 是授权协议，不是认证协议。它解决的是"第三方应用
 - 零硬编码：前端所有下拉选项从后端 init 接口获取
 
 架构不是一步到位的，是随着业务演进逐步优化的。从硬编码到配置表到多级缓存，每一步都是在解决当下最痛的问题。重要的不是一开始就设计出完美的架构，而是在每次迭代中让架构变得更好。
+
+<!-- auth-20260531-admin-go-strengthening:BEGIN -->
+
+# 2026-05-31 强化：以 `admin_back_go` 当前实现为准重写认证平台主线
+
+先把话说死：这篇文章现在的主线不再是“PHP/Webman 怎么把平台配置从硬编码抽出来”。那只是历史背景。当前真正值得沉淀的是 `E:\admin_go\admin_back_go` 里的认证平台设计：**`auth_platforms` 平台策略 + 用户凭证 + `user_sessions` 会话状态 + JWT access token + opaque refresh token + Redis 会话缓存 + Redis RBAC 路由权限缓存 + Gin 中间件链。**
+
+如果把它写成“JWT + RBAC”，那就是偷懒。JWT 只是短期访问凭证；真正的登录状态在 `user_sessions`，平台策略由 `auth_platforms` 决定，接口权限由显式 route metadata 绑定到权限码。
+
+## 0. 当前代码证据：别凭记忆写架构
+
+当前链路：
+
+```text
+cmd/admin-api/main.go
+  -> config.LoadDotEnv()
+  -> config.Load()
+  -> bootstrap.New(cfg, logger)
+  -> app.Run()
+
+internal/bootstrap/app.go
+  -> 校验 APP_SECRET
+  -> secretkey.NewKeyRing
+  -> NewResources(MySQL/Redis/TokenRedis/QueueRedis)
+  -> NewSessionAuthenticator
+  -> authplatform.NewService
+  -> auth.NewService
+  -> permission.NewService / role.NewService / user.NewService
+  -> server.NewRouter
+
+internal/server/router.go
+  -> Recovery / RequestID / AccessLog / CORS / i18n
+  -> AuthToken
+  -> PermissionCheck
+  -> OperationLog
+  -> registerAuthRoutes / registerAdminFoundationRoutes / ...
+```
+
+这说明认证不是散在 handler 里的 if/else，而是在组合根和中间件链里形成固定路径。
+
+## 1. 平台策略是入口，不是登录后的补丁
+
+`auth_platforms` 是核心表。当前 Go 模型字段包括：
+
+```text
+code / name / login_types / captcha_type
+bind_platform / bind_device / bind_ip
+single_session / max_sessions / allow_register
+access_ttl / refresh_ttl / status / is_del
+```
+
+这些字段都有运行时意义：
+
+| 字段 | 作用 |
+| --- | --- |
+| `code` | 平台标识，例如 `admin`、`app`、`canvas` |
+| `login_types` | 当前平台允许密码、邮箱验证码、手机号验证码中的哪些方式 |
+| `captcha_type` | 前端登录页应该展示哪种验证码 |
+| `bind_platform` | token 是否只能在签发平台使用 |
+| `bind_device` | token 是否绑定设备 ID |
+| `bind_ip` | token 是否绑定 IP |
+| `single_session` | 同平台是否只允许一个活跃会话 |
+| `max_sessions` | 多会话平台最多保留多少会话 |
+| `allow_register` | 验证码登录找不到账号时是否允许自动注册 |
+| `access_ttl` | access token 有效期 |
+| `refresh_ttl` | refresh token 有效期 |
+
+`auth_platform.Service.Policy()` 会把这些字段转换为 `auth.AuthPolicy`。登录创建 session 和后续 token 校验都依赖同一个平台策略。好处很简单：策略不散落在登录、刷新、中间件里。
+
+## 2. 登录链路：先检查平台允许什么
+
+`auth.Service.Login` 主线：
+
+```text
+normalizeLoginInput
+-> 检查 platform / login_account
+-> assertLoginTypeAllowed(platform, login_type)
+-> switch login_type
+   -> password: loginByPassword
+   -> email/phone: loginByCode
+-> assertUserActive
+-> sessionManager.Create
+-> 记录登录日志
+-> 返回 access_token / refresh_token / expires_in
+```
+
+这里的好品味是：**登录方式是否允许，由平台配置决定，不由前端按钮决定。** 前端可以隐藏按钮，但后端必须重新判断，否则攻击者直接调接口就绕过 UI。
+
+密码登录链路还会按平台要求做验证码；验证码登录找不到账号时，也不是无脑注册，而是先检查 `allow_register`。这避免了“验证码登录天然变开放注册”的烂坑。
+
+## 3. Token 设计：access JWT + refresh opaque token + session row
+
+当前系统不是纯 JWT：
+
+```text
+access token  -> JWT，短期使用，claims 包含 session id / user / platform / device
+refresh token -> 64 字节随机 token，服务端只保存 hash
+session       -> user_sessions 表保存真实登录状态
+redis cache   -> token:session:{sid} 缓存会话摘要
+```
+
+Access token 的 claims 包括 `sid`、`user`、`platform`、`device_id`、`iat`、`exp`，issuer 是 `admin_go`。JWT 签名 key 从 `APP_SECRET` 派生，运行时还会校验 `APP_SECRET` 不能空、不能是默认值、长度要足够。
+
+Refresh token 不做 JWT，而是随机 opaque token。落库时保存 hash：
+
+```text
+refresh_token -> HashToken(refresh_token, token_pepper) -> refresh_token_hash
+```
+
+数据库泄漏时不能直接拿 refresh token 用，这是基本安全底线。
+
+## 4. 创建会话：先淘汰旧会话，再签发 token
+
+`Authenticator.Create` 的流程：
+
+```text
+校验 user_id / platform
+-> 读取平台 AuthPolicy
+-> 生成 refresh token 和 hash
+-> evictSessions(user_id, platform, policy)
+-> 创建 user_sessions，先写临时 access hash
+-> 签发 access JWT
+-> 写入真实 access hash 和 expires_at
+-> 更新 single session pointer
+-> 返回 token 结果
+```
+
+`evictSessions` 不是细节。平台可能配置：
+
+- `single_session = 1`：同平台只允许一个会话，新登录踢旧登录。
+- `max_sessions > 0`：最多保留 N 个会话，超过淘汰最早的。
+
+后台、移动端、画布端的策略可能不同，所以会话策略必须平台化。
+
+## 5. 中间件链路：认证和授权分开
+
+Gin 全局顺序：
+
+```text
+Recovery -> RequestID -> AccessLog -> CORS -> i18n -> AuthToken -> PermissionCheck -> OperationLog
+```
+
+`AuthToken` 做认证：
+
+```text
+跳过免认证路径
+-> 解析 Authorization: Bearer
+-> 特定 GET/HEAD 路径允许 cookie token
+-> 推断或读取 platform
+-> 调 Authenticator.Authenticate
+-> 把 AuthIdentity 写入 Gin context
+```
+
+`PermissionCheck` 做授权：
+
+```text
+读取当前 Gin matched route path
+-> method + path 找权限码
+-> 没配置权限码：放行
+-> 配了权限码：必须有 AuthIdentity
+-> 调 PermissionChecker
+```
+
+认证回答“你是谁”，授权回答“你能不能做这件事”。把两者揉成一个 middleware，会越来越难维护。
+
+## 6. RBAC：菜单、按钮、接口权限来自同一上下文
+
+权限模型是 `permissions` + `role_permissions`。权限类型包括目录、页面、按钮。构建权限上下文时，会产出：
+
+```text
+menus              -> 前端菜单树
+routes             -> 前端动态路由
+button_codes       -> 前端按钮权限
+route_access_codes -> 后端接口访问权限
+```
+
+后端接口权限不是动态扫描 Gin route，而是在：
+
+```text
+internal/bootstrap/route_meta.go
+```
+
+显式维护：
+
+```text
+method + path -> permission code
+```
+
+这个设计可审查、权限码稳定，但也有风险：新增敏感接口如果漏配 metadata，`PermissionCheck` 会因为没有权限码而放行。别粉饰。应该用测试兜住：所有 POST/PUT/PATCH/DELETE 要么在 route_meta，要么在明确白名单。
+
+## 7. 缓存：Redis 是优化，不是事实来源
+
+RBAC 检查流：
+
+```text
+user_id
+-> 查 users
+-> 查 role
+-> Redis 读取 route_access_codes
+-> miss 时 BuildContextByRole
+-> 回写 Redis
+-> 判断当前 permission code 是否在 route_access_codes 中
+```
+
+会话认证流：
+
+```text
+解析 access JWT
+-> 取 session id
+-> Redis 查 session cache
+   -> hit: matchClaims + enforcePolicy
+   -> miss: DB FindValidByID
+-> 回写 session cache
+-> 返回 identity
+```
+
+Redis miss 不等于失败，DB 里的 session 才是事实来源。但如果启用了单端登录策略，single session pointer 读不到时应该 fail closed，不能偷偷放行。
+
+## 8. 平台绑定、设备绑定、IP 绑定要每次认证检查
+
+`enforcePolicy` 每次认证都要检查：
+
+```text
+当前 platform 是否有效
+session platform 和当前 platform 是否匹配
+BindPlatform=true 时不允许跨平台 token
+BindDevice=true 时设备 ID 必须匹配
+BindIP=true 时 IP 变化拒绝并删除缓存
+SingleSession=true 时检查 single session pointer
+```
+
+token 使用发生在每次请求，不只发生在登录瞬间。所以策略不能只在登录时检查。
+
+## 9. 当前架构解决的问题和风险
+
+解决的问题：
+
+1. 多平台登录策略不同，由 `auth_platforms` 管。
+2. 登录方式可配置，密码、邮箱、手机号不写死。
+3. Token 可撤销，真实状态在 `user_sessions`。
+4. Access/refresh 分离，短期访问和长期刷新职责不同。
+5. 会话可控：单端登录、最大会话数、设备/IP 绑定。
+6. RBAC 可复用：菜单、路由、按钮、接口访问码来自同一权限上下文。
+7. Redis 缓存会话和 route access codes，提高请求路径性能。
+
+必须盯住的风险：
+
+| 风险 | 应对 |
+| --- | --- |
+| route_meta 漏配 | 写操作默认纳管 + 覆盖测试 |
+| AuthSkipPaths 过宽 | 白名单审查，不允许前缀偷懒 |
+| Redis 单端指针不可用 | fail closed + 告警 |
+| APP_SECRET 轮换 | 设计 key version 或运维窗口 |
+| refresh token 泄漏 | hash 存储、设备/IP 策略、撤销能力 |
+| 平台配置误改 | 操作日志、权限、必要时审批 |
+
+好系统不是没有风险，而是风险被看见、被测试拦住。
+
+## 10. 和历史 Webman 版本的关系
+
+下面原文里的 Webman/PHP 段落只当历史背景看：它说明为什么要从硬编码平台、散落配置、前后端双枚举走向平台策略表。当前 Go 版本的重点已经变成：
+
+```text
+旧重点：把平台枚举从 PHP 硬编码抽到 auth_platforms
+新重点：auth_platforms 驱动 Go 认证、session、token、RBAC 和中间件链
+```
+
+所以优先看当前 Go 主线；旧段落用于理解问题来源，不用于照抄实现。
+
+<!-- auth-20260531-admin-go-strengthening:END -->

@@ -13,49 +13,53 @@ if (!resumePost) {
 const { Content, headings } = await render(resumePost);
 
 const proofStats = [
-	{ value: "536", label: "Go 源码文件", note: "admin_back_go" },
-	{ value: "849", label: "Go 测试函数", note: "可被追问的验证习惯" },
-	{ value: "74", label: "Vitest 测试文件", note: "前端契约兜底" },
-	{ value: "127★", label: "chatgpt2api", note: "47 Fork / 公共热度" },
+	{ value: "Go", label: "Gin / GORM / Asynq", note: "企业级 Admin 后端" },
+	{ value: "Py", label: "FastAPI / SQLAlchemy", note: "AI API 网关与工具服务" },
+	{ value: "React", label: "Next.js / Tailwind", note: "Canvas 与 AI 工作台" },
+	{ value: "4 域名", label: "线上部署矩阵", note: "前端 / 后端 / Canvas / Image" },
 ];
 
 const proofLinks = [
 	{
-		name: "Admin Go 总控",
-		url: "https://github.com/zgm2003/admin_go",
-		desc: "架构 / 契约 / smoke / Codex hooks",
+		name: "zgm2003.cn",
+		url: "https://zgm2003.cn",
+		desc: "admin_front_ts · Vue 3 管理前端线上站",
 	},
 	{
-		name: "Go 后端",
-		url: "https://github.com/zgm2003/admin_back_go",
-		desc: "Gin / RBAC / AI / WebSocket / Asynq",
+		name: "www.zgm2003.cn",
+		url: "https://www.zgm2003.cn/health",
+		desc: "admin_back_go · Go API / Worker / WebSocket 后端入口",
 	},
 	{
-		name: "Vue 前端",
-		url: "https://github.com/zgm2003/admin_front_ts",
-		desc: "AI Chat / Run Monitor / Knowledge / Vitest",
+		name: "canvas.zgm2003.cn",
+		url: "https://canvas.zgm2003.cn",
+		desc: "Canvas AI · Next.js 多模态创作平台",
 	},
 	{
-		name: "ChatGPT2API",
-		url: "https://github.com/zgm2003/chatgpt2api",
-		desc: "注册机 / 号池 / gpt-image-2 / OpenAI-compatible",
+		name: "image.zgm2003.cn",
+		url: "https://image.zgm2003.cn",
+		desc: "chatgpt2api · Python FastAPI AI 图像网关与工作台",
 	},
 ];
 
 const keywords = [
 	"Go",
 	"Gin",
+	"Python",
+	"FastAPI",
 	"Vue 3",
+	"React",
+	"Next.js",
 	"TypeScript",
-	"AI Agent",
-	"gpt-image-2",
-	"RAG",
-	"Tool Calling",
-	"WebSocket",
 	"Asynq",
+	"WebSocket",
+	"Alipay Callback",
 	"RBAC",
+	"AI Agent",
+	"OpenAI-Compatible",
+	"Canvas AI",
 	"Docker",
-	"CI/CD",
+	"Nginx",
 ];
 ---
 <MainGridLayout title="简历" description="左光明的个人简历" headings={headings} hideSidebar>
@@ -63,16 +67,17 @@ const keywords = [
         <div class="resume-surface card-base z-10 px-5 py-5 md:px-9 md:py-7 relative w-full">
             <section class="resume-hero">
                 <div class="hero-copy">
-                    <div class="eyebrow">OPEN TO WORK · GO BACKEND · AI AGENT PLATFORM</div>
+                    <div class="eyebrow">OPEN TO WORK · GO/PYTHON BACKEND · REACT/NEXT/VUE FULL STACK</div>
                     <h1>左光明</h1>
-                    <p class="hero-title">Go 后端 / AI Agent 工程 / Vue 全栈工程师</p>
+                    <p class="hero-title">Go / Python 后端 · Vue / React / Next.js 全栈 · AI 工程化</p>
                     <p class="hero-summary">
-                        我不是只会写页面和单表 CRUD 的候选人。我在把一套企业级 Admin 系统迁到 Go，同时维护有 127★ / 47 Fork 公开热度的 ChatGPT2API，把注册机、号池管理、gpt-image-2、OpenAI-compatible API、在线生图和 Docker 自托管做成可被追问的作品集。
+                        我不是只会写页面和单表 CRUD 的候选人。我能用 Go 做企业级 Admin 后端，用 Python FastAPI 做 AI API 网关，用 Vue 3 做管理后台，也能用 React / Next.js 做 Canvas AI 创作平台。线上已有 zgm2003.cn、www.zgm2003.cn、canvas.zgm2003.cn、image.zgm2003.cn 四个可追问部署入口。
                     </p>
                     <div class="hero-actions">
                         <a href="https://github.com/zgm2003" target="_blank" rel="noopener">看 GitHub</a>
-                        <a href="https://zgm2003.cn" target="_blank" rel="noopener">看在线系统</a>
-                        <a href="https://blog.zgm2003.cn" target="_blank" rel="noopener">看技术博客</a>
+                        <a href="https://zgm2003.cn" target="_blank" rel="noopener">Vue 管理端</a>
+                        <a href="https://canvas.zgm2003.cn" target="_blank" rel="noopener">Canvas AI</a>
+                        <a href="https://image.zgm2003.cn" target="_blank" rel="noopener">Image API</a>
                         <button type="button" onclick="window.print()">打印 / 存 PDF</button>
                     </div>
                     <div class="keyword-row" aria-label="技术关键词">
@@ -97,8 +102,8 @@ const keywords = [
 
             <section class="proof-board" aria-label="公开项目证据">
                 <div>
-                    <p class="board-kicker">PUBLIC EVIDENCE</p>
-                    <h2>不是口头包装，是可点开的项目证据链</h2>
+                    <p class="board-kicker">LIVE DEPLOYMENTS</p>
+                    <h2>不是口头包装，是能直接点开的线上项目矩阵</h2>
                 </div>
                 <div class="repo-grid">
                     {proofLinks.map((repo) => (

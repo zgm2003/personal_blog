@@ -93,9 +93,11 @@
 
 ## 工作经历
 
-### HQD AI 智能业务平台
+### HQD
 
-**AI 全栈开发工程师｜2026.06 - 至今**
+**Web 工程师｜2026.06 - 至今**
+
+负责项目：HQD AI 智能业务平台（[ai.zgm2003.cn](https://ai.zgm2003.cn)）
 
 - 负责生产级 AI 业务平台核心前端开发，覆盖登录认证、首页工作台、Hermes AI 对话、Agents 智能体中心、图片/视频生成、Market 产品情报、收藏对比和 AI 分析等模块。
 - 基于 Vue 3 + TypeScript + Vite + Element Plus 搭建业务页面，结合 Pinia、Vue Router、Axios、SSE、WebSocket 完成复杂 AI 业务联调。
@@ -119,7 +121,7 @@
 ### HQD AI 智能业务平台
 
 - **时间**：2026.06 - 至今
-- **角色**：AI 全栈开发 / 核心前端开发
+- **角色**：Web 工程师 / AI 平台核心前端开发
 - **线上地址**：[ai.zgm2003.cn](https://ai.zgm2003.cn)
 - **技术栈**：Vue 3、Vite、TypeScript、Element Plus、Pinia、Vue Router、Axios、SSE、WebSocket、Sass、Vitest
 

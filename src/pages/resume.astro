@@ -13,13 +13,23 @@ if (!resumePost) {
 const { Content, headings } = await render(resumePost);
 
 const proofStats = [
-	{ value: "Go", label: "Gin / GORM / Asynq", note: "企业级 Admin 后端" },
-	{ value: "Py", label: "FastAPI / SQLAlchemy", note: "AI API 网关与工具服务" },
-	{ value: "React", label: "Next.js / Tailwind", note: "Canvas 与 AI 工作台" },
-	{ value: "4 域名", label: "线上部署矩阵", note: "前端 / 后端 / Canvas / Image" },
+	{ value: "AI", label: "Agent / 多模态 / 流式交互", note: "生产级 AI 平台与智能工作台" },
+	{ value: "FE", label: "Vue / React / Next.js", note: "复杂业务页面主力开发" },
+	{ value: "BE", label: "Go / Python / Node", note: "权限、队列、支付、协议适配" },
+	{ value: "Live", label: "6 个线上入口", note: "项目可点开、可追问、可验证" },
 ];
 
 const proofLinks = [
+	{
+		name: "blog.zgm2003.cn",
+		url: "https://blog.zgm2003.cn",
+		desc: "个人技术博客 · 简历、项目复盘与 AI 工程实践",
+	},
+	{
+		name: "ai.zgm2003.cn",
+		url: "https://ai.zgm2003.cn",
+		desc: "HQD AI · 生产级 AI 业务平台",
+	},
 	{
 		name: "zgm2003.cn",
 		url: "https://zgm2003.cn",
@@ -47,12 +57,16 @@ const keywords = [
 	"Gin",
 	"Python",
 	"FastAPI",
+	"Node.js",
+	"Fastify",
 	"Vue 3",
 	"React",
 	"Next.js",
 	"TypeScript",
+	"BullMQ",
 	"Asynq",
 	"WebSocket",
+	"SSE",
 	"Alipay Callback",
 	"RBAC",
 	"AI Agent",
@@ -67,14 +81,16 @@ const keywords = [
         <div class="resume-surface card-base z-10 px-5 py-5 md:px-9 md:py-7 relative w-full">
             <section class="resume-hero">
                 <div class="hero-copy">
-                    <div class="eyebrow">OPEN TO WORK · GO/PYTHON BACKEND · REACT/NEXT/VUE FULL STACK</div>
+                    <div class="eyebrow">OPEN TO WORK · AI PRODUCT ENGINEERING · FULL STACK DELIVERY</div>
                     <h1>左光明</h1>
-                    <p class="hero-title">Go / Python 后端 · Vue / React / Next.js 全栈 · AI 工程化</p>
+                    <p class="hero-title">前端主力的 AI 全栈开发者</p>
                     <p class="hero-summary">
-                        我不是只会写页面和单表 CRUD 的候选人。我能用 Go 做企业级 Admin 后端，用 Python FastAPI 做 AI API 网关，用 Vue 3 做管理后台，也能用 React / Next.js 做 Canvas AI 创作平台。线上已有 zgm2003.cn、www.zgm2003.cn、canvas.zgm2003.cn、image.zgm2003.cn 四个可追问部署入口。
+                        我不是只会调 API 或只会切页面的候选人。我能用 Vue 3 / React / Next.js 做复杂 AI 工作台，也能理解 Go / Python / Node 后端里的权限、队列、支付、账号池、协议适配和部署链路。线上已有博客、AI 平台、企业后台、Canvas 创作平台和 Image 网关，项目能点开，细节能追问。
                     </p>
                     <div class="hero-actions">
                         <a href="https://github.com/zgm2003" target="_blank" rel="noopener">看 GitHub</a>
+                        <a href="https://blog.zgm2003.cn" target="_blank" rel="noopener">技术博客</a>
+                        <a href="https://ai.zgm2003.cn" target="_blank" rel="noopener">HQD AI</a>
                         <a href="https://zgm2003.cn" target="_blank" rel="noopener">Vue 管理端</a>
                         <a href="https://canvas.zgm2003.cn" target="_blank" rel="noopener">Canvas AI</a>
                         <a href="https://image.zgm2003.cn" target="_blank" rel="noopener">Image API</a>

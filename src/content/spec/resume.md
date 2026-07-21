@@ -1,228 +1,226 @@
 ## 招聘官快速判断
 
-- **目标岗位**：Go / Python 后端工程师、全栈开发工程师、AI 应用工程化工程师、AI 平台开发工程师。
-- **主线能力**：我能把 Go 后端、Python FastAPI AI 网关、Vue 管理后台、React / Next.js 创作平台、支付回调、队列任务、WebSocket 实时消息、Docker 部署和线上排障串成完整系统。
-- **最大卖点**：不是只会写页面，也不是只会调模型 API；我能把数据结构、接口契约、后端服务、前端页面、异步任务、线上域名和部署验证一起做成可运行作品。
-- **线上证据**：[Vue 管理前端](https://zgm2003.cn) / [Go 后端 API](https://www.zgm2003.cn/health) / [Canvas AI](https://canvas.zgm2003.cn) / [Image AI 网关](https://image.zgm2003.cn)
+- **一句话定位**：前端主力的 AI 全栈开发者，能把复杂 AI 产品从页面、状态、接口、协议、队列、账号池到 Docker/Nginx 部署完整跑起来。
+- **核心证据**：线上 AI 平台、企业后台、Canvas 多模态创作平台、AI 图像网关、协议适配平台、个人技术博客都有可访问入口，不是只写在简历里的项目。
+- **区别于普通前端**：不只会切页面，能处理 SSE 流式输出、WebSocket、权限体系、Token/ApiKey 隔离、复杂 ID 语义、文件上传、支付回调和后端任务状态。
+- **区别于普通后端**：不只会写接口，能把接口能力做成可用的产品界面，理解交互、状态、异常、空态、加载态、取消态和真实用户操作路径。
+- **适合岗位**：AI 全栈开发、AI 产品前端、Vue/React 前端开发、AI 应用工程师、偏业务落地的 Go/Python/Node 后端开发。
+
+## 面试开场白
+
+你好，我叫左光明，主要方向是 AI 全栈和前端开发。我更擅长前端，但不是只会写页面的前端；我做过 Go、Python、Node.js 后端，也做过 AI 协议适配、账号池调度、队列任务、支付回调和 Docker 部署。
+
+我最近主要在做生产级 AI 业务平台，负责 AI 对话、智能体管理、图片/视频生成、行业情报、收藏对比和 AI 分析等核心模块。这里面不只是页面展示，还涉及 SSE 流式响应、WebSocket、文件上传、多 Token/ApiKey 凭证隔离、复杂 ID 语义治理和真实生产状态管理。
+
+我的优势是能把“模型能力”变成真正能用的业务系统：前端能做复杂交互，后端能理解接口、权限、队列、支付、协议和部署链路，联调时能快速定位问题在哪一层。我希望做真正落地的 AI 应用，而不是停留在 Demo 或单纯调用 API。
+
+---
 
 ## 基本信息
 
 - **姓名**：左光明
-- **学历**：本科 · 武汉文理学院 · 计算机科学与技术 · 2026届
+- **出生年月**：2003.04
 - **电话**：15671628271
 - **邮箱**：2093146753@qq.com
-- **地点**：武汉 / 全国 / 远程均可
-- **期望薪资**：10k，优先看岗位挑战和成长空间
+- **学历**：武汉文理学院 · 计算机科学与技术 · 本科 · 2026届
+- **博客**：[blog.zgm2003.cn](https://blog.zgm2003.cn)
 - **GitHub**：[github.com/zgm2003](https://github.com/zgm2003)
-- **在线简历 / 管理端**：[zgm2003.cn](https://zgm2003.cn)
-- **后端 API**：[www.zgm2003.cn](https://www.zgm2003.cn/health)
-- **Canvas AI 平台**：[canvas.zgm2003.cn](https://canvas.zgm2003.cn)
-- **AI 图像网关**：[image.zgm2003.cn](https://image.zgm2003.cn)
+- **求职方向**：AI 全栈开发 / 前端开发工程师 / Go 后端开发
+
+## 线上作品
+
+- **技术博客**：[blog.zgm2003.cn](https://blog.zgm2003.cn)
+- **HQD AI 智能业务平台**：[ai.zgm2003.cn](https://ai.zgm2003.cn)
+- **CloudAdmin 管理前端**：[zgm2003.cn](https://zgm2003.cn)
+- **CloudAdmin Go 后端健康检查**：[www.zgm2003.cn/health](https://www.zgm2003.cn/health)
+- **Canvas AI 多模态创作平台**：[canvas.zgm2003.cn](https://canvas.zgm2003.cn)
+- **AI 图像网关与工作台**：[image.zgm2003.cn](https://image.zgm2003.cn)
 
 ---
 
 ## 个人优势
 
-- **Go / Python 后端 + Vue / React 前端 + AI 工程化复合型开发者**：具备中后台系统、AI 网关、支付充值、队列任务、实时消息、跨端客户端和 Docker 部署的完整项目经验。
-- **后端不只会 Go，也能写 Python 服务**：能够使用 Python + FastAPI 构建 AI API 网关、自动化服务、图片处理服务、模型调用代理和管理后台配套接口。
-- **前端不只会 Vue，也能做 React / Next.js**：具备 React、Next.js、TypeScript、Tailwind CSS 项目经验，能开发 AI 工作台、创作平台、模型配置页和复杂交互界面。
-- **有真实开源项目数据**：独立维护 AI 图像生成 API 兼容网关 `chatgpt2api`，获得 **140+ Stars / 40+ Forks**，覆盖 OpenAI-Compatible API、图片生成/编辑、在线工作台和 Docker 私有化部署。
-- **能做企业后台核心链路**：熟悉 RBAC 权限、用户角色、菜单按钮、操作日志、通知中心、系统配置、上传、导出、队列、WebSocket、支付回调、钱包入账、AI 管理等模块。
-- **能从 0 到 1 落地项目**：能完成数据结构设计、接口契约、后端 service/repository、前端页面、公共组件、数据库迁移、Docker 部署、Nginx 反代和线上问题排查。
+- **AI 产品落地能力**：做过生产级 AI 业务平台、Canvas 多模态创作平台、AI 图像网关和协议适配服务，熟悉 AI 能力从模型调用到产品交互的完整落地链路。
+- **复杂前端主战场**：擅长 Vue 3 + TypeScript + Element Plus，也能使用 React / Next.js 开发 AI 工作台、画布创作、任务状态、Prompt 输入、图片预览和复杂后台页面。
+- **后端工程理解强**：做过 Go/Gin、Python/FastAPI、Node/Fastify 后端，理解 RBAC、队列、WebSocket、支付回调、账号池、协议签名、MySQL/Redis 和 Docker 部署。
+- **真实问题处理经验**：处理过流式响应中断、Abort 取消、接口字段缺失、多凭证混用、支付重复通知、队列失败重试、WebSocket 认证、Nginx 反代和线上回调排障。
+- **线上作品可验证**：博客、AI 平台、企业后台、Canvas 创作平台、Image 网关均有线上入口；开源项目 `chatgpt2api` 获得 140+ Stars / 40+ Forks。
+- **对 AI 前沿保持高密度实践**：持续跟进 Agent、多模态生成、流式交互、OpenAI-Compatible 协议、自动化工作流和智能工作台，不满足于停留在概念层。
 
 ---
 
 ## 技术栈
 
-### 后端 / 服务端
+### 前端
 
-- 熟悉 **Golang** 后端开发，掌握 Gin、GORM、JWT、RESTful API、RBAC、MySQL、Redis、WebSocket、Asynq、gocron 等技术。
-- 熟悉 **Python 后端开发**，能够使用 FastAPI、SQLAlchemy、Pydantic、Requests、Pillow、Playwright 等技术开发 AI API 网关、图片处理服务、自动化任务和工具型后端服务。
-- 熟悉 FastAPI 项目常见结构，能够完成路由设计、请求校验、鉴权中间件、异常处理、响应封装、数据库访问和 Docker 部署。
-- 能够开发后台 API、权限系统、异步队列、定时任务、支付回调、钱包流水、实时通知、日志审计、配置管理等核心业务模块。
-- 熟悉 MySQL 表结构设计、索引、事务、状态流转、幂等控制、分页查询、筛选查询和数据一致性处理。
-- 熟悉 Redis 在登录态缓存、任务队列、分布式锁、实时消息广播等场景中的使用。
+- Vue 3、Composition API、TypeScript、Vite、Element Plus、Pinia、Vue Router
+- React、Next.js、Tailwind CSS、Ant Design、Sass、响应式布局
+- Axios、Fetch、SSE、WebSocket、FormData 上传、流式 UI、复杂表格、弹窗表单、权限按钮
+- Vitest、Testing Library、jsdom、前端工程化、代码分包、路由懒加载
 
-### 前端 / 跨端
+### 后端
 
-- 熟悉 **Vue 3、TypeScript、Vite、Element Plus、Pinia、Vue Router**，能够独立完成中后台页面、复杂表格、搜索筛选、弹窗表单、权限按钮、文件上传和状态展示。
-- 熟悉 **React、Next.js、TypeScript、Tailwind CSS**，具备 AI 工作台、Prompt 输入、模型选择、图片预览、历史记录、任务状态反馈、创作平台页面等开发经验。
-- 能够在 Vue 管理后台和 React / Next.js 创作平台之间切换，理解组件拆分、状态管理、接口封装、路由保护、SSR/CSR 边界和生产构建配置。
-- 熟悉 Tauri 2.0、Electron、uni-app 跨端开发，了解桌面客户端封装、自动更新、H5/小程序/App 多端适配和打包发布流程。
+- Go、Gin、GORM、JWT、RESTful API、MySQL、Redis、WebSocket、Asynq、gocron
+- Python、FastAPI、SQLAlchemy、Pydantic、OpenAI-Compatible API
+- TypeScript、Node.js、Fastify、BullMQ、ioredis、mysql2
+- 权限系统、队列任务、定时任务、支付回调、钱包流水、日志审计、配置管理、协议适配
 
 ### AI 工程化
 
-- 熟悉 OpenAI-Compatible API 适配，能够围绕 `/v1/chat/completions`、`/v1/responses`、`/v1/images/generations`、`/v1/images/edits` 等接口完成协议兼容、鉴权、参数映射和响应封装。
-- 熟悉 AI 图片生成、图片编辑、多图输入、Prompt 编排、模型选择、任务状态、结果缓存、历史记录和 Web 预览链路。
-- 了解 AI Provider、Agent、工具、知识库、会话、消息、运行监控等后台管理场景，能够把 AI 能力做成可配置、可管理、可部署的平台能力。
+- AI 对话、SSE 流式响应、响应增量渲染、取消生成、上下文续聊、usage 展示
+- AI Provider、Agent、Prompt 编排、模型选择、图片生成、图片编辑、视频任务
+- OpenAI-Compatible API：`/v1/chat/completions`、`/v1/responses`、`/v1/images/generations`、`/v1/images/edits`
+- 协议适配、参数映射、任务状态归一化、错误模型封装、账号池调度
 
 ### 工程化 / 部署
 
-- 熟悉 Git、Docker、Linux、Nginx、宝塔 Docker、CI/CD 基础流程。
-- 能够完成本地开发环境搭建、接口联调、容器化部署、反向代理配置、健康检查、日志排查和线上问题定位。
-- 熟悉前后端分离生产配置，包括 API 域名、WebSocket 地址、CORS 白名单、环境变量、静态站点发布和后端容器部署。
+- Git、Docker、Docker Compose、Linux、Nginx、宝塔 Docker、环境变量配置
+- 前后端分离部署、API 域名、WebSocket 地址、CORS 白名单、健康检查、日志排查
 
 ---
 
-## 项目经历
+## 可直接追问的技术点
 
-### 1. 智澜 CloudAdmin 企业级后台管理系统
-
-- **角色**：全栈开发 / 核心开发
-- **线上地址**：[https://zgm2003.cn](https://zgm2003.cn)
-- **后端地址**：[https://www.zgm2003.cn](https://www.zgm2003.cn/health)
-- **GitHub**：[admin_go](https://github.com/zgm2003/admin_go) / [admin_back_go](https://github.com/zgm2003/admin_back_go) / [admin_front_ts](https://github.com/zgm2003/admin_front_ts)
-- **技术栈**：Golang、Gin、GORM、MySQL、Redis、Asynq、WebSocket、Vue 3、TypeScript、Vite、Element Plus、Pinia、Docker、Nginx
-
-#### 项目描述
-
-智澜 CloudAdmin 是一套面向企业内部管理、AI 能力配置、权限控制、异步任务、实时通知、支付充值和多端管理场景的后台系统。项目采用前后端分离架构，后端基于 Golang + Gin 构建 API 服务与 Worker 服务，前端基于 Vue 3 + TypeScript + Element Plus 构建管理后台。
-
-#### 核心工作
-
-- 负责后端模块化架构设计与实现，按用户、角色、菜单、权限、操作日志、通知中心、上传配置、支付、钱包、队列任务、AI 管理等模块拆分业务边界。
-- 设计并实现 RBAC 权限体系，支持后台用户、角色、菜单、页面权限、按钮权限和接口权限控制。
-- 设计 API / Worker 双进程模型，API 负责 HTTP 接口、登录认证、权限校验和 WebSocket 连接，Worker 负责异步队列、定时任务和后台补偿任务。
-- 基于 Redis + Asynq 实现异步队列，将导出、通知、支付补偿、AI 超时检测等任务从主请求链路拆分，提高接口响应速度和系统稳定性。
-- 基于 WebSocket 实现实时消息能力，用于通知推送、任务状态同步和 AI 运行状态反馈。
-- 基于 Vue 3 + TypeScript 开发管理后台，完成登录、首页、用户、角色、菜单、系统配置、日志、通知、支付、钱包、AI 管理和队列监控等页面。
-- 参与生产部署与排障，处理 Docker-first 后端部署、Nginx 反代、健康检查、CORS、数据库配置和线上回调链路问题。
-
-#### 项目亮点
-
-- **企业后台能力完整**：覆盖登录认证、RBAC、系统配置、日志审计、通知、上传、支付、钱包、AI、队列和实时消息等核心模块。
-- **后端职责边界清晰**：API / Worker 分离，避免 HTTP 服务里直接堆定时任务和耗时任务。
-- **工程闭环完整**：不只写业务代码，也覆盖数据库、部署、环境变量、反代、健康检查和线上问题排查。
-
----
-
-### 2. 支付宝充值与钱包结算系统
-
-- **角色**：后端核心开发 / 支付链路开发
-- **所属系统**：CloudAdmin / admin_back_go
-- **技术栈**：Golang、Gin、GORM、MySQL、Redis、Asynq、支付宝 SDK、Docker、Nginx
-
-#### 项目描述
-
-该项目是 CloudAdmin 内的支付充值与钱包结算模块，覆盖支付宝支付配置、充值套餐、支付订单、异步回调、定时补偿、钱包入账和交易流水。系统通过支付宝异步通知、订单主动同步和定时任务补偿共同推进支付状态，保证充值成功后能够稳定入账。
-
-#### 核心工作
-
-- 设计支付配置表、支付订单表、充值单表、回调审计表、用户钱包表和钱包流水表，明确配置、订单、充值和钱包之间的数据关系。
-- 实现支付宝配置管理，支持 app_id、应用私钥、证书路径、notify_url、支付环境、启用方式、状态和优先级配置。
-- 实现充值收银台，支持充值套餐选择、支付方式选择、订单创建、支付跳转和充值记录查询。
-- 实现支付宝异步回调入口，回调接口不走后台 Token 和 RBAC，按支付宝要求返回 `success/fail` 文本。
-- 实现回调验签、金额校验、app_id 校验、订单状态推进、充值单状态推进和钱包入账。
-- 设计钱包入账幂等机制，避免支付宝重复通知或定时补偿导致重复加款。
-- 基于定时任务实现支付中订单补偿同步和过期订单关闭，降低第三方回调丢失对业务的影响。
-- 参与线上支付问题排查，能从域名、Nginx 反代、notify_url、回调审计表、订单状态和充值状态定位问题。
-
-#### 项目亮点
-
-- **支付闭环完整**：不是简单调起支付，而是覆盖配置、下单、回调、验签、补偿、入账和流水。
-- **幂等和状态单调**：通过交易流水唯一约束和状态推进规则，避免重复入账和状态倒退。
-- **具备线上排障能力**：能够定位支付宝回调没到是代码、反代、CORS、notify_url 还是数据库配置问题。
-
----
-
-### 3. Canvas AI 多模态创作平台
-
-- **角色**：全栈开发 / AI 应用开发
-- **线上地址**：[https://canvas.zgm2003.cn](https://canvas.zgm2003.cn)
-- **技术栈**：Next.js、React、TypeScript、Tailwind CSS、Golang、Gin、MySQL、AI Provider、Docker
-
-#### 项目描述
-
-Canvas AI 是一个面向 AI 文本、图片和视频生成场景的创作平台。前端基于 Next.js 构建独立创作入口，后端通过 Go API 提供登录、用户信息、Prompt 素材、资产管理、AI 设置、文本生成、图片生成、图片编辑和视频任务查询等能力。
-
-#### 核心工作
-
-- 参与 Canvas 前端工程搭建，基于 **Next.js + React + TypeScript + Tailwind CSS** 实现独立创作入口、登录态保护、用户信息、Prompt 列表和素材资产展示。
-- 设计 Canvas API 边界，前端统一调用 `/api/canvas/v1/*`，避免直接暴露 Provider Key 和模型配置。
-- 实现 AI 设置接口，后端根据不同创作场景返回可用 Agent 和模型信息。
-- 支持文本生成、图片生成、图片编辑、视频任务创建、视频任务查询和内容访问等 AI 创作链路。
-- 设计 Canvas 登录与权限边界，支持登录配置、验证码登录、密码登录、当前用户信息和路由权限返回。
-- 将 AI Provider、Agent、模型和场景选择放到后端管理，前端只提交业务参数和 agent_id，降低前端暴露敏感配置风险。
-
-#### 项目亮点
-
-- **React / Next.js 项目经验明确**：不是只会 Vue 后台，也能用 Next.js 做独立 AI 创作平台和复杂前端交互。
-- **AI 能力产品化**：把模型调用包装成可登录、可配置、可管理、可展示的创作平台。
-- **前后端安全边界清晰**：Provider Key、模型路由和 Agent 配置由后端托管，前端不保存敏感信息。
-- **多模态能力覆盖**：覆盖文本、图片、图片编辑、视频任务等 AI 创作场景。
-
----
-
-### 4. Python FastAPI AI 图像生成 API 兼容网关与在线工作台
-
-- **角色**：开源项目维护者 / 全栈开发
-- **线上地址**：[https://image.zgm2003.cn](https://image.zgm2003.cn)
-- **项目地址**：[github.com/zgm2003/chatgpt2api](https://github.com/zgm2003/chatgpt2api)
-- **开源数据**：140+ Stars / 40+ Forks
-- **技术栈**：Python、FastAPI、SQLAlchemy、Pydantic、SQLite、PostgreSQL、React、Next.js、TypeScript、Tailwind CSS、Docker
-
-#### 项目描述
-
-`chatgpt2api` 是一个基于 **Python + FastAPI** 的 AI 图片生成、图片编辑和 OpenAI-Compatible API 兼容网关，同时提供 React / Next.js 在线工作台。项目提供图片生成、图片编辑、多图组合编辑、模型列表查询、流式对话测试、图片历史记录和 Docker 私有化部署能力，可对外暴露兼容 OpenAI 协议的 API。
-
-#### 核心工作
-
-- 负责 Python FastAPI 后端 API 适配层设计，实现统一路由、鉴权校验、请求参数解析、Pydantic 数据校验、异常封装和标准响应返回。
-- 基于 SQLAlchemy 设计数据访问层，支持 SQLite / PostgreSQL 等不同存储方案，适配本地轻量运行和服务器私有化部署。
-- 设计 OpenAI-Compatible 协议兼容能力，支持 `/v1/images/generations`、`/v1/images/edits`、`/v1/chat/completions`、`/v1/responses` 等接口。
-- 负责 AI 图片生成与编辑链路开发，支持 Prompt 输入、模型选择、图片上传、多图编辑、生成结果返回、历史记录和前端预览。
-- 负责 Web 在线工作台开发，基于 **React + Next.js + TypeScript + Tailwind CSS** 实现模型选择、Prompt 编辑、图片预览、历史记录、配置管理和任务反馈。
-- 设计多存储适配能力，支持 JSON、SQLite、PostgreSQL 等存储方案，兼容本地轻量运行和团队自托管部署。
-- 提供 Docker 部署能力，方便用户在本地、服务器或私有环境中快速启动和使用。
-
-#### 项目亮点
-
-- **真实开源影响力**：项目获得 140+ Stars / 40+ Forks，具备外部用户和开源反馈。
-- **Python FastAPI 后端能力明确**：项目不是脚本工具，而是完整 API 网关，覆盖路由、鉴权、数据校验、数据库、异常封装和 Docker 部署。
-- **协议兼容价值明确**：通过 OpenAI-Compatible API 降低 AI 图像能力接入成本。
-- **React / Next.js 前端能力明确**：同时提供在线工作台，覆盖模型选择、Prompt 编辑、图片预览、历史记录和配置管理。
-
----
-
-### 5. 多端管理客户端与发布部署体系
-
-- **角色**：跨端开发 / 工程化开发
-- **线上前端**：[https://zgm2003.cn](https://zgm2003.cn)
-- **线上后端**：[https://www.zgm2003.cn](https://www.zgm2003.cn/health)
-- **技术栈**：Vue 3、TypeScript、Tauri 2.0、uni-app、Vite、GitHub Actions、Docker、Nginx
-
-#### 项目描述
-
-该项目围绕 CloudAdmin 管理后台扩展 Web、桌面端和移动端访问能力。Web 端负责后台管理主入口，Tauri 端用于桌面客户端封装，uni-app 用于移动端轻量管理入口，同时配套生产环境变量、WebSocket 地址、静态资源发布和后端 API 域名配置。
-
-#### 核心工作
-
-- 基于 Vue 3 + TypeScript 开发后台管理 Web 页面，支持登录、权限路由、菜单渲染、用户管理、系统配置、通知、支付和 AI 管理等功能。
-- 基于 Tauri 2.0 封装桌面客户端，处理生产前端地址、更新配置、外部连接白名单和桌面端运行边界。
-- 基于 uni-app 开发移动端轻量管理入口，适配 H5/小程序/App 多端访问场景。
-- 配置前端生产环境变量，区分前端静态站域名、后端 API 域名和 WebSocket 域名，避免线上请求打错站点。
-- 参与 GitHub Actions / SCP 发布流程和宝塔静态站部署，保证前端构建产物能够部署到生产环境。
-- 配合后端 Docker-first 部署，完成 API 域名、Nginx 反代、CORS 白名单、WebSocket 反代和健康检查验证。
-
-#### 项目亮点
-
-- **多端经验完整**：覆盖 Web 管理后台、桌面客户端和移动端入口。
-- **部署意识强**：理解前端静态站、后端 API 域名、WebSocket 地址和 Nginx 反代之间的边界。
-- **能解决真实线上问题**：不是只会本地开发，也能处理生产域名、环境变量、反代和跨域配置问题。
+- **SSE 流式对话状态机**：本地消息占位、首包等待、delta 拼接、完成事件、取消生成、失败保留、历史恢复和 response ID 续聊。
+- **复杂 AI 平台状态治理**：loading、empty、missing、error、streaming、canceled、retry 分层，避免接口失败时展示假数据或白屏。
+- **Token / ApiKey / ID 语义隔离**：区分主系统 Token、Agent ApiKey、platform agent ID、user agent ID、project/session ID、file ID、response ID。
+- **企业后台权限链路**：RBAC、菜单权限、按钮权限、接口权限、权限树、角色矩阵、操作日志和前端权限渲染。
+- **支付与钱包链路**：支付宝异步回调、验签、金额校验、状态单调推进、钱包入账、流水唯一约束、重复通知幂等和定时补偿。
+- **协议适配与账号池调度**：HMAC 签名、参数映射、错误模型、任务轮询、状态归一化、账号冷却、余额刷新、失败分类和 BullMQ 队列。
+- **部署与线上排障**：Docker Compose、Nginx 反代、CORS、WebSocket upgrade、健康检查、日志定位、域名与环境变量配置。
 
 ---
 
 ## 工作经历
 
+### HQD AI 智能业务平台
+
+**AI 全栈开发工程师｜2026.06 - 至今**
+
+- 负责生产级 AI 业务平台核心前端开发，覆盖登录认证、首页工作台、Hermes AI 对话、Agents 智能体中心、图片/视频生成、Market 产品情报、收藏对比和 AI 分析等模块。
+- 基于 Vue 3 + TypeScript + Vite + Element Plus 搭建业务页面，结合 Pinia、Vue Router、Axios、SSE、WebSocket 完成复杂 AI 业务联调。
+- 设计前端状态边界，统一管理登录用户、主系统 Token、Agent ApiKey、权限列表、额度、会话、消息流和跨路由输入交接。
+- 封装 Axios HTTP、Fetch SSE、原生 WebSocket、文件上传和独立 Agent 管理接口，避免不同后端、凭证、ID 和错误规则混用。
+- 建设真实生产状态表达，显式处理 loading、empty、missing、error、streaming、canceled、retry 等状态，提高复杂 AI 页面可维护性。
+
 ### 武汉小药药医药科技有限公司
 
 **前端开发实习生｜2025.10 - 2026.05**
 
-- 参与公司医药业务相关 Web 系统开发，主要负责后台管理系统页面开发、组件封装、接口联调、权限控制和页面体验优化。
-- 基于 Vue 3、TypeScript、Vite、Element Plus、Pinia 完成多个业务模块开发，包括数据列表、搜索筛选、详情页、弹窗表单、分页查询、状态流转、表单校验和文件上传。
-- 配合产品和后端完成需求评审、接口对接和测试反馈修复，熟悉企业级前端项目从需求拆解、页面开发、接口联调到上线自测的完整流程。
-- 参与封装搜索表单、动态表格、弹窗表单、上传组件、状态标签、权限按钮等通用组件，减少重复代码，提高页面开发效率和维护性。
-- 负责部分历史页面维护和 Bug 修复，处理字段展示异常、接口参数不一致、表单校验遗漏、页面状态未刷新、重复提交和样式兼容等问题。
+- 参与医药业务 Web 系统开发，负责后台管理系统页面开发、组件封装、接口联调、权限控制和页面体验优化。
+- 基于 Vue 3、TypeScript、Vite、Element Plus、Pinia 完成数据列表、搜索筛选、详情页、弹窗表单、分页查询、状态流转、表单校验和文件上传等业务模块。
+- 配合产品和后端完成需求评审、接口对接、测试反馈修复和上线自测，熟悉企业级前端项目完整交付流程。
+- 参与封装搜索表单、动态表格、弹窗表单、上传组件、状态标签、权限按钮等通用组件，减少重复代码并提升维护效率。
+
+---
+
+## 项目经历
+
+### HQD AI 智能业务平台
+
+- **时间**：2026.06 - 至今
+- **角色**：AI 全栈开发 / 核心前端开发
+- **线上地址**：[ai.zgm2003.cn](https://ai.zgm2003.cn)
+- **技术栈**：Vue 3、Vite、TypeScript、Element Plus、Pinia、Vue Router、Axios、SSE、WebSocket、Sass、Vitest
+
+HQD AI 是面向电子烟行业的 AI 业务平台，包含登录认证、首页工作台、Hermes AI 对话、Agents 智能体中心、图片/视频生成工作台、My/Community Agents 管理、Skills 中心、Market 产品情报、收藏对比、行业资讯和 AI 分析等模块。
+
+#### 核心工作
+
+- 搭建前端工程与核心路由结构，设计受保护路由、登录页、业务 Layout，以及 Home、Hermes、Agents、Market 四大业务入口。
+- 完成 Hermes AI 对话工作台，支持会话列表、历史消息、附件、模型路由、流式增量渲染、取消生成、usage 展示和 Home 输入跳转后自动发起对话。
+- 完成 Agents 智能体中心，支持官方智能体目录、用户项目、文件、历史、图片生成、视频生成、Skills 目录，以及 My/Community Agents 的创建、编辑、发布、书架、版本和 Responses 对话。
+- 完成 Market 行业情报模块，支持产品列表、品牌筛选、产品详情、收藏、最多 5 项对比、综合资讯、监管详情、产品 AI 助手和对比 AI 总结。
+- 处理多通信通道并存问题，按业务边界拆分主系统 Axios、V1 请求、Responses SSE、Agent WebSocket 和文件上传链路。
+
+#### 技术亮点
+
+- **流式对话状态机**：处理本地消息占位、首个 delta 前等待态、SSE 增量拼接、`response.completed` 终止、response ID 续聊、失败保留用户消息和 Abort 取消态。
+- **复杂 ID 与凭证治理**：区分平台 Agent ID、用户 Agent ID、项目/会话 ID、版本 ID、文件 ID、response ID、主系统 Token 和 Agent ApiKey。
+- **真实生产状态表达**：显式区分 loading、empty、missing、error、streaming、canceled，避免接口异常时出现假数据、白屏或状态误导。
+
+### 智澜 CloudAdmin 企业级后台管理系统
+
+- **时间**：2025.10 - 至今
+- **角色**：个人项目 / 全栈开发
+- **线上地址**：[zgm2003.cn](https://zgm2003.cn)
+- **后端地址**：[www.zgm2003.cn/health](https://www.zgm2003.cn/health)
+- **技术栈**：Golang、Gin、GORM、MySQL、Redis、Asynq、WebSocket、Vue 3、TypeScript、Vite、Element Plus、Pinia、Docker、Nginx
+
+#### 核心工作
+
+- 设计 Go 后端模块化单体架构，按用户、角色、菜单、权限、操作日志、通知中心、上传配置、支付、钱包、队列任务和 AI 管理拆分业务边界。
+- 实现 RBAC 权限体系，支持后台用户、角色、菜单、页面权限、按钮权限和接口权限控制。
+- 设计 API / Worker 双进程模型，API 负责 HTTP、登录认证、权限校验和 WebSocket 连接，Worker 负责异步队列、定时任务和后台补偿任务。
+- 基于 Redis + Asynq 实现异步队列，将导出、通知、支付补偿、AI 超时检测等任务从主请求链路拆分，提高接口响应速度和系统稳定性。
+- 完成支付宝充值与钱包结算模块，覆盖支付配置、订单创建、异步回调、验签、金额校验、状态推进、钱包入账、幂等控制和补偿任务。
+- 基于 Vue 3 + TypeScript 开发管理后台，完成登录、首页、用户、角色、菜单、系统配置、日志、通知、支付、钱包、AI 管理和队列监控等页面。
+
+#### 技术亮点
+
+- **企业后台能力完整**：覆盖登录认证、RBAC、系统配置、日志审计、通知、上传、支付、钱包、AI、队列和实时消息。
+- **后端职责边界清晰**：API / Worker 分离，避免 HTTP 服务里直接堆定时任务和耗时任务。
+- **支付链路闭环**：覆盖配置、下单、回调、验签、补偿、入账和流水，重点处理幂等和状态单调推进。
+
+### Open Protocol Adapter 协议适配与账号池管理平台
+
+- **时间**：2026.07 - 至今
+- **角色**：个人项目 / 协议适配与逆向分析
+- **技术栈**：TypeScript、Node.js、Fastify、React、Vite、Ant Design、MySQL、Redis、BullMQ、Docker
+
+#### 核心工作
+
+- 设计本地私有化协议适配服务，对下游提供 OpenAI 风格 `/v1/*` 接口，覆盖 models、chat completions、responses、messages、图片生成和视频生成等能力。
+- 基于接口行为分析梳理上游协议参数、鉴权方式、HMAC 签名、任务状态、错误码和响应结构，封装为稳定的协议客户端和统一错误模型。
+- 实现账号池管理能力，支持账号导入、启用、停用、冷却、余额刷新、耗尽识别和失败原因分类，提高多账号调度的可控性。
+- 基于 BullMQ + Redis 设计批量注册与补号队列，支持任务创建、查询、取消、邮箱验证码轮询、域名池选择、限频控制和失败重试。
+- 设计图片/视频任务协议适配层，处理任务创建、任务 ID 映射、轮询查询、状态归一化、失败分类和 OpenAI-Compatible 响应封装。
+- 开发 React + Vite Web 控制台，提供账号池、运行配置、YYDS Mail 配置、域名池、图片/视频任务和注册队列等运维入口。
+
+#### 技术亮点
+
+- **协议适配能力**：不是简单转发请求，而是处理鉴权、签名、参数映射、状态归一化、错误分类和响应封装。
+- **账号池调度能力**：围绕余额、冷却、失败分类和任务队列做账号管理，提高上游调用稳定性。
+- **工程化完整**：提供 Docker Compose 部署，使用 Vitest 覆盖协议客户端、队列、账号服务和 Web API。
+
+### Canvas AI 多模态创作平台
+
+- **时间**：2026.05 - 至今
+- **角色**：个人项目 / AI 应用开发
+- **线上地址**：[canvas.zgm2003.cn](https://canvas.zgm2003.cn)
+- **技术栈**：Next.js、React、TypeScript、Tailwind CSS、Golang、Gin、MySQL、AI Provider、Docker
+
+- 基于 Next.js + TypeScript 实现独立创作入口、登录态保护、用户信息、Prompt 列表、素材资产展示和画布创作页面。
+- 设计 Canvas API 边界，前端统一调用 `/api/canvas/v1/*`，避免直接暴露 Provider Key 和模型配置。
+- 实现 AI 设置接口，后端根据不同创作场景返回可用 Agent、模型和参数配置。
+- 支持文本生成、图片生成、图片编辑、视频任务创建、视频任务查询和内容访问等 AI 创作链路。
+- 围绕无限画布场景实现项目列表、画布节点、资源引用、素材选择、Prompt 库、图片工具栏、裁剪/放大、音视频参数配置和任务状态反馈。
+
+### AI 图像生成 API 兼容网关与在线工作台
+
+- **时间**：2026.03 - 至今
+- **角色**：开源项目维护者 / 全栈开发
+- **线上地址**：[image.zgm2003.cn](https://image.zgm2003.cn)
+- **项目地址**：[github.com/zgm2003/chatgpt2api](https://github.com/zgm2003/chatgpt2api)
+- **开源数据**：140+ Stars / 40+ Forks
+- **技术栈**：Python、FastAPI、SQLAlchemy、SQLite、PostgreSQL、React、Next.js、TypeScript、Tailwind CSS、Docker
+
+- 基于 FastAPI 设计 API 适配层，实现统一路由、鉴权校验、请求参数解析、异常封装和标准响应返回。
+- 设计 OpenAI-Compatible 协议兼容能力，支持 `/v1/images/generations`、`/v1/images/edits`、`/v1/chat/completions`、`/v1/responses` 等接口。
+- 开发 AI 图片生成与编辑链路，支持 Prompt 输入、模型选择、图片上传、多图编辑、生成结果返回、历史记录和前端预览。
+- 基于 React + Next.js + TypeScript 开发 Web 在线工作台，实现模型选择、Prompt 编辑、图片预览、历史记录、配置管理和任务反馈。
+- 设计多存储适配能力，支持 JSON、SQLite、PostgreSQL 等方案，兼容本地轻量运行和团队自托管部署。
+- 提供 Docker 部署能力，方便用户在本地、服务器或私有环境中快速启动和使用。
+
+### 品牌域名风险 WebSearch 检索系统
+
+- **角色**：后端检索项目 / 后端开发
+- **技术栈**：Python、Next.js、TypeScript、WebSearch、关键词检索
+
+- 参与关键词搜索与域名风险识别 Web 系统开发，用于围绕指定品牌词、域名或业务关键词检索网络结果，辅助筛选品牌近似、擦边站点和疑似侵权线索。
+- 负责 Python 后端检索接口开发，封装关键词查询、搜索结果解析、域名提取、结果去重和异常处理等能力。
+- 基于 Next.js + TypeScript 开发检索页面，支持关键词输入、搜索结果展示、风险标记、详情查看和人工复核操作。
+- 结合域名相似度、标题/摘要关键词命中、站点业务相关性等信息，对疑似风险结果进行初步分层。
 
 ---
 
@@ -230,20 +228,13 @@ Canvas AI 是一个面向 AI 文本、图片和视频生成场景的创作平台
 
 ### 武汉文理学院
 
-**计算机科学与技术｜本科｜全日制｜2024.09 - 2026.06**
+**计算机科学与技术｜本科｜2024.09 - 2026.06**
 
-- 系统学习计算机网络、操作系统、数据结构、数据库原理、软件工程、Web 开发、Python 程序设计等课程，具备软件工程基础。
-- 在校期间持续参与 Web 应用、自动化工具、Golang 后端服务、Python 工具服务和 AI 应用工程化项目开发。
-- 相关课程：数据结构、计算机网络、操作系统、数据库原理、软件工程、Web 开发、Python 程序设计、人工智能基础。
+- 课程：数据结构、计算机网络、操作系统、数据库原理、软件工程、Web 开发、Python 程序设计、人工智能基础
+- 在校期间持续参与 Web 应用、自动化工具、Golang 后端服务、Python 工具服务和 AI 应用工程化项目开发
 
 ---
 
 ## 面试关键词
 
-Go 后端｜Python 后端｜FastAPI｜SQLAlchemy｜Gin｜GORM｜MySQL｜Redis｜JWT｜RBAC｜Asynq｜WebSocket｜支付宝回调｜支付补偿｜钱包流水｜Vue 3｜TypeScript｜Element Plus｜React｜Next.js｜Tailwind CSS｜OpenAI-Compatible API｜AI 图像生成｜Canvas AI｜Docker｜Nginx｜Linux｜企业后台｜全栈开发
-
----
-
-## 简短自我介绍
-
-我叫左光明，主要方向是 Go / Python 后端、Vue / React 前端和 AI 应用工程化。我有真实开源项目维护经验，独立维护过基于 Python FastAPI 的 AI 图像生成 API 兼容网关，具备 OpenAI-Compatible API、图片生成工作流、React / Next.js Web 工作台和 Docker 私有化部署经验。同时我也持续开发企业级后台系统，熟悉 RBAC、用户角色、菜单、日志、通知、队列、WebSocket、支付宝回调、钱包入账、AI 管理和 Docker 部署。相比只会写页面或只会调接口，我更擅长把一个业务链路从数据结构、接口、前端页面、后台任务到线上部署完整落地。
+Vue 3｜TypeScript｜React｜Next.js｜Go｜Gin｜GORM｜Python｜FastAPI｜Node.js｜Fastify｜MySQL｜Redis｜BullMQ｜Asynq｜WebSocket｜SSE｜RBAC｜支付宝回调｜支付补偿｜OpenAI-Compatible API｜Agent｜多模态生成｜AI 工作台｜协议适配｜账号池｜Docker｜Nginx
